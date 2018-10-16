@@ -1,0 +1,239 @@
+﻿/*!
+ * Style
+*/
+
+html {
+    height: 100%;
+}
+
+body {
+    padding-top: 68px;
+    padding-bottom: 37px;
+    background-color: #ffffff;
+    height: 100%;
+}
+
+/* FIX, container-fluid added a horizontal scroll bar and ignored paddings?? */
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Smaller text */
+/*p, a {
+    font-family: 'Montserrat';
+    color: #313638;
+    font-weight: bold;
+}*/
+
+/*
+    Typography
+*/
+
+p, a {
+    font-family: 'Montserrat';
+    color: #313638;
+    font-weight: bold;
+    font-size:  18px;
+}
+
+.text-no-pad-marg p {
+    margin: 0;
+    padding: 0;
+}
+
+
+/*
+    Navbar
+*/
+
+.navbar, footer {
+    background-color: #4D7EA8;
+}
+
+.nav-link {
+    color: #313638 !important;
+}
+
+
+/*
+    Footer
+*/
+
+#footer {
+    margin-top: 10px;
+}
+
+#footer p {
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+}
+
+.text-title {
+    color: #4D7EA8;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#Main {
+    display: table;
+    height: inherit;
+    width: 100%;
+}
+
+/*
+    INDEX page
+*/
+
+#mainPage hr {
+    border-width: 3px;
+}
+
+#mainPage h5 {
+    color: #313638;
+}
+
+#mainPage #logo_image {
+    max-width: 50%;
+    padding-top: 10px;
+}
+
+
+/*
+    KONTAKT page
+*/
+
+.contactImg {
+    max-height: 200px;
+    margin: 10%;
+}
+
+#contactContainer {
+    background-color: #EDEDED;
+    padding: 30px;
+    margin: 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+
+/*
+    LEIUNURK page
+*/
+
+/* MEIN CARD STYLING */
+.mein-card {
+    max-width: 350px;
+    min-width: 200px;
+    height:350px;
+
+    padding: 10px;
+    margin:10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.mein-card-img {
+    height: 50%;
+    margin-bottom: 10px;
+}
+
+.mein-card-img img {
+    height: 100%;
+}
+
+
+.mein-card-title {
+    font-size: 1.4em;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.mein-card-body {
+
+}
+
+
+
+#leftoversContainer {
+}
+
+#leftoversContainer .card {
+
+}
+
+#leftoversContainer .card img{
+  
+}
+
+#leftoversContainer p {
+ 
+}
+
+/* 
+    Size 
+*/
+/* max-height because otherwise on iPad screens the footer is messed up */
+@media (max-width: 1200px) and (max-height: 1162px) {
+    .svgicon-main {
+        max-width: 100px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        padding: 5px;
+    }
+
+    #mainPage {
+        text-align: center;
+    }
+
+    #mainPage .d-flex {
+        display: inline !important;
+    }
+
+}
+
+
+@media (max-width: 768px) {
+    #contactContainer {
+        padding: 0px;
+        box-shadow: none;
+        background-color: #fff;
+    }
+
+    #contactContainer p,a {
+        font-size: 1em;
+    }
+
+    .contactImg {
+        max-height: 100px;
+    }
+
+
+ 
+}
+
+@media (max-width: 576px) {
+    #logo_image {
+        max-width: 80%;
+    }
+
+    .svgicon-main {
+        max-width: 70px;
+    }
+
+    p, a {
+        font-size: 16px;
+    }
+
+    #leftoversContainer .card {
+    }
+}
+
+
+/*
+    Helpers
+*/
+
+.padding-right-small-imp {
+    padding-right: 5px !important;
+}
