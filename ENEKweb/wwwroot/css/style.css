@@ -34,7 +34,7 @@ p, a {
     font-family: 'Montserrat';
     color: #313638;
     font-weight: bold;
-    font-size:  18px;
+    font-size: 18px;
 }
 
 .text-no-pad-marg p {
@@ -121,38 +121,6 @@ p, a {
     LEIUNURK page
 */
 
-/* MEIN CARD STYLING */
-.mein-card {
-    max-width: 350px;
-    min-width: 200px;
-    height:350px;
-
-    padding: 10px;
-    margin:10px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
-
-.mein-card-img {
-    height: 50%;
-    margin-bottom: 10px;
-}
-
-.mein-card-img img {
-    height: 100%;
-}
-
-
-.mein-card-title {
-    font-size: 1.4em;
-    font-weight: bold;
-    padding: 10px;
-}
-
-.mein-card-body {
-
-}
-
-
 
 #leftoversContainer {
 }
@@ -236,4 +204,42 @@ p, a {
 
 .padding-right-small-imp {
     padding-right: 5px !important;
+}
+
+
+/* MEIN CARD STYLING */
+.mein-card {
+    max-width: 350px;
+    min-width: 200px;
+    height: 350px;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.mein-card-img {
+    height: 50%;
+    margin-bottom: 10px;
+}
+
+.mein-card-img img {
+        height: 100%;
+}
+
+.mein-card-partners {
+    max-width: 350px;
+    min-width: 200px;
+    height: 350px;
+    padding: 5px;
+    margin: 5px;
+
+}
+
+.mein-card-title {
+    font-size: 1.4em;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.mein-card-body {
 }
