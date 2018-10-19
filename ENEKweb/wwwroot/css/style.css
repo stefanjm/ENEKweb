@@ -99,11 +99,13 @@ p, a {
     padding-top: 10px;
 }
 
+.mainp-icons {
+    width: 100%;
+}
 
 /*
     KONTAKT page
 */
-
 .contactImg {
     max-height: 200px;
     margin: 10%;
@@ -191,6 +193,10 @@ p, a {
 
     #leftoversContainer .card {
     }
+
+    .mainp-icons {
+        width: 70px;
+    }
 }
 
 
@@ -199,8 +205,11 @@ p, a {
 */
 
 .padding-right-small-imp {
-    padding-right: 10px !important;
+    padding-bottom: 15px !important;
+    padding-left: 15px !important;
+    padding-right: 3px !important;
 }
+
 
 
 /* Carousel specific */
