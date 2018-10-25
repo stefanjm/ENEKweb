@@ -49,6 +49,12 @@ namespace ENEKweb {
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            // for Kestrel reverse proxy so redirects and authentication will work right
+            // AUTHENTICATION AFTER THIS UseForwardedHeaders
+            app.UseForwardedHeaders(new ForwardedHeadersOptions {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
 
             app.UseMvc(routes =>
             {
