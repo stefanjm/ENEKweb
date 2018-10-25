@@ -8,8 +8,7 @@ using ENEKweb.Models;
 
 namespace ENEKweb.Controllers {
     public class HomeController : Controller {
-        public IActionResult Index()
-        {
+        public IActionResult Index() {
             return View();
         }
 
@@ -28,8 +27,7 @@ namespace ENEKweb.Controllers {
         //    return View();
         //}
 
-        public IActionResult Kontakt()
-        {
+        public IActionResult Kontakt() {
             return View();
         }
 
@@ -39,8 +37,7 @@ namespace ENEKweb.Controllers {
         //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
+        public IActionResult Error() {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
