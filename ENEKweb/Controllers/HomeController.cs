@@ -13,32 +13,27 @@ namespace ENEKweb.Controllers {
             return View();
         }
 
-        //public IActionResult Tehtudtood()
-        //{
-        //    ViewData["Message"] = "Your application description page.";
-
-        //    return View();
-        //}
-
-        //public IActionResult Partnerid() {
-        //    return View();
-        //}
-
-        //public IActionResult Leiunurk() {
-        //    return View();
-        //}
-
-        public IActionResult Kontakt()
-        {
-            ViewData["Message"] = "Your contact page.";
-
+        public IActionResult Tehtudtood() {
+            //ViewData["Message"] = "Your application description page.";
             return View();
         }
 
-        //public IActionResult Privacy()
-        //{
-        //    return View();
-        //}
+        public IActionResult Partnerid() {
+            return View();
+        }
+
+        public IActionResult Leiunurk() {
+            return View();
+        }
+
+        public IActionResult Kontakt()
+        {
+            return View();
+        }
+
+        public IActionResult Privacy() {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
