@@ -13,25 +13,20 @@ namespace ENEKweb.Controllers {
             return View();
         }
 
-        // Alternative Design
-        public IActionResult IndexOld() {
-            return View();
-        }
+        //public IActionResult Tehtudtood()
+        //{
+        //    ViewData["Message"] = "Your application description page.";
 
-        public IActionResult Tehtudtood()
-        {
-            ViewData["Message"] = "Your application description page.";
+        //    return View();
+        //}
 
-            return View();
-        }
+        //public IActionResult Partnerid() {
+        //    return View();
+        //}
 
-        public IActionResult Partnerid() {
-            return View();
-        }
-
-        public IActionResult Leiunurk() {
-            return View();
-        }
+        //public IActionResult Leiunurk() {
+        //    return View();
+        //}
 
         public IActionResult Kontakt()
         {
@@ -40,10 +35,10 @@ namespace ENEKweb.Controllers {
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        //public IActionResult Privacy()
+        //{
+        //    return View();
+        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
