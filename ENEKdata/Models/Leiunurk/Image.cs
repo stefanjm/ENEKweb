@@ -7,9 +7,10 @@ namespace ENEKdata.Models.Leiunurk {
     public class Image {
         public int Id { get; set; }
         [Required]
-        public string ImagePath { get; set; }
-
+        public string ImageFileName { get; set; }
+        [Required]
         public int? ItemId { get; set; }
+        [Required]
         public Item Item { get; set; }
      
     }

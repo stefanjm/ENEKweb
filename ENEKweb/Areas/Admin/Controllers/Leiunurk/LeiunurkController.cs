@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ENEKdata;
 using ENEKdata.Models.Leiunurk;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
     [Area("Admin")]
@@ -46,11 +48,37 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
         // POST: Admin/Leiunurk/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Adding Images will be refactored to be an UTILITY CLASS or CLASS LIBRARY
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price")] Item item) {
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price")] Item item, [Bind("Images")]ICollection<IFormFile> Images) {
             if (ModelState.IsValid) {
-                await _leiunurk.AddItem(item);
+                // Images for the item
+                ICollection<Image> ItemImages = new List<Image>();
+                // Check if there are any images
+                if (Images.Count > 0) {
+                    // Upload Images
+                    long size = Images.Sum(f => f.Length);
+                    // Path where to store uploaded Images
+                    var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/uploaded/leiunurk");
+
+                    foreach (var formFile in Images) {
+                        // Check if file is valid and an image. Probably should create a static class to check for more exact filetypes
+                        if (formFile.Length > 0 && formFile.ContentType.Contains("image")) {
+                            var filename = Path.GetRandomFileName();
+                            filename = Path.ChangeExtension(filename, Path.GetExtension(formFile.FileName));
+                            var filePath = Path.Combine(uploadDir, filename);
+                            using (var stream = new FileStream(filePath, FileMode.Create)) {
+                                await formFile.CopyToAsync(stream);
+                                ItemImages.Add(new Image {
+                                    ImageFileName = filename
+                                });
+                            }
+                        }
+                    }
+                }
+                await _leiunurk.AddItem(item, ItemImages);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(item);
@@ -72,9 +100,10 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
         // POST: Admin/Leiunurk/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Adding Images will be refactored to be an UTILITY CLASS OR CLASS LIBRARY
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price")] Item item) {
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price")] Item item, [Bind("Images")]ICollection<IFormFile> Images) {
             if (id != item.Id) {
                 return NotFound();
             }
@@ -82,7 +111,32 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
             if (ModelState.IsValid) {
                 // This all should probably be in the Service logic class, not doing it right now because can't find a way to return NotFound() 404 from the Service class.
                 try {
-                    await _leiunurk.EditItem(item);
+                    // add new images if any chosen
+                    ICollection<Image> ItemImages = new List<Image>();
+                    if (Images.Count > 0) {
+                        if (Images.Count > 0) {
+                            // Upload Images
+                            long size = Images.Sum(f => f.Length);
+                            // Path where to store uploaded Images
+                            var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/uploaded/leiunurk");
+
+                            foreach (var formFile in Images) {
+                                // Check if file is valid and an image. Probably should create a static class to check for more exact filetypes
+                                if (formFile.Length > 0 && formFile.ContentType.Contains("image")) {
+                                    var filename = Path.GetRandomFileName();
+                                    filename = Path.ChangeExtension(filename, Path.GetExtension(formFile.FileName));
+                                    var filePath = Path.Combine(uploadDir, filename);
+                                    using (var stream = new FileStream(filePath, FileMode.Create)) {
+                                        await formFile.CopyToAsync(stream);
+                                        ItemImages.Add(new Image {
+                                            ImageFileName = filename
+                                        });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    await _leiunurk.EditItem(item, ItemImages);
                 }
                 catch (DbUpdateConcurrencyException) {
                     if (!(await _leiunurk.ItemExists(item.Id))) {

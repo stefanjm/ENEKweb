@@ -15,9 +15,9 @@ namespace ENEKdata {
         //IEnumerable<Image> GetAllImages();
 
         Task<Item> GetItemById(int? Id);
-        Task AddItem(Item newItem);
+        Task AddItem(Item newItemm, ICollection<Image> Images);
         Task RemoveItem(int id);
-        Task EditItem(Item item);
+        Task EditItem(Item item, ICollection<Image> Images);
 
         Task<bool> ItemExists(int id);
     }

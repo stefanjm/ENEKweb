@@ -4,14 +4,16 @@ using ENEKdata;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ENEKdata.Migrations
 {
     [DbContext(typeof(ENEKdataDbContext))]
-    partial class ENEKdataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181028202552_Images required for Item, Item required for images to force Cascade deletion")]
+    partial class ImagesrequiredforItemItemrequiredforimagestoforceCascadedeletion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

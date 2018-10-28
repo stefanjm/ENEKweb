@@ -94,7 +94,19 @@
     border-color: rgba(255, 255, 255, .1);
 }
 
-    .form-control-dark:focus {
-        border-color: transparent;
-        box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
-    }
+.form-control-dark:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}
+
+/*
+ * Leiunurk 
+ */
+
+.leiunurk-edit-images, .leiunurk-delete-images {
+    max-height: 100px;
+}
+
+.leiunurk-detail-images {
+    max-height: 150px;
+}

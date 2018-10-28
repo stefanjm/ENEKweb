@@ -17,17 +17,23 @@ namespace ENEKservices {
             _context = context;
         }
         
-
+        /// <summary>
+        /// Get all the items including the Images every item has
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Item>> GetAllItems() {
-            return await _context.Items.ToListAsync();
+            return await _context.Items
+                .Include(item => item.Images).ToListAsync();
         }
 
         public async Task<Item> GetItemById(int? id) {
+            // Extra null check just in case.
             if (id == null) {
                 return null;
             }
             else {
-                return await _context.Items.FirstOrDefaultAsync(i => i.Id == id);
+                return await _context.Items
+                    .Include(item => item.Images).FirstOrDefaultAsync(i => i.Id == id);
             }
         }
 
@@ -44,12 +50,27 @@ namespace ENEKservices {
         //    }
         //}
 
-        public async Task EditItem(Item item) {
+        public async Task EditItem(Item item, ICollection<Image> Images) {
+            // Add images to the item
+            if(Images.Count > 0) {
+                item.Images = new List<Image>();
+                foreach (Image image in Images) {
+                    item.Images.Add(image);
+                }
+            }
             _context.Update(item);
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddItem(Item newItem) {
+        public async Task AddItem(Item newItem, ICollection<Image> Images) {
+            // Add images to the item
+            if(Images.Count > 0) {
+                newItem.Images = new List<Image>();
+                foreach (Image image in Images) {
+                    newItem.Images.Add(image);
+                }
+            }
+
             _context.Add(newItem);
             await _context.SaveChangesAsync();
         }

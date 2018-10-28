@@ -4,14 +4,16 @@ using ENEKdata;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ENEKdata.Migrations
 {
     [DbContext(typeof(ENEKdataDbContext))]
-    partial class ENEKdataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181028202223_Images required for Item to force Cascade deletion")]
+    partial class ImagesrequiredforItemtoforceCascadedeletion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,8 +30,7 @@ namespace ENEKdata.Migrations
                     b.Property<string>("ImageFileName")
                         .IsRequired();
 
-                    b.Property<int?>("ItemId")
-                        .IsRequired();
+                    b.Property<int?>("ItemId");
 
                     b.HasKey("Id");
 
@@ -61,8 +62,7 @@ namespace ENEKdata.Migrations
                 {
                     b.HasOne("ENEKdata.Models.Leiunurk.Item", "Item")
                         .WithMany("Images")
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ItemId");
                 });
 #pragma warning restore 612, 618
         }

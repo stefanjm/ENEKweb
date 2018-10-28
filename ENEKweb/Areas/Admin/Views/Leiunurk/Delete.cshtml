@@ -30,6 +30,14 @@
         <dd>
             @Html.DisplayFor(model => model.Price)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Images)
+        </dt>
+        <dd>
+            @foreach (var image in Model.Images) {
+                <img class="leiunurk-delete-images" src="~/images/uploaded/leiunurk/@image.ImageFileName" alt="itemImages" />
+            }
+        </dd>
     </dl>
 
     <form asp-action="Delete">
