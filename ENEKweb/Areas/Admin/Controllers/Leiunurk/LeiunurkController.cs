@@ -8,21 +8,23 @@ using Microsoft.EntityFrameworkCore;
 using ENEKdata;
 using ENEKdata.Models;
 
-namespace ENEKweb.Areas.Admin.Controllers {
+namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
     [Area("Admin")]
-    public class ItemsController : Controller {
+    public class LeiunurkController : Controller {
+
+        // DB context
         private readonly ILeiunurk _leiunurk;
 
-        public ItemsController(ILeiunurk leiunurk) {
+        public LeiunurkController(ILeiunurk leiunurk) {
             _leiunurk = leiunurk;
         }
 
-        // GET: Admin/Items
+        // GET: Admin/Leiunurk
         public async Task<IActionResult> Index() {
             return View(await _leiunurk.GetAllItems());
         }
 
-        // GET: Admin/Items/Details/5
+        // GET: Admin/Leiunurk/Details/5
         public async Task<IActionResult> Details(int? id) {
             if (id == null) {
                 return NotFound();
@@ -36,12 +38,12 @@ namespace ENEKweb.Areas.Admin.Controllers {
             return View(item);
         }
 
-        // GET: Admin/Items/Create
+        // GET: Admin/Leiunurk/Create
         public IActionResult Create() {
             return View();
         }
 
-        // POST: Admin/Items/Create
+        // POST: Admin/Leiunurk/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -54,7 +56,7 @@ namespace ENEKweb.Areas.Admin.Controllers {
             return View(item);
         }
 
-        // GET: Admin/Items/Edit/5
+        // GET: Admin/Leiunurk/Edit/5
         public async Task<IActionResult> Edit(int? id) {
             if (id == null) {
                 return NotFound();
@@ -67,7 +69,7 @@ namespace ENEKweb.Areas.Admin.Controllers {
             return View(item);
         }
 
-        // POST: Admin/Items/Edit/5
+        // POST: Admin/Leiunurk/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -95,7 +97,7 @@ namespace ENEKweb.Areas.Admin.Controllers {
             return View(item);
         }
 
-        // GET: Admin/Items/Delete/5
+        // GET: Admin/Leiunurk/Delete/5
         public async Task<IActionResult> Delete(int? id) {
             if (id == null) {
                 return NotFound();
@@ -109,7 +111,7 @@ namespace ENEKweb.Areas.Admin.Controllers {
             return View(item);
         }
 
-        // POST: Admin/Items/Delete/5
+        // POST: Admin/Leiunurk/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id) {
