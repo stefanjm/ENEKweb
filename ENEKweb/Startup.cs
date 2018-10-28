@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ENEKdata;
+using ENEKservices;
+using IdentityData;
+using IdentityData.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -30,8 +36,24 @@ namespace ENEKweb {
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            // Add Database contexts, and declare connections
+            services.AddDbContext<IdentityDataDbContext>(options
+                => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<ENEKdataDbContext>(options
+                => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            // AddIdentity adds cookie based Authentication
+            // Adds scoped classes for UserManagement, Signing in, Passwords etc...
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                // Adds UserStore and RoleStore from this context
+                .AddEntityFrameworkStores<IdentityDataDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // Leiunurk service
+            services.AddScoped<ILeiunurk, LeiunurkService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +84,14 @@ namespace ENEKweb {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                  name: "areas",
+                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
             });
         }
     }
