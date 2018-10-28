@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ENEKdata;
-using ENEKdata.Models;
+using ENEKdata.Models.Leiunurk;
 
 namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
     [Area("Admin")]
@@ -80,7 +80,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
             }
 
             if (ModelState.IsValid) {
-                // This all should probably be in the Service class, not doing it right now because can't find a way to return NotFound() 404 from the Service class.
+                // This all should probably be in the Service logic class, not doing it right now because can't find a way to return NotFound() 404 from the Service class.
                 try {
                     await _leiunurk.EditItem(item);
                 }

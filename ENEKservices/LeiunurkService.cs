@@ -1,5 +1,5 @@
 ﻿using ENEKdata;
-using ENEKdata.Models;
+using ENEKdata.Models.Leiunurk;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
