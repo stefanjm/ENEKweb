@@ -1,6 +1,7 @@
-﻿using System;
+﻿using IdentityData;
+using System;
 
 namespace ENEKservices {
-    public class IdentityService {
+    public class IdentityService : IApplicationUser {
     }
 }

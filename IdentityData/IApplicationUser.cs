@@ -3,6 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace IdentityData {
-    interface IApplicationUser {
+    public interface IApplicationUser {
     }
 }

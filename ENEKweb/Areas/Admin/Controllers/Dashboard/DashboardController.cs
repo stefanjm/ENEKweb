@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ENEKweb.Areas.Admin.Controllers.Home
 {
-    public class HomeController : Controller
+    public class DashboardController : Controller
     {
         [Area("Admin")]
         public IActionResult Index()
