@@ -2,13 +2,14 @@
 using ENEKservices;
 using IdentityData;
 using IdentityData.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -64,12 +65,19 @@ namespace ENEKweb {
                 // Login path
                 options.LoginPath = "/admin/identity/login";
                 options.LogoutPath = "/admin/identity/login";
+                options.AccessDeniedPath = "/home/index";
 
                 // Change cookie timeout
                 options.ExpireTimeSpan = TimeSpan.FromDays(7);
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            // Require Authentication For every page by default
+            services.AddMvc(config => {
+                var policy = new AuthorizationPolicyBuilder()
+                                    .RequireAuthenticatedUser()
+                                    .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // Leiunurk service
             services.AddScoped<ILeiunurk, LeiunurkService>();
@@ -100,16 +108,19 @@ namespace ENEKweb {
             app.UseAuthentication();
 
             app.UseMvc(routes => {
+
+                routes.MapRoute(
+                  name: "areaRoute",
+                  template: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
+                );
+
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
-
-            app.UseMvc(routes => {
-                routes.MapRoute(
-                  name: "areas",
-                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                    template: "{controller=Home}/{action=Index}/{id?}"
                 );
+
+
+
             });
         }
     }

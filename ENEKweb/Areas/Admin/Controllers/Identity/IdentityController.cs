@@ -74,22 +74,16 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity {
             return Content("User creation FAILED", "text/html");
         }
 
-        [Authorize]
         public IActionResult Private() {
             return Content($"This is a private area lel {HttpContext.User.Identity.Name}", "text/html");
         }
 
-
-        //public async Task<IActionResult> Login(string returnUrl) {
-        //    var result = await _signInManager.PasswordSignInAsync("stefan", "password", true, true);
-
-        //    if (result.Succeeded) {
-        //        return RedirectToAction(nameof(Private));
-        //    }
-        //    return Content("testing", "text/html");
-        //}
-
-        public async Task<IActionResult> Logout(string returnUrl) {
+        /// <summary>
+        /// Logout user and return to Home webpage
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns>Redirects to Home action, root</returns>
+        public async Task<IActionResult> Logout() {
             await _signInManager.SignOutAsync();
             //if (returnUrl != null) {
             //    return LocalRedirect("/Base/Playground/Index");
@@ -97,7 +91,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity {
             //else {
             //    return RedirectToAction("Index", "Home");
             //}
-            return Content("logged Out", "text/html");
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
 
 
@@ -107,6 +101,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity {
         /// </summary>
         /// <param name="returnUrl"></param>
         /// <returns></returns>
+        [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null) {
             if (!string.IsNullOrEmpty(ErrorMessage)) {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
@@ -123,6 +118,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity {
         /// <param name="loginModel"></param>
         /// <param name="returnUrl"></param>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([Bind("Email", "Password", "RememberMe")] LoginModel loginModel, string returnUrl = null) {
@@ -163,6 +159,10 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity {
         }
 
         public IActionResult ForgotPassword() {
+            throw new NotImplementedException();
+        }
+
+        public IActionResult Manage() {
             throw new NotImplementedException();
         }
 
