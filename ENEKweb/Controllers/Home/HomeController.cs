@@ -29,6 +29,11 @@ namespace ENEKweb.Controllers {
         //    return View();
         //}
 
+        /// <summary>
+        /// Display Kontakt page, also when url is /Kontakt
+        /// </summary>
+        /// <returns></returns>
+        [Route("Kontakt")]
         public IActionResult Kontakt() {
             return View();
         }

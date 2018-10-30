@@ -162,9 +162,5 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity {
             throw new NotImplementedException();
         }
 
-        public IActionResult Manage() {
-            throw new NotImplementedException();
-        }
-
     }
 }
