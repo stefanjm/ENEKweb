@@ -10,10 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ENEKweb.Areas.Admin.Controllers.Identity.Manage {
     /// <summary>
-    /// Manage User accounts/Identity, Accessible through admin/identity/Manage
+    /// Manage User accounts/Identity, Instead of /admin/manage/ we Route this controller to /admin/Identity/Manage/
     /// </summary>
     [Area("Admin")]
-    [Route("Admin/Identity/Manage")]
     public class ManageController : Controller {
         /// <summary>
         /// Scoped service
@@ -107,6 +106,50 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity.Manage {
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
+            return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// Change password landing page.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> ChangePassword() {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            return View();
+        }
+
+        /// <summary>
+        /// Change User password
+        /// </summary>
+        /// <param name="changePWModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword([Bind("OldPassword", "NewPassword", "ConfirmPassword")] ChangePWModel changePWModel) {
+            if (!ModelState.IsValid) {
+                return View();
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            var changePasswordResult = await _userManager.ChangePasswordAsync(user, changePWModel.OldPassword, changePWModel.NewPassword);
+            if (!changePasswordResult.Succeeded) {
+                foreach (var error in changePasswordResult.Errors) {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return View();
+            }
+
+            await _signInManager.RefreshSignInAsync(user);
+            StatusMessage = "Your password has been changed.";
+
             return RedirectToAction("Index");
         }
     }
