@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ENEKweb.Areas.Admin.Controllers.Identity.Manage {
     /// <summary>
-    /// Manage User accounts/Identity, Instead of /admin/manage/ we Route this controller to /admin/Identity/Manage/
+    /// Manage User Account
     /// </summary>
     [Area("Admin")]
     public class ManageController : Controller {
@@ -94,7 +94,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity.Manage {
                     throw new InvalidOperationException($"Unexpected error occurred setting email for user with ID '{userId}'.");
                 }
             }
-
+            
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (userModel.PhoneNumber != phoneNumber) {
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, userModel.PhoneNumber);

@@ -33,8 +33,13 @@
             @Html.DisplayNameFor(model => model.Images)
         </dt>
         <dd>
-            @foreach (var image in Model.Images) {
-                <img class="leiunurk-detail-images" src="~/images/uploaded/leiunurk/@image.ImageFileName" alt="itemImages" />
+            @if (Model.Images.Count > 0) {
+                foreach (var image in Model.Images) {
+                    <img class="leiunurk-detail-images" src="~/images/uploaded/leiunurk/@image.ImageFileName" alt="itemImage" />
+                }
+            }
+            else {
+                <p class="text-info">This item has no images.</p>
             }
         </dd>
     </dl>

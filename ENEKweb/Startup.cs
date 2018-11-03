@@ -33,10 +33,16 @@ namespace ENEKweb {
 
             // Add Database contexts, and declare connections
             services.AddDbContext<IdentityDataDbContext>(options
-                => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                => {
+                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                    options.EnableSensitiveDataLogging(true);
+                });
 
             services.AddDbContext<ENEKdataDbContext>(options
-                => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                => {
+                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                    options.EnableSensitiveDataLogging(true);
+                });
 
             // AddIdentity adds cookie based Authentication
             // Adds scoped classes for UserManagement, Signing in, Passwords etc...

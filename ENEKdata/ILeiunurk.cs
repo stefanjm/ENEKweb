@@ -17,8 +17,9 @@ namespace ENEKdata {
         Task<Item> GetItemById(int? Id);
         Task AddItem(Item newItemm, ICollection<Image> Images);
         Task RemoveItem(int id);
-        Task EditItem(Item item, ICollection<Image> Images);
+        Task EditItem(Item editedItem, List<int> ImagesToRemoveIds);
 
+        Task<bool> IsImageOwnedByGivenItem(int itemId, int imageId);
         Task<bool> ItemExists(int id);
     }
 }

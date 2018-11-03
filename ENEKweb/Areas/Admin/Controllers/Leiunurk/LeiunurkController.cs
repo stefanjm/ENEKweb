@@ -9,6 +9,7 @@ using ENEKdata;
 using ENEKdata.Models.Leiunurk;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using ENEKweb.Areas.Admin.Models.Leiunurk;
 
 namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
     [Area("Admin")]
@@ -75,6 +76,9 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
                                 });
                             }
                         }
+                        else {
+                            // Return error
+                        }
                     }
                 }
                 await _leiunurk.AddItem(item, ItemImages);
@@ -94,33 +98,61 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
             if (item == null) {
                 return NotFound();
             }
-            return View(item);
+
+            IList<ImageEditModel> editModelImages = new List<ImageEditModel>();
+            foreach (var image in item.Images) {
+                editModelImages.Add(new ImageEditModel {
+                    Id = image.Id,
+                    ImageFileName = image.ImageFileName
+                });
+            }
+            
+
+            var editModel = new ItemEditModel {
+                Id = item.Id,
+                Name = item.Name,
+                Description = item.Description,
+                Price = item.Price,
+                Images = editModelImages
+            };
+            return View(editModel);
         }
 
         // POST: Admin/Leiunurk/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         // Adding Images will be refactored to be an UTILITY CLASS OR CLASS LIBRARY
+        // Currently Images with checkboxes on the website itself have weird Ids and Names because the Edit Model has another list with the images,
+        //  so it binds them as Images_._[1]_RemoveImage which looks not so good.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price")] Item item, [Bind("Images")]ICollection<IFormFile> Images) {
+        public async Task<IActionResult> Edit(int id, ItemEditModel item) {
             if (id != item.Id) {
                 return NotFound();
             }
-
             if (ModelState.IsValid) {
                 // This all should probably be in the Service logic class, not doing it right now because can't find a way to return NotFound() 404 from the Service class.
                 try {
                     // add new images if any chosen
+                    //var imagges = await _leiunurk.GetItemById(id);
+                    //ICollection<Image> theimages = imagges.Images;
                     ICollection<Image> ItemImages = new List<Image>();
-                    if (Images.Count > 0) {
-                        if (Images.Count > 0) {
+                    // Add model images 
+                    foreach(var modelImage in item.Images) {
+                        ItemImages.Add(new Image {
+                            Id = modelImage.Id,
+                            ImageFileName = modelImage.ImageFileName
+                        });
+                    }
+
+                    if (item.ImagesToAdd != null && item.ImagesToAdd.Count > 0) {
+                        if (item.ImagesToAdd.Count > 0) {
                             // Upload Images
-                            long size = Images.Sum(f => f.Length);
+                            long size = item.ImagesToAdd.Sum(f => f.Length);
                             // Path where to store uploaded Images
                             var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/uploaded/leiunurk");
 
-                            foreach (var formFile in Images) {
+                            foreach (var formFile in item.ImagesToAdd) {
                                 // Check if file is valid and an image. Probably should create a static class to check for more exact filetypes
                                 if (formFile.Length > 0 && formFile.ContentType.Contains("image")) {
                                     var filename = Path.GetRandomFileName();
@@ -133,10 +165,28 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
                                         });
                                     }
                                 }
+                                else {
+                                    // Return error
+                                }
                             }
                         }
                     }
-                    await _leiunurk.EditItem(item, ItemImages);
+
+                    Item EditedItem = new Item {
+                        Id = item.Id,
+                        Name = item.Name,
+                        Description = item.Description,
+                        Images = ItemImages,
+                        Price = item.Price
+                    };
+
+                    // Add the images to remove IDs to an int List
+                    List<int> ItemImagesToRemoveIds = new List<int>();
+                    foreach(var imageToRemove in item.Images) {
+                        if (imageToRemove.RemoveImage)
+                            ItemImagesToRemoveIds.Add(imageToRemove.Id);
+                    }
+                    await _leiunurk.EditItem(EditedItem, ItemImagesToRemoveIds);
                 }
                 catch (DbUpdateConcurrencyException) {
                     if (!(await _leiunurk.ItemExists(item.Id))) {
