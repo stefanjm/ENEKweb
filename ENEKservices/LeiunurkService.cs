@@ -1,10 +1,14 @@
 ﻿using ENEKdata;
 using ENEKdata.Models.Leiunurk;
+using ENEKdata.Utilities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace ENEKservices {
     public class LeiunurkService : ILeiunurk {
@@ -17,7 +21,7 @@ namespace ENEKservices {
         public LeiunurkService(ENEKdataDbContext context) {
             _context = context;
         }
-        
+
         /// <summary>
         /// Get all the items including the Images every item has
         /// </summary>
@@ -56,37 +60,94 @@ namespace ENEKservices {
         //    }
         //}
 
-        public async Task EditItem(Item editedItem, List<int> ImagesToRemoveIds) {
+        /// <summary>
+        /// Edit the Item
+        /// </summary>
+        /// <param name="editedItem"></param>
+        /// <param name="imagesToRemoveIds"></param>
+        /// <param name="imagesToAdd"></param>
+        /// <param name="imgUploadPath"></param>
+        /// <returns></returns>
+        public async Task EditItem(Item editedItem, List<int> imagesToRemoveIds, ICollection<IFormFile> imagesToAdd, string imgUploadPath) {
 
             // Check if an item with Edited Item ID exists in the database
-            if(!await ItemExists(editedItem.Id)) {
+            if (!await ItemExists(editedItem.Id)) {
                 return;
             }
-
-            // Check if any images to remove and do so
-            if(ImagesToRemoveIds.Any()) {
-                foreach(int imageId in ImagesToRemoveIds) {
-                    if(await IsImageOwnedByGivenItem(editedItem.Id, imageId)) {
-                        // Remove the image from this list and also add it to the DB queue to query when SaveChanges is called to remove it from DB as well
-                        // Have to do both because, if just removing from list. Updating thinks we didn't touch the image at all,
-                        //  if we would remove the image only from the Database and not from the list right away. The list would add it back:(
-                        editedItem.Images.Remove(editedItem.Images.First(x => x.Id == imageId));
-                        await RemoveImageWithoutSaveChanges(imageId);
+            // Transactions should also check for the file IO, if that throws an error then it wont update the database
+            try {
+                using (var ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled)) {
+                    // Check if any images to Add and do so
+                    if (imagesToAdd != null && imagesToAdd.Any()) {
+                        // List for Images to add
+                        List<Image> newImages = new List<Image>();
+                        // upload the images to the given path
+                        List<string> uploadedImgNames = await ImageManager.UploadImages(imagesToAdd, imgUploadPath);
+                        foreach (string imgFileName in uploadedImgNames) {
+                            newImages.Add(new Image {
+                                ImageFileName = imgFileName
+                            });
+                        }
+                        AddImagesToItem(editedItem, newImages);
                     }
+
+                    // Check if any images to remove and do so
+                    if (imagesToRemoveIds != null && imagesToRemoveIds.Any()) {
+                        foreach (int imageId in imagesToRemoveIds) {
+                            if (await IsImageOwnedByGivenItem(editedItem.Id, imageId)) {
+                                // Remove the image from this list and also add it to the DB queue to query when SaveChanges is called to remove it from DB as well
+                                // Have to do both because, if just removing from list. Updating thinks we didn't touch the image at all,
+                                //  if we would remove the image only from the Database and not from the list right away. The list would add it back:(
+                                editedItem.Images.Remove(editedItem.Images.First(x => x.Id == imageId));
+                                await RemoveImageWithoutSaveChanges(imageId);
+                            }
+                        }
+                    }
+
+                    _context.Update(editedItem);
+                    await _context.SaveChangesAsync();
+                    ts.Complete();
                 }
             }
-
-            _context.Update(editedItem);
-            await _context.SaveChangesAsync();
+            catch (Exception e) {
+                throw e;
+            }
         }
 
-        public async Task AddItem(Item newItem, ICollection<Image> Images) {
-            // Add images to the item
-            if(Images.Count > 0) {
-                AddImagesToItem(newItem, Images);
+        /// <summary>
+        /// Add the Item to the database
+        /// </summary>
+        /// <param name="newItem"></param>
+        /// <param name="Images"></param>
+        /// <returns></returns>
+        public async Task AddItem(Item newItem, ICollection<IFormFile> images, string imgUploadPath) {
+            // Might not be working the way I want it to but Transactions should ensure that when the file does not get created then it wont add the item to the database
+            try {
+                using (var ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled)) {
+
+                    // Add images to the item
+                    if (images.Count > 0) {
+                        // List for Images to add
+                        List<Image> imagesToAdd = new List<Image>();
+                        List<string> uploadedImgNames = await ImageManager.UploadImages(images, imgUploadPath);
+                        foreach (string imgFileName in uploadedImgNames) {
+                            imagesToAdd.Add(new Image {
+                                ImageFileName = imgFileName
+                            });
+                        }
+                        AddImagesToItem(newItem, imagesToAdd);
+                    }
+
+                    // Add item to Database
+                    _context.Add(newItem);
+                    await _context.SaveChangesAsync();
+                    // Complete the transaction
+                    ts.Complete();
+                }
             }
-            _context.Add(newItem);
-            await _context.SaveChangesAsync();
+            catch {
+
+            }
         }
 
         /// <summary>
@@ -120,7 +181,7 @@ namespace ENEKservices {
         /// <returns></returns>
         public Item AddImagesToItem(Item item, ICollection<Image> images) {
             item.Images = new List<Image>();
-            foreach(Image image in images) {
+            foreach (Image image in images) {
                 item.Images.Add(image);
             }
             return item;
@@ -154,7 +215,7 @@ namespace ENEKservices {
         /// <returns></returns>
         public async Task<bool> IsImageOwnedByGivenItem(int itemId, int imageId) {
             Item item = await GetItemById(itemId);
-            if(item.Images.Any(x => x.Id == imageId)) {
+            if (item.Images.Any(x => x.Id == imageId)) {
                 return true;
             }
             else {

@@ -18,6 +18,9 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
         // DB context
         private readonly ILeiunurk _leiunurk;
 
+        // Path where the images are to be stored
+        private readonly string imgUploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/uploaded/leiunurk");
+
         public LeiunurkController(ILeiunurk leiunurk) {
             _leiunurk = leiunurk;
         }
@@ -54,34 +57,17 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,Price")] Item item, [Bind("Images")]ICollection<IFormFile> Images) {
             if (ModelState.IsValid) {
-                // Images for the item
-                ICollection<Image> ItemImages = new List<Image>();
-                // Check if there are any images
-                if (Images.Count > 0) {
-                    // Upload Images
-                    long size = Images.Sum(f => f.Length);
-                    // Path where to store uploaded Images
-                    var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/uploaded/leiunurk");
 
-                    foreach (var formFile in Images) {
-                        // Check if file is valid and an image. Probably should create a static class to check for more exact filetypes
-                        if (formFile.Length > 0 && formFile.ContentType.Contains("image")) {
-                            var filename = Path.GetRandomFileName();
-                            filename = Path.ChangeExtension(filename, Path.GetExtension(formFile.FileName));
-                            var filePath = Path.Combine(uploadDir, filename);
-                            using (var stream = new FileStream(filePath, FileMode.Create)) {
-                                await formFile.CopyToAsync(stream);
-                                ItemImages.Add(new Image {
-                                    ImageFileName = filename
-                                });
-                            }
-                        }
-                        else {
-                            // Return error
+                // Check if it's an image thats being uploaded
+                if (Images.Count > 0) {
+                    foreach (var img in Images) {
+                        if (!img.ContentType.Contains("image")) {
+                            return StatusCode(StatusCodes.Status415UnsupportedMediaType);
                         }
                     }
                 }
-                await _leiunurk.AddItem(item, ItemImages);
+
+                await _leiunurk.AddItem(item, Images, imgUploadPath);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -106,7 +92,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
                     ImageFileName = image.ImageFileName
                 });
             }
-            
+
 
             var editModel = new ItemEditModel {
                 Id = item.Id,
@@ -124,6 +110,12 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
         // Adding Images will be refactored to be an UTILITY CLASS OR CLASS LIBRARY
         // Currently Images with checkboxes on the website itself have weird Ids and Names because the Edit Model has another list with the images,
         //  so it binds them as Images_._[1]_RemoveImage which looks not so good.
+        /// <summary>
+        /// Edit the item
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ItemEditModel item) {
@@ -133,45 +125,29 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
             if (ModelState.IsValid) {
                 // This all should probably be in the Service logic class, not doing it right now because can't find a way to return NotFound() 404 from the Service class.
                 try {
-                    // add new images if any chosen
-                    //var imagges = await _leiunurk.GetItemById(id);
-                    //ICollection<Image> theimages = imagges.Images;
+                    
                     ICollection<Image> ItemImages = new List<Image>();
-                    // Add model images 
-                    foreach(var modelImage in item.Images) {
+
+                    // Since we are using ItemEditModel which doesn't know about the Image list that every item has, 
+                    //  we'll add them to an Image list and after create the Item to be inserted to the database
+                    foreach (var modelImage in item.Images) {
                         ItemImages.Add(new Image {
                             Id = modelImage.Id,
                             ImageFileName = modelImage.ImageFileName
                         });
                     }
 
+                    // Check if new added images are the right type.
                     if (item.ImagesToAdd != null && item.ImagesToAdd.Count > 0) {
-                        if (item.ImagesToAdd.Count > 0) {
-                            // Upload Images
-                            long size = item.ImagesToAdd.Sum(f => f.Length);
-                            // Path where to store uploaded Images
-                            var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/uploaded/leiunurk");
-
-                            foreach (var formFile in item.ImagesToAdd) {
-                                // Check if file is valid and an image. Probably should create a static class to check for more exact filetypes
-                                if (formFile.Length > 0 && formFile.ContentType.Contains("image")) {
-                                    var filename = Path.GetRandomFileName();
-                                    filename = Path.ChangeExtension(filename, Path.GetExtension(formFile.FileName));
-                                    var filePath = Path.Combine(uploadDir, filename);
-                                    using (var stream = new FileStream(filePath, FileMode.Create)) {
-                                        await formFile.CopyToAsync(stream);
-                                        ItemImages.Add(new Image {
-                                            ImageFileName = filename
-                                        });
-                                    }
-                                }
-                                else {
-                                    // Return error
-                                }
+                        // Path where to store uploaded Images
+                        foreach (var img in item.ImagesToAdd) {
+                            if (!img.ContentType.Contains("image")) {
+                                return StatusCode(StatusCodes.Status415UnsupportedMediaType);
                             }
                         }
                     }
 
+                    // Create Item for database insertion from the ItemEditModel class
                     Item EditedItem = new Item {
                         Id = item.Id,
                         Name = item.Name,
@@ -180,13 +156,14 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
                         Price = item.Price
                     };
 
-                    // Add the images to remove IDs to an int List
+                    // Add the images to remove - IDs to an int List
                     List<int> ItemImagesToRemoveIds = new List<int>();
-                    foreach(var imageToRemove in item.Images) {
+                    foreach (var imageToRemove in item.Images) {
                         if (imageToRemove.RemoveImage)
                             ItemImagesToRemoveIds.Add(imageToRemove.Id);
                     }
-                    await _leiunurk.EditItem(EditedItem, ItemImagesToRemoveIds);
+
+                    await _leiunurk.EditItem(EditedItem, ItemImagesToRemoveIds, item.ImagesToAdd, imgUploadPath);
                 }
                 catch (DbUpdateConcurrencyException) {
                     if (!(await _leiunurk.ItemExists(item.Id))) {

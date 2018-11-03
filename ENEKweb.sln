@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityData", "IdentityDat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ENEKservices", "ENEKservices\ENEKservices.csproj", "{0C0AD5DE-7EDB-4857-A5F8-9FD660A1B1E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ENEKdata", "ENEKdata\ENEKdata.csproj", "{F2AA5C6D-B841-4162-BD53-07CE18A9CD77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ENEKdata", "ENEKdata\ENEKdata.csproj", "{F2AA5C6D-B841-4162-BD53-07CE18A9CD77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
