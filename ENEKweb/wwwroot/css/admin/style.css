@@ -20,6 +20,7 @@
     z-index: 100; /* Behind the navbar */
     padding: 48px 0 0; /* Height of navbar */
     box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+
 }
 
 .sidebar-sticky {
@@ -29,6 +30,23 @@
     padding-top: .5rem;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+/* display the sidebar when in mobile view */
+.sidebar.mobile-show {
+    width: 200px;
+    opacity: 1;
+    transition: visibility 0s, opacity 0.3s linear;
+}
+
+@media (max-width: 768px) {
+    /* Do display when mobile-show class is added */
+    .sidebar:not(.mobile-show) {
+        width: 200px;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0.3s, opacity 0.3s linear;
+    }
 }
 
 @supports ((position: -webkit-sticky) or (position: sticky)) {
@@ -67,7 +85,7 @@
  */
 
 [role="main"] {
-    padding-top: 48px; /* Space for fixed navbar */
+    padding-top: 60px; /* Space for fixed navbar */
 }
 
 /*
@@ -98,6 +116,11 @@
     border-color: transparent;
     box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
 }
+
+.nav-item {
+    font-size: 1.2em;
+}
+
 
 /*
  * Leiunurk 

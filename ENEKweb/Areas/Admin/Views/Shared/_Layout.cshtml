@@ -21,14 +21,12 @@
 <body>
 
     <!-- Nav -->
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">ENEK Elektriehitus OÜ</a>
-        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-        <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#">Sign out</a>
-            </li>
-        </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark flex-md-nowrap p-0 pr-3 shadow">
+        <a class="navbar-brand p-3 mr-0" href="#">ENEK Elektriehitus OÜ</a>
+        <a class="nav-link ml-auto btn btn-secondary mr-1" href="#">Sign out</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" id="sidebarCollapse" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </nav>
 
 
@@ -36,7 +34,7 @@
     <div id="Main" class="container-fluid">
         <div class="row">
             <!-- Sidebar nav -->
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <nav class="col-md-2 bg-light sidebar">
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
@@ -62,18 +60,16 @@
                     </ul>
 
                     @* Identity things *@
-                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <h3 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                         <span>Kasutaja</span>
-                        <a class="d-flex align-items-center text-muted" href="#">
-                            <span data-feather="plus-circle"></span>
-                        </a>
-                    </h6>
+                        <a class="d-flex align-items-center text-muted" href="#"></a>
+                    </h3>
                     <partial name="_LoginPartial" />
 
                 </div>
             </nav>
             <!-- Main content -->
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <main role="main" class="ml-sm-auto col-md-10 px-4">
                 @RenderBody()
             </main>
         </div>
@@ -81,8 +77,8 @@
     </div>
     <!-- Footer -->
     @*<footer id="footer">
-        <p>&copy; 2018 - ENEKweb</p>
-    </footer>*@
+            <p>&copy; 2018 - ENEKweb</p>
+        </footer>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

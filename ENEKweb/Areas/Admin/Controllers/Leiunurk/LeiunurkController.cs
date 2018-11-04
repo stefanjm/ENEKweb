@@ -66,7 +66,6 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
                         }
                     }
                 }
-
                 await _leiunurk.AddItem(item, Images, imgUploadPath);
 
                 return RedirectToAction(nameof(Index));
@@ -124,8 +123,11 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
             }
             if (ModelState.IsValid) {
                 // This all should probably be in the Service logic class, not doing it right now because can't find a way to return NotFound() 404 from the Service class.
+                // Try and Catch for database concurrency, what if someone else was already editing and saved changes, we would just overwrite his changes
+                // doing this to prevent that
+                // Might not actually work if we don't throw concurrency exception by ourselves.
                 try {
-                    
+
                     ICollection<Image> ItemImages = new List<Image>();
 
                     // Since we are using ItemEditModel which doesn't know about the Image list that every item has, 
@@ -137,6 +139,15 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
                         });
                     }
 
+                    // Create Item for database insertion from the ItemEditModel class
+                    Item EditedItem = new Item {
+                        Id = item.Id,
+                        Name = item.Name,
+                        Description = item.Description,
+                        Images = ItemImages,
+                        Price = item.Price
+                    };
+
                     // Check if new added images are the right type.
                     if (item.ImagesToAdd != null && item.ImagesToAdd.Count > 0) {
                         // Path where to store uploaded Images
@@ -146,15 +157,6 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
                             }
                         }
                     }
-
-                    // Create Item for database insertion from the ItemEditModel class
-                    Item EditedItem = new Item {
-                        Id = item.Id,
-                        Name = item.Name,
-                        Description = item.Description,
-                        Images = ItemImages,
-                        Price = item.Price
-                    };
 
                     // Add the images to remove - IDs to an int List
                     List<int> ItemImagesToRemoveIds = new List<int>();

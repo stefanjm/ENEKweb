@@ -31,3 +31,13 @@ $('.carousel-control-prev').click(function () {
         .children('.active').children('img').eq(2).prop('src'));
 
 });
+
+
+//sidebar
+$(document).ready(function () {
+
+    $('#sidebarCollapse').on('click', function () {
+        $('.sidebar').toggleClass('mobile-show');
+    });
+
+});
