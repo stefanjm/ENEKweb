@@ -1,387 +1,120 @@
-﻿@{
+﻿@model ENEKweb.Models.LeiunurkIndexModel
+@{
     ViewData["Title"] = "LEIUNURK";
+    // index counter for different IDs (for bootstraps carousel controls)
+    int position = 0;
+    // is it the first image iterated over? for bootstrap carousel active class that has to be on at least one slide
+    bool firstImg = true;
 }
 
 <div class="container text-center" id="leftoversContainer">
     <h2 class="text-title">@ViewData["Title"]</h2>
     <div class="row">
-        <div class="col-sm-4">
-            <div class="mein-card">
-                <div class="mein-card-img">
-                    <img src="~/images/icons/contact/mail.png" alt="test_icon" />
-                </div>
-                <div class="mein-card-gallery">
-                    <div class="row h-100">
-                        <div id="galleryCarousel1" class="carousel slide h-100" data-ride="carousel" data-interval="false">
-                            <div class="carousel-inner h-100" role="listbox">
-
-                                <div class="carousel-item active h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/gun_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/truck_driver_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/banaanid_company_logo.jpg">
-                                </div>
-                                <div class="carousel-item active h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/gun_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/truck_driver_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/banaanid_company_logo.jpg">
-                                </div>
-
-                            </div>
-                            <a class="carousel-control-prev" href="#galleryCarousel1" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#galleryCarousel1" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
+        @foreach (var item in Model.LeiunurkItems) {
+            <div class="col-md-4">
+                <div class="mein-card">
+                    @if (item.Images.Any()) {
+                        <div class="mein-card-img">
+                            <img src="~/images/uploaded/leiunurk/@item.Images.First().ImageFileName" alt="item_head_pic" />
                         </div>
+                        <div class="mein-card-gallery">
+
+                            <div class="row h-100">
+                                <div id="@($"galleryCarousel{position}")" class="carousel slide h-100" data-ride="carousel" data-interval="false">
+                                    <div class="carousel-inner h-100" role="listbox">
+                                        @foreach (var itemImage in item.Images) {
+                                            if (firstImg) {
+                                                <div class="carousel-item h-100 justify-content-center active">
+                                                    <img class="d-block col-3" src="~/images/uploaded/leiunurk/@itemImage.ImageFileName" alt="item_pic">
+                                                </div>
+                                            }
+                                            else {
+                                                <div class="carousel-item h-100 justify-content-center">
+                                                    <img class="d-block col-3 " src="~/images/uploaded/leiunurk/@itemImage.ImageFileName" alt="item_pic">
+                                                </div>
+                                            }
+
+                                            firstImg = false;
+                                        }
+                                    </div>
+                                    <a class="carousel-control-prev" href="@($"#galleryCarousel{position}")" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="@($"#galleryCarousel{position}")" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mein-card-bottom text-left">
+                            <div class="mein-card-title">
+                                <h3>@item.Name</h3>
+                            </div>
+                            <div class="mein-card-desc">
+                                <p>@item.Description</p>
+                            </div>
+                        </div>
+                        position++;
+                        firstImg = true;
+                    }
+                    else {
+                        <div class="d-flex h-100 align-items-center justify-content-center">
+                            <div class="mein-card-bottom text-center">
+                                <div class="mein-card-title">
+                                    <h3>@item.Name</h3>
+                                </div>
+                                <div class="mein-card-desc">
+                                    <p>@item.Description</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        }
+        @*<div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top" src="~/images/uploaded/leiunurk/i5eegvpl.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
                 </div>
-                <div class="mein-card-title">
-                    <h3>Hello</h3>
-                </div>
-                <div class="mein-card-body">
-                    <p>Kirjeldus müügiks ja kuhugi siia hind ka veel</p>
-                </div>
             </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="mein-card">
-                <div class="mein-card-img">
-                    <img src="~/images/icons/contact/mail.png" alt="test_icon" />
-                </div>
-                <div class="mein-card-gallery">
-                    <div class="row h-100">
-                        <div id="galleryCarousel2" class="carousel slide h-100" data-ride="carousel" data-interval="false">
-                            <div class="carousel-inner h-100" role="listbox">
-
-                                <div class="carousel-item active h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/gun_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/truck_driver_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/banaanid_company_logo.jpg">
-                                </div>
-                                <div class="carousel-item active h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/gun_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/truck_driver_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/banaanid_company_logo.jpg">
-                                </div>
-
-                            </div>
-                            <a class="carousel-control-prev" href="#galleryCarousel2" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#galleryCarousel2" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top" src="~/images/logo/partners/gun_logo.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
                 </div>
-                <div class="mein-card-title">
-                    <h3>Hello</h3>
-                </div>
-                <div class="mein-card-body">
-                    <p>Kirjeldus müügiks ja kuhugi siia hind ka veel</p>
-                </div>
             </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="mein-card">
-                <div class="mein-card-img">
-                    <img src="~/images/icons/contact/mail.png" alt="test_icon" />
-                </div>
-                <div class="mein-card-gallery">
-                    <div class="row h-100">
-                        <div id="galleryCarousel3" class="carousel slide h-100" data-ride="carousel" data-interval="false">
-                            <div class="carousel-inner h-100" role="listbox">
-
-                                <div class="carousel-item active h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/gun_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/truck_driver_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/banaanid_company_logo.jpg">
-                                </div>
-                                <div class="carousel-item active h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/gun_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/truck_driver_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/banaanid_company_logo.jpg">
-                                </div>
-
-                            </div>
-                            <a class="carousel-control-prev" href="#galleryCarousel3" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#galleryCarousel3" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top" src="~/images/logo/partners/saksa_hobused_logo.gif" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
                 </div>
-                <div class="mein-card-title">
-                    <h3>Hello</h3>
-                </div>
-                <div class="mein-card-body">
-                    <p>Kirjeldus müügiks ja kuhugi siia hind ka veel</p>
-                </div>
             </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="mein-card">
-                <div class="mein-card-img">
-                    <img src="~/images/icons/contact/mail.png" alt="test_icon" />
-                </div>
-                <div class="mein-card-gallery">
-                    <div class="row h-100">
-                        <div id="galleryCarousel4" class="carousel slide h-100" data-ride="carousel" data-interval="false">
-                            <div class="carousel-inner h-100" role="listbox">
-
-                                <div class="carousel-item active h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/gun_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/truck_driver_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/banaanid_company_logo.jpg">
-                                </div>
-                                <div class="carousel-item active h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/gun_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/truck_driver_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/banaanid_company_logo.jpg">
-                                </div>
-
-                            </div>
-                            <a class="carousel-control-prev" href="#galleryCarousel1" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#galleryCarousel4" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top" src="~/images/logo/partners/truck_driver_logo.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
                 </div>
-                <div class="mein-card-title">
-                    <h3>Hello</h3>
-                </div>
-                <div class="mein-card-body">
-                    <p>Kirjeldus müügiks ja kuhugi siia hind ka veel</p>
-                </div>
-            </div>
-        </div>
+            </div>*@
 
-        <div class="col-sm-4">
-            <div class="mein-card">
-                <div class="mein-card-img">
-                    <img src="~/images/icons/contact/mail.png" alt="test_icon" />
-                </div>
-                <div class="mein-card-gallery">
-                    <div class="row h-100">
-                        <div id="galleryCarousel5" class="carousel slide h-100" data-ride="carousel" data-interval="false">
-                            <div class="carousel-inner h-100" role="listbox">
-
-                                <div class="carousel-item active h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/gun_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/truck_driver_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/banaanid_company_logo.jpg">
-                                </div>
-                                <div class="carousel-item active h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/gun_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/truck_driver_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/banaanid_company_logo.jpg">
-                                </div>
-
-                            </div>
-                            <a class="carousel-control-prev" href="#galleryCarousel5" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#galleryCarousel5" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="mein-card-title">
-                    <h3>Hello</h3>
-                </div>
-                <div class="mein-card-body">
-                    <p>Kirjeldus müügiks ja kuhugi siia hind ka veel</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="mein-card">
-                <div class="mein-card-img">
-                    <img src="~/images/icons/contact/mail.png" alt="test_icon" />
-                </div>
-                <div class="mein-card-gallery">
-                    <div class="row h-100">
-                        <div id="galleryCarousel6" class="carousel slide h-100" data-ride="carousel" data-interval="false">
-                            <div class="carousel-inner h-100" role="listbox">
-
-                                <div class="carousel-item active h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/gun_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/truck_driver_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/banaanid_company_logo.jpg">
-                                </div>
-                                <div class="carousel-item active h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/gun_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/truck_driver_logo.png">
-                                </div>
-                                <div class="carousel-item h-100 justify-content-center">
-                                    <img class="d-block col-3 img-fluid" src="~/images/logo/partners/banaanid_company_logo.jpg">
-                                </div>
-
-                            </div>
-                            <a class="carousel-control-prev" href="#galleryCarousel6" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#galleryCarousel6" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="mein-card-title">
-                    <h3>Hello</h3>
-                </div>
-                <div class="mein-card-body">
-                    <p>Kirjeldus müügiks ja kuhugi siia hind ka veel</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="mein-card">
-                <div class="mein-card-img">
-                    <img src="~/images/icons/contact/mail.png" alt="test_icon" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Hello</h3>
-                </div>
-                <div class="mein-card-body">
-                    <p>Kirjeldus müügiks ja kuhugi siia hind ka veel</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="mein-card">
-                <div class="mein-card-img">
-                    <img src="~/images/icons/contact/mail.png" alt="test_icon" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Hello</h3>
-                </div>
-                <div class="mein-card-body">
-                    <p>Kirjeldus müügiks ja kuhugi siia hind ka veel</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="mein-card">
-                <div class="mein-card-img">
-                    <img src="~/images/icons/contact/mail.png" alt="test_icon" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Hello</h3>
-                </div>
-                <div class="mein-card-body">
-                    <p>Kirjeldus müügiks ja kuhugi siia hind ka veel</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="mein-card">
-                <div class="mein-card-img">
-                    <img src="~/images/icons/contact/mail.png" alt="test_icon" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Hello</h3>
-                </div>
-                <div class="mein-card-body">
-                    <p>Kirjeldus müügiks ja kuhugi siia hind ka veel</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="mein-card">
-                <div class="mein-card-img">
-                    <img src="~/images/icons/contact/mail.png" alt="test_icon" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Hello</h3>
-                </div>
-                <div class="mein-card-body">
-                    <p>Kirjeldus müügiks ja kuhugi siia hind ka veel</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="mein-card">
-                <div class="mein-card-img">
-                    <img src="~/images/icons/contact/mail.png" alt="test_icon" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Hello</h3>
-                </div>
-                <div class="mein-card-body">
-                    <p>Kirjeldus müügiks ja kuhugi siia hind ka veel</p>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
