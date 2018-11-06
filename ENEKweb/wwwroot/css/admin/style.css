@@ -8,85 +8,11 @@
     vertical-align: text-bottom;
 }
 
-/*
- * Sidebar
- */
-
-.sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 100; /* Behind the navbar */
-    padding: 48px 0 0; /* Height of navbar */
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-
-}
-
-.sidebar-sticky {
-    position: relative;
-    top: 0;
-    height: calc(100vh - 48px);
-    padding-top: .5rem;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-}
-
-/* display the sidebar when in mobile view */
-.sidebar.mobile-show {
-    width: 200px;
-    opacity: 1;
-    transition: visibility 0s, opacity 0.3s linear;
-}
-
-@media (max-width: 768px) {
-    /* Do display when mobile-show class is added */
-    .sidebar:not(.mobile-show) {
-        width: 200px;
-        visibility: hidden;
-        opacity: 0;
-        transition: visibility 0.3s, opacity 0.3s linear;
-    }
-}
-
-@supports ((position: -webkit-sticky) or (position: sticky)) {
-    .sidebar-sticky {
-        position: -webkit-sticky;
-        position: sticky;
-    }
-}
-
-.sidebar .nav-link {
-    font-weight: 500;
-    color: #333;
-}
-
-    .sidebar .nav-link .feather {
-        margin-right: 4px;
-        color: #999;
-    }
-
-    .sidebar .nav-link.active {
-        color: #007bff;
-    }
-
-        .sidebar .nav-link:hover .feather,
-        .sidebar .nav-link.active .feather {
-            color: inherit;
-        }
-
-.sidebar-heading {
-    font-size: .75rem;
-    text-transform: uppercase;
-}
-
-/*
- * Content
- */
 
 [role="main"] {
     padding-top: 60px; /* Space for fixed navbar */
 }
+
 
 /*
  * Navbar
@@ -106,20 +32,119 @@
     border-radius: 0;
 }
 
+.navbar-toggler {
+    display: none;
+}
+
 .form-control-dark {
     color: #fff;
     background-color: rgba(255, 255, 255, .1);
     border-color: rgba(255, 255, 255, .1);
 }
 
-.form-control-dark:focus {
-    border-color: transparent;
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+    .form-control-dark:focus {
+        border-color: transparent;
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+    }
+
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100; /* Behind the navbar */
+    padding: 48px 0 0; /* Height of navbar */
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
 
-.nav-item {
-    font-size: 1.2em;
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
+
+/* display the sidebar when in mobile view */
+.sidebar.mobile-show {
+    width: 200px;
+    opacity: 1;
+    transition: visibility 0s, opacity 0.3s linear;
+}
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+    .sidebar-sticky {
+        position: -webkit-sticky;
+        position: sticky;
+    }
+}
+
+.sidebar .nav-link {
+    font-size: 1.3em;
+    font-weight: 500;
+    color: #333;
+}
+
+    .sidebar .nav-link .feather {
+        margin-right: 4px;
+        color: #999;
+    }
+
+    .sidebar .nav-link.active {
+        color: #007bff;
+    }
+
+        .sidebar .nav-link:hover .feather,
+        .sidebar .nav-link.active .feather {
+            color: inherit;
+        }
+
+.sidebar-heading {
+    font-size: 1.4em;
+    text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+    /* Do display when mobile-show class is added */
+    .sidebar:not(.mobile-show) {
+        width: 200px;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0.3s, opacity 0.3s linear;
+    }
+
+    .navbar-toggler {
+        display: block;
+    }
+
+    /* Remove background from header when mobile*/
+    .navbar-brand {
+        background-color: inherit;
+        box-shadow: none;
+    }
+
+    /* Hide the logout button when mobile */
+    #logOutNavBtn {
+        display: none;
+    }
+}
+
+@media(max-width: 1200px) {
+    .sidebar .nav-link {
+        font-size: 1.1em;
+    }
+
+    .sidebar-heading {
+        font-size: 1.2em;
+    }
+}
+
 
 
 /*
