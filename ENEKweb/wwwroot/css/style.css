@@ -169,7 +169,10 @@ p, a {
 }
 
 
-
+.gallery-img {
+    padding: 2px;
+ 
+}
 /*
  * Mein card styling
  */
@@ -177,13 +180,13 @@ p, a {
     height: 400px;
     margin-top: 10px;
     margin-bottom: 10px;
-   
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .mein-card-img {
     width: 100%;
     height: 230px;
+    justify-content: center;
 }
 
 /* auto-resize image to fit container NO IE 9 */
@@ -200,11 +203,6 @@ p, a {
     margin-bottom: 2px;
     background-color: #547FAA;
 }
-
-.mein-card-gallery img {
-   padding: 3px;
-}
-
 
 .mein-card-bottom {
     padding: 10px;
@@ -228,6 +226,7 @@ p, a {
     font-size: 1em;
     margin: 0;
 }
+
 
 /* 
  *  Size 
@@ -269,12 +268,20 @@ p, a {
 
     .mein-card {
         height: auto;
-        
     }
 
     .mein-card-img {
-        height: 180px;
+ 
     }
+
+    .mein-card-gallery {
+
+    }
+
+    .gallery-img {
+    }
+
+
 }
 
 @media (max-width: 576px) {

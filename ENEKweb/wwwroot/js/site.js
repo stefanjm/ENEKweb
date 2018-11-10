@@ -9,26 +9,24 @@ $('.carousel .carousel-item').each(function () {
     }
     next.children(':first-child').clone().appendTo($(this));
 
-    if (next.next().length > 0) {
-        next.next().children(':first-child').clone().appendTo($(this));
-    }
-    else {
-        $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
-    }
-
-    
+   
 });
+
 
 // Set active img as main img
 $('.carousel-control-next').click(function () {
-    $(this).closest('.mein-card').find('.mein-card-img').find('img').prop('src', $(this).closest('.carousel').children('.carousel-inner')
-        .children('.active').children('img').eq(2).prop('src'));
+    // main image
+    var mainImage = $(this).closest('.mein-card').find('.mein-card-img').find('img');
+    mainImage.prop('src', $(this).closest('.carousel').children('.carousel-inner')
+        .children('.active').children('img').prop('src'));
 
 });
 
 $('.carousel-control-prev').click(function () {
-    $(this).closest('.mein-card').find('.mein-card-img').find('img').prop('src', $(this).closest('.carousel').children('.carousel-inner')
-        .children('.active').children('img').eq(2).prop('src'));
+    // main image
+    var mainImage = $(this).closest('.mein-card').find('.mein-card-img').find('img');
+    mainImage.prop('src', $(this).closest('.carousel').children('.carousel-inner')
+        .children('.active').children('img').prop('src'));
 
 });
 
@@ -40,4 +38,4 @@ $(document).ready(function () {
         $('.sidebar').toggleClass('mobile-show');
     });
 
-});
+}); 

@@ -3,6 +3,7 @@
     ViewData["Title"] = "LEIUNURK";
     // index counter for different IDs (for bootstraps carousel controls)
     int position = 0;
+    int dataNumber = 0;
     // is it the first image iterated over? for bootstrap carousel active class that has to be on at least one slide
     bool firstImg = true;
 }
@@ -47,74 +48,60 @@
                                     </a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mein-card-bottom text-left">
-                            <div class="mein-card-title">
-                                <h3>@item.Name</h3>
-                            </div>
-                            <div class="mein-card-desc">
-                                <p>@item.Description</p>
-                            </div>
+
                         </div>
                         position++;
                         firstImg = true;
                     }
-                    else {
-                        <div class="d-flex h-100 align-items-center justify-content-center">
-                            <div class="mein-card-bottom text-center">
-                                <div class="mein-card-title">
-                                    <h3>@item.Name</h3>
-                                </div>
-                                <div class="mein-card-desc">
-                                    <p>@item.Description</p>
-                                </div>
-                            </div>
-                        </div>
-                    }
-
+                    <div class="mein-card-title">
+                        <h3>@item.Name</h3>
+                    </div>
+                    <div class="mein-card-body">
+                        <p>@item.Description</p>
+                    </div>
                 </div>
             </div>
         }
-        @*<div class="col-md-4">
-                <div class="card">
-                    <img class="card-img-top" src="~/images/uploaded/leiunurk/i5eegvpl.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img class="card-img-top" src="~/images/logo/partners/gun_logo.png" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img class="card-img-top" src="~/images/logo/partners/saksa_hobused_logo.gif" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img class="card-img-top" src="~/images/logo/partners/truck_driver_logo.png" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
-            </div>*@
 
+        @*<div class="col-md-4">
+            <div class="card">
+                <img class="card-img-top" src="~/images/uploaded/leiunurk/i5eegvpl.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img class="card-img-top" src="~/images/logo/partners/gun_logo.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img class="card-img-top" src="~/images/logo/partners/saksa_hobused_logo.gif" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img class="card-img-top" src="~/images/logo/partners/truck_driver_logo.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>*@
     </div>
 </div>
