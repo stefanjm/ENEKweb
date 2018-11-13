@@ -8,32 +8,40 @@
 }
 
 <div class="container" id="leftoversContainer">
-    <h2 class="text-title">@ViewData["Title"]</h2>
+    <h2 class="text-title text-center">@ViewData["Title"]</h2>
     <div class="row">
         @foreach (var item in Model.LeiunurkItems) {
             <div class="col-md-4">
                 <div class="card card-leiunurk mb-4 shadow-sm">
                     @if (item.Images.Any()) {
+                    <div class="card-images">
                         @foreach (var itemImage in item.Images) {
                             if (firstImg) {
-                                <img class="@($"imgSlide{position}") card-image active" src="~/images/uploaded/leiunurk/@itemImage.ImageFileName">
+                                <div class="card-image active">
+                                    <img class="@($"imgSlide{position}")" src="~/images/uploaded/leiunurk/@itemImage.ImageFileName">
+                                </div>
                             }
                             else {
-                                <img class="@($"imgSlide{position}") card-image" src="~/images/uploaded/leiunurk/@itemImage.ImageFileName">
+                                <div class="card-image">
+                                    <img class="@($"imgSlide{position}")" src="~/images/uploaded/leiunurk/@itemImage.ImageFileName">
+                                </div>
                             }
 
                             firstImg = false;
                         }
 
-                        <a class="img-prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="img-next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+                        @if (item.Images.Count() > 1) {
+                            <a class="img-prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="img-next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        }
 
+                    </div>
                         <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -43,7 +51,7 @@
                         firstImg = true;
                     }
                     else {
-                        <div class="card-body justify-content-center align-items-center">
+                        <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                         </div>

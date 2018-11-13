@@ -14,22 +14,22 @@ $(document).ready(function () {
 
     // image slider
     $('.img-next').on('click', function () {
-        var currentImg = $(this).closest("div").find("img.active");
-        var nextImg = currentImg.next("img");
+        var currentImg = $(this).closest("div").find("div.active").first("img");
+        var nextImg = currentImg.next("div").first("img");
 
         if (nextImg.length) {
             currentImg.removeClass('active');
-            nextImg.addClass('active');
+            nextImg.addClass('active').show(1000);
         }
     });
 
     $('.img-prev').on('click', function () {
-        var currentImg = $(this).closest("div").find("img.active");
-        var prevImg = currentImg.prev("img");
+        var currentImg = $(this).closest("div").find("div.active").first("img");
+        var prevImg = currentImg.prev("div").first("img");
 
         if (prevImg.length) {
             currentImg.removeClass('active');
-            prevImg.addClass('active');
+            prevImg.addClass('active').show(1000);
         }
     });
 
