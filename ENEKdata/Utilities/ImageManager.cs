@@ -1,4 +1,5 @@
 ﻿using ImageProcessor;
+using ImageProcessor.Imaging.Formats;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -20,15 +21,23 @@ namespace ENEKdata.Utilities {
             foreach (var imageFile in imageFiles) {
                 if (imageFile.Length > 0 && imageFile.ContentType.Contains("image")) {
                     // Upload the image
+
+                    // Specify Format and size
+                    ISupportedImageFormat format = new JpegFormat { Quality = 70 };
+                    Size size = new Size(1280, 0);
+
+                    // Generate a random unique file name
                     var fileName = Path.GetRandomFileName();
 
+                    // Add the extension to the random name
                     fileName = Path.ChangeExtension(fileName, Path.GetExtension(imageFile.FileName));
                     var filePath = Path.Combine(PathToUpload, fileName);
                     using (var stream = new FileStream(filePath, FileMode.Create)) {
                         // Read the imageFile into ImageFactory stream, then write out to the filestream path
                         using (ImageFactory imageFactory = new ImageFactory()) {
                             imageFactory.Load(imageFile.OpenReadStream())
-                                .Resize(new Size(150, 0))
+                                .Resize(size)
+                                .Format(format)
                                 .Save(stream);
                         }
 

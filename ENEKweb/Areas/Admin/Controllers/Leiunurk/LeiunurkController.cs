@@ -129,15 +129,26 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
                 try {
 
                     ICollection<Image> ItemImages = new List<Image>();
+                    List<int> ItemImagesToRemoveIds = new List<int>();
 
-                    // Since we are using ItemEditModel which doesn't know about the Image list that every item has, 
-                    //  we'll add them to an Image list and after create the Item to be inserted to the database
-                    foreach (var modelImage in item.Images) {
-                        ItemImages.Add(new Image {
-                            Id = modelImage.Id,
-                            ImageFileName = modelImage.ImageFileName
-                        });
+
+                    // Check if user has chosen to remove all the images
+                    if (item.Images != null && item.Images.Any()) {
+
+                        // Since we are using ItemEditModel which doesn't know about the Image list that every item has, 
+                        //  we'll add them to an Image list and after create the Item to be inserted to the database
+                        foreach (var modelImage in item.Images) {
+                            ItemImages.Add(new Image {
+                                Id = modelImage.Id,
+                                ImageFileName = modelImage.ImageFileName
+                            });
+
+                            // Check if user selected the image to be removed
+                            if (modelImage.RemoveImage)
+                                ItemImagesToRemoveIds.Add(modelImage.Id);
+                        }
                     }
+
 
                     // Create Item for database insertion from the ItemEditModel class
                     Item EditedItem = new Item {
@@ -149,20 +160,12 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
                     };
 
                     // Check if new added images are the right type.
-                    if (item.ImagesToAdd != null && item.ImagesToAdd.Count > 0) {
-                        // Path where to store uploaded Images
+                    if (item.ImagesToAdd != null && item.ImagesToAdd.Any()) {
                         foreach (var img in item.ImagesToAdd) {
                             if (!img.ContentType.Contains("image")) {
                                 return StatusCode(StatusCodes.Status415UnsupportedMediaType);
                             }
                         }
-                    }
-
-                    // Add the images to remove - IDs to an int List
-                    List<int> ItemImagesToRemoveIds = new List<int>();
-                    foreach (var imageToRemove in item.Images) {
-                        if (imageToRemove.RemoveImage)
-                            ItemImagesToRemoveIds.Add(imageToRemove.Id);
                     }
 
                     await _leiunurk.EditItem(EditedItem, ItemImagesToRemoveIds, item.ImagesToAdd, imgUploadPath);

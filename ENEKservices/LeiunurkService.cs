@@ -124,9 +124,9 @@ namespace ENEKservices {
             // Might not be working the way I want it to but Transactions should ensure that when the file does not get created then it wont add the item to the database
             try {
                 using (var ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled)) {
-
                     // Add images to the item
-                    if (images.Count > 0) {
+                    if (images.Any()) {
+                     
                         // List for Images to add
                         List<Image> imagesToAdd = new List<Image>();
                         List<string> uploadedImgNames = await ImageManager.UploadImages(images, imgUploadPath);
@@ -137,7 +137,6 @@ namespace ENEKservices {
                         }
                         AddImagesToItem(newItem, imagesToAdd);
                     }
-
                     // Add item to Database
                     _context.Add(newItem);
                     await _context.SaveChangesAsync();
@@ -180,7 +179,6 @@ namespace ENEKservices {
         /// <param name="images"></param>
         /// <returns></returns>
         public Item AddImagesToItem(Item item, ICollection<Image> images) {
-            item.Images = new List<Image>();
             foreach (Image image in images) {
                 item.Images.Add(image);
             }
