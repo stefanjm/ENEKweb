@@ -23,6 +23,7 @@ namespace ENEKweb.Controllers {
             _leiunurk = leiunurkDatabase;
         }
 
+        [Route("Home")]
         public IActionResult Index() {
             return View();
         }
@@ -37,6 +38,7 @@ namespace ENEKweb.Controllers {
         //public IActionResult Partnerid() {
         //    return View();
         //}
+
         /// <summary>
         /// Display all Leiunurk items
         /// </summary>
