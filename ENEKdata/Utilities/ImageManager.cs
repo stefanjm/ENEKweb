@@ -1,15 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ImageProcessor;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ENEKdata.Utilities {
     public static class ImageManager {
 
         /// <summary>
-        /// Uploads image to the given path. Checks if file is an image, generates random name
+        /// Uploads image to the given path. Checks if file is an image, generates random name and resizes the image
         /// </summary>
         /// <returns>Image name with Extension</returns>
         public static async Task<List<string>> UploadImages(ICollection<IFormFile> imageFiles, string PathToUpload) {
@@ -24,10 +25,18 @@ namespace ENEKdata.Utilities {
                     fileName = Path.ChangeExtension(fileName, Path.GetExtension(imageFile.FileName));
                     var filePath = Path.Combine(PathToUpload, fileName);
                     using (var stream = new FileStream(filePath, FileMode.Create)) {
-                        await imageFile.CopyToAsync(stream);
+                        // Read the imageFile into ImageFactory stream, then write out to the filestream path
+                        using (ImageFactory imageFactory = new ImageFactory()) {
+                            imageFactory.Load(imageFile.OpenReadStream())
+                                .Resize(new Size(150, 0))
+                                .Save(stream);
+                        }
+
                         // Add the uploaded file name to a List
                         uploadedImgNames.Add(fileName);
                     }
+
+
                 }
                 // If not an image or wrong stream
                 else {
