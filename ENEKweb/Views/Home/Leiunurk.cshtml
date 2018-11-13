@@ -14,47 +14,49 @@
             <div class="col-md-4">
                 <div class="card card-leiunurk mb-4 shadow-sm">
                     @if (item.Images.Any()) {
-                    <div class="card-images">
-                        @foreach (var itemImage in item.Images) {
-                            if (firstImg) {
-                                <div class="card-image active">
-                                    <img class="@($"imgSlide{position}")" src="~/images/uploaded/leiunurk/@itemImage.ImageFileName">
-                                </div>
+                        <div class="card-images">
+                            @foreach (var itemImage in item.Images) {
+                                if (firstImg) {
+                                    <div class="card-image active">
+                                        <img class="@($"imgSlide{position}")" src="~/images/uploaded/leiunurk/@itemImage.ImageFileName">
+                                    </div>
+                                }
+                                else {
+                                    <div class="card-image">
+                                        <img class="@($"imgSlide{position}")" src="~/images/uploaded/leiunurk/@itemImage.ImageFileName">
+                                    </div>
+                                }
+
+                                firstImg = false;
                             }
-                            else {
-                                <div class="card-image">
-                                    <img class="@($"imgSlide{position}")" src="~/images/uploaded/leiunurk/@itemImage.ImageFileName">
-                                </div>
+
+                            @if (item.Images.Count() > 1) {
+                                <a class="img-prev">
+                                    <i class="fas fa-chevron-left"></i>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="img-next">
+                                    <i class="fas fa-chevron-right"></i>
+                                    <span class="sr-only">Next</span>
+                                </a>
                             }
 
-                            firstImg = false;
-                        }
-
-                        @if (item.Images.Count() > 1) {
-                            <a class="img-prev">
-                                <i class="fas fa-chevron-left"></i>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="img-next">
-                                <i class="fas fa-chevron-right"></i>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        }
-
-                    </div>
-                        <div class="card-body ">
+                        </div>
+                        <div class="card-body">
                             <h5 class="card-title">@item.Name</h5>
                             <p class="card-text">@item.Description</p>
                         </div>
-
                         position++;
                         firstImg = true;
                     }
                     else {
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                        <div class="card-body justify-content-center align-items-center">
                             <h5 class="card-title">@item.Name</h5>
                             <p class="card-text">@item.Description</p>
                         </div>
+                    }
+                    @if (item.Price > 0) {
+                        <div class="card-footer text-muted bg-transparent border-0">Hind: @item.Price€</div>
                     }
                 </div>
             </div>

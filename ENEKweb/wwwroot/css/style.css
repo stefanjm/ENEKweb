@@ -186,6 +186,11 @@ p, a {
     padding-left: 7px;
 }
 
+.card-leiunurk .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
 
 /*
     Helpers
