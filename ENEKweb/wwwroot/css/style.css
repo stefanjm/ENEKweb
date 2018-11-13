@@ -164,6 +164,29 @@ p, a {
 .card-leiunurk .card-text {
 }
 
+.card-leiunurk .img-prev,
+.card-leiunurk .img-next {
+    border-radius: 10%;
+    padding: 5px;
+    position: absolute;
+    top: 30%;
+    cursor: pointer;
+    transform: translate(0%,-50%);
+    background-color: rgba(74,155,255, 0.8);
+    -ms-transform: translate(0%,-50%);
+}
+
+.card-leiunurk .img-prev {
+    left: 0%;
+    padding-right: 7px;
+}
+
+.card-leiunurk .img-next {
+    right: 0%;
+    padding-left: 7px;
+}
+
+
 /*
     Helpers
 */
@@ -192,23 +215,15 @@ p, a {
 .carousel-inner .carousel-item-prev {
     transform: translateX(-25%);
 }
+
 .carousel-inner .carousel-item-right,
 .carousel-inner .carousel-item-left {
     transform: translateX(0);
 }
 
-.carousel-control-prev-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
-}
-
-.carousel-control-next-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
-}
-
 
 .gallery-img {
     padding: 2px;
- 
 }
 /*
  * Mein card styling
@@ -250,24 +265,6 @@ p, a {
     overflow: hidden;
 }
 
-.img-prev {
-    position: absolute;
-    top: 30%;
-    left: 0%;
-    transform: translate(0%,-50%);
-    -ms-transform: translate(-0%,-50%)
-}
-
-.img-next {
-    position: absolute;
-    top: 30%;
-    right: 0%;
-    transform: translate(0%,-50%);
-    -ms-transform: translate(0%,-50%)
-}
-
-
-
 .mein-card-bottom {
     padding: 5px;
 }
@@ -282,12 +279,10 @@ p, a {
     height: 350px;
     padding: 5px;
     margin: 5px;
-
 }
 
 .mein-card-title {
     color: #4A9BFF;
-   
 }
 
 .mein-card-desc p {
@@ -313,9 +308,9 @@ p, a {
         text-align: center;
     }
 
-        #mainPage .d-flex {
-            display: inline !important;
-        }
+    #mainPage .d-flex {
+        display: inline !important;
+    }
 }
 
 
@@ -326,9 +321,9 @@ p, a {
         background-color: #fff;
     }
 
-        #contactContainer p, a {
-            font-size: 1em;
-        }
+    #contactContainer p, a {
+        font-size: 1em;
+    }
 
     .contactImg {
         max-height: 100px;
@@ -337,8 +332,6 @@ p, a {
     .card-leiunurk {
         height: auto;
     }
-
-
 }
 
 @media (max-width: 576px) {
