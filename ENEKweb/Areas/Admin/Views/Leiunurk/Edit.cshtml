@@ -6,64 +6,61 @@
 }
 
 <h2>@ViewData["Title"]</h2>
-
-<h4>Item</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="imagesToDelete">Item Images</label>
-                <div id="imagesToDelete">
-                    @if (Model.Images.Count > 0) {
-                        <p class="text-info">Click on an image to remove it</p>
-                        for (int i = 0; i < Model.Images.Count; i++) {
-                            <div class="form-group form-check">
-                                <label for="@Model.Images[i].Id" class="form-check-label">
-                                    <img class="leiunurk-edit-images" src="~/images/uploaded/leiunurk/@Model.Images[i].ImageFileName" alt="itemImage" />
-                                </label>
-                                <input type="checkbox" asp-for="@Model.Images[i].RemoveImage" id="@Model.Images[i].Id" class="form-check-input" />
-                                <input type="hidden" asp-for="@Model.Images[i].Id" id="@Model.Images[i].Id" />
-                                <input type="hidden" asp-for="@Model.Images[i].ImageFileName" id="@Model.Images[i].ImageFileName" />
-                            </div>
-                        }
-                    }
-                    else {
-                        <p class="text-info">This item has no images.</p>
-                    }
-
+<div class="container-fluid p-0">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImagesToAdd" class="control-label">Upload Images</label>
-                <input type="file" asp-for="ImagesToAdd" class="form-control" multiple />
-            </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="imagesToDelete">Item Images</label>
+                    <div id="imagesToDelete">
+                        @if (Model.Images.Count > 0) {
+                            <p class="text-info">Click on an image to remove it</p>
+                            for (int i = 0; i < Model.Images.Count; i++) {
+                                <div class="form-group form-check">
+                                    <label for="@Model.Images[i].Id" class="form-check-label">
+                                        <img class="leiunurk-edit-images" src="~/images/uploaded/leiunurk/@Model.Images[i].ImageFileName" alt="itemImage" />
+                                    </label>
+                                    <input type="checkbox" asp-for="@Model.Images[i].RemoveImage" id="@Model.Images[i].Id" class="form-check-input" />
+                                    <input type="hidden" asp-for="@Model.Images[i].Id" id="@Model.Images[i].Id" />
+                                    <input type="hidden" asp-for="@Model.Images[i].ImageFileName" id="@Model.Images[i].ImageFileName" />
+                                </div>
+                            }
+                        }
+                        else {
+                            <p class="text-info">This item has no images.</p>
+                        }
 
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImagesToAdd" class="control-label">Upload Images</label>
+                    <input type="file" asp-for="ImagesToAdd" class="form-control" multiple />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
-
