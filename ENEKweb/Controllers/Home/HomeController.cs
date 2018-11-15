@@ -24,6 +24,7 @@ namespace ENEKweb.Controllers {
         }
 
         [Route("Home")]
+        [Route("/")]
         public IActionResult Index() {
             return View();
         }

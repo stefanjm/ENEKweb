@@ -34,37 +34,37 @@
     <div id="Main" class="container-fluid">
         <div class="row">
             <!-- Sidebar nav -->
-            <nav class="col-md-2 bg-light sidebar">
+            <nav class="col-md-2 sidebar">
                 <div class="sidebar-sticky">
-                    <h3 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted">
-                        <span>Veebilehed</span>
+                    <h3 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-3 mb-2">
+                        <span>VEEBILEHED</span>
                     </h3>
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link">
-                                Peapaneel
+                                <i class="fas fa-fw fa-desktop"></i>Peapaneel
                             </a>
                         </li>
                         <li class="nav-item">
                             <a asp-area="Admin" asp-controller="Tehtudtood" asp-action="Index" class="nav-link">
-                                Tehtud Tööd
+                                <i class="fas fa-fw fa-dollar-sign"></i>Tehtud Tööd
                             </a>
                         </li>
                         <li class="nav-item">
                             <a asp-area="Admin" asp-controller="Partnerid" asp-action="Index" class="nav-link">
-                                Partnerid
+                                <i class="fas fa-fw fa-handshake"></i>Partnerid
                             </a>
                         </li>
                         <li class="nav-item">
                             <a asp-area="Admin" asp-controller="Leiunurk" asp-action="Index" class="nav-link">
-                                Leiunurk
+                                <i class="fas fa-fw fa-shopping-cart"></i>Leiunurk
                             </a>
                         </li>
                     </ul>
 
                     @* Identity things *@
-                    <h3 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                        <span>Kasutaja</span>
+                    <h3 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-2">
+                        <span>KASUTAJA</span>
                     </h3>
                     <partial name="_LoginPartial" />
 

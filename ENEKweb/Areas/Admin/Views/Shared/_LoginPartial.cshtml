@@ -7,20 +7,28 @@
     <form asp-area="Admin" asp-controller="Identity" asp-action="Logout" method="post" id="logoutForm">
         <ul class="nav flex-column mb-2">
             <li class="nav-item">
-                <a asp-area="Admin" asp-controller="Manage" asp-action="Index" title="Muuda kasutaja andmeid" class="nav-link">Tervist @UserManager.GetUserName(User)</a>
+                <a asp-area="Admin" asp-controller="Manage" asp-action="Index" title="Muuda kasutaja andmeid" class="nav-link">
+                    Tervist @UserManager.GetUserName(User)
+                </a>
             </li>
 
             <li class="nav-item">
-                <a asp-area="Admin" asp-controller="Manage" asp-action="Index" title="Muuda kasutaja andmeid" class="nav-link">Kasutaja info</a>
+                <a asp-area="Admin" asp-controller="Manage" asp-action="Index" title="Muuda kasutaja andmeid" class="nav-link">
+                    <i class="fas fa-fw fa-user"></i>Kasutaja info
+                </a>
             </li>
 
 
             <li class="nav-item">
-                <a asp-area="Admin" asp-controller="Manage" asp-action="ChangePassword" title="Vaheta Parooli" class="nav-link">Vaheta Parool</a>
+                <a asp-area="Admin" asp-controller="Manage" asp-action="ChangePassword" title="Vaheta Parooli" class="nav-link">
+                    <i class="fas fa-fw fa-key"></i>Vaheta Parool
+                </a>
             </li>
 
             <li class="nav-item">
-                <button title="Logi välja" type="submit" class="nav-item nav-link btn-link btn">Logi välja</button>
+                <button title="Logi välja" type="submit" class="nav-item nav-link btn-link btn">
+                    <i class="fas fa-fw fa-user-lock"></i>Logi välja
+                </button>
             </li>
         </ul>
     </form>
