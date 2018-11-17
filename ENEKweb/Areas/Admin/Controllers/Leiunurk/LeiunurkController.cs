@@ -52,25 +52,35 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
         // POST: Admin/Leiunurk/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        // Adding Images will be refactored to be an UTILITY CLASS or CLASS LIBRARY
+        /// <summary>
+        /// POST. Create a new Item and upload images
+        /// </summary>
+        /// <param name="formItem"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price")] Item item, [Bind("Images")]ICollection<IFormFile> Images) {
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,ImagesToAdd")] ItemModel formItem) {
             if (ModelState.IsValid) {
 
                 // Check if it's an image thats being uploaded
-                if (Images.Count > 0) {
-                    foreach (var img in Images) {
+                if (formItem.ImagesToAdd != null && formItem.ImagesToAdd.Count > 0) {
+                    foreach (var img in formItem.ImagesToAdd) {
                         if (!img.ContentType.Contains("image")) {
                             return StatusCode(StatusCodes.Status415UnsupportedMediaType);
                         }
                     }
                 }
-                await _leiunurk.AddItem(item, Images, imgUploadPath);
+
+                Item newItem = new Item {
+                    Name = formItem.Name,
+                    Description = formItem.Description,
+                    Price = formItem.Price
+                };
+                await _leiunurk.AddItem(newItem, formItem.ImagesToAdd, imgUploadPath);
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(item);
+            return View(formItem);
         }
 
         // GET: Admin/Leiunurk/Edit/5
@@ -93,7 +103,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
             }
 
 
-            var editModel = new ItemEditModel {
+            var editModel = new ItemModel {
                 Id = item.Id,
                 Name = item.Name,
                 Description = item.Description,
@@ -117,7 +127,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, ItemEditModel item) {
+        public async Task<IActionResult> Edit(int id, ItemModel item) {
             if (id != item.Id) {
                 return NotFound();
             }

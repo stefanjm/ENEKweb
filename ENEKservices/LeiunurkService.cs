@@ -79,7 +79,7 @@ namespace ENEKservices {
                 using (var ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled)) {
                     // Check if any images to Add and do so
                     if (imagesToAdd != null && imagesToAdd.Any()) {
-                        // List for Images to add
+                        // List for new Images to add
                         List<Image> newImages = new List<Image>();
                         // upload the images to the given path
                         List<string> uploadedImgNames = await ImageManager.UploadImages(imagesToAdd, imgUploadPath);
@@ -125,8 +125,9 @@ namespace ENEKservices {
             try {
                 using (var ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled)) {
                     // Add images to the item
-                    if (images.Any()) {
-                     
+                    if (images != null && images.Any()) {
+                        // instantiate a new image list for the item
+                        newItem.Images = new List<Image>();
                         // List for Images to add
                         List<Image> imagesToAdd = new List<Image>();
                         List<string> uploadedImgNames = await ImageManager.UploadImages(images, imgUploadPath);
@@ -144,8 +145,8 @@ namespace ENEKservices {
                     ts.Complete();
                 }
             }
-            catch {
-
+            catch(Exception e) {
+                throw e;
             }
         }
 

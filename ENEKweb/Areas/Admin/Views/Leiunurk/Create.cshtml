@@ -1,4 +1,4 @@
-﻿@model ENEKdata.Models.Leiunurk.Item
+﻿@model ENEKweb.Areas.Admin.Models.Leiunurk.ItemModel
 
 @{
     ViewData["Title"] = "CREATE";
@@ -31,9 +31,9 @@
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Images" class="control-label">Images</label>
-                    <input asp-for="Images" type="file" multiple name="Images" class="form-control" />
-                    <span asp-validation-for="Images" class="text-danger"></span>
+                    <label asp-for="ImagesToAdd" class="control-label">Images</label>
+                    <input asp-for="ImagesToAdd" type="file" multiple name="ImagesToAdd" class="form-control" />
+                    <span asp-validation-for="ImagesToAdd" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-success" />

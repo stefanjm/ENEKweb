@@ -15,6 +15,7 @@ namespace ENEKdata.Models.Leiunurk {
         [Required]
         public string Description { get; set; }
 
+        [DataType(DataType.Currency)]
         public decimal Price { get; set; }
 
         public ICollection<Image> Images { get; set; }
