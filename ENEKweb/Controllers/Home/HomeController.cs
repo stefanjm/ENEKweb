@@ -76,6 +76,11 @@ namespace ENEKweb.Controllers {
         //    return View();
         //}
 
+        /// <summary>
+        /// Display a custom error page
+        /// </summary>
+        /// <param name="statusCode"></param>
+        /// <returns></returns>
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(int? statusCode = null) {
             if (statusCode.HasValue) {

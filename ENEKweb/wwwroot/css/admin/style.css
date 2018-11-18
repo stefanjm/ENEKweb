@@ -176,11 +176,12 @@ body {
     max-height: 150px;
 }
 
-
+.leiunurk-table-tr td {
+    vertical-align: middle;
+}
 /*
  *  DASHBOARD
  */
-
 .dashboard-card-link a {
     text-decoration: none;
     color: #fff;
