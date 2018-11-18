@@ -98,6 +98,10 @@ body {
     color: #cccccc;
 }
 
+.sidebar .nav-link:hover {
+    color: #007bff;
+}
+
 .sidebar .nav-link .fas {
     margin-right: 1em;
 }
@@ -168,6 +172,7 @@ body {
 }
 
 .leiunurk-detail-images {
+    padding: 2px;
     max-height: 150px;
 }
 
@@ -178,6 +183,11 @@ body {
 
 .dashboard-card-link a {
     text-decoration: none;
+    color: #fff;
+}
+
+.dashboard-card-link a:hover {
+    color: #007bff;
 }
 
 .dashboard-card {
@@ -202,5 +212,5 @@ body {
 }
 
 .dashboard-card .card-text {
-    
+    font-size: 1.2em;
 }

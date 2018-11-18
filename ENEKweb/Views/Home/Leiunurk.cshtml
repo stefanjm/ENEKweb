@@ -7,8 +7,18 @@
     bool firstImg = true;
 }
 
+<section class="jumbotron leiunurk-jumbotron text-center">
+    <div class="container">
+        <h2 class="text-title jumbotron-heading">@ViewData["Title"]</h2>
+        <p class="lead text-muted">
+            Mingid asjad mis mul üle on jäänud olen siia müüki pannud, kui oled huvitatud siis
+        </p>
+        <p>
+            <a href="mailto:enek@enek.ee?Subject=Soov%20osta%20Leiunurgast" target="_blank" class="leiunurk-color-button btn my-2">võta ühendust</a>
+        </p>
+    </div>
+</section>
 <div class="container" id="leftoversContainer">
-    <h2 class="text-title text-center">@ViewData["Title"]</h2>
     <div class="row">
         @foreach (var item in Model.LeiunurkItems) {
             <div class="col-md-4">

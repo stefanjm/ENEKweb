@@ -77,8 +77,14 @@ namespace ENEKweb.Controllers {
         //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error() {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        public IActionResult Error(int? statusCode = null) {
+            if (statusCode.HasValue) {
+                if (statusCode.Value == 404 || statusCode.Value == 500) {
+                    var viewName = statusCode.ToString();
+                    return View(new ErrorViewModel { ErrorCode = statusCode });
+                }
+            }
+            return View(new ErrorViewModel { ErrorCode = 0 });
         }
     }
 }
