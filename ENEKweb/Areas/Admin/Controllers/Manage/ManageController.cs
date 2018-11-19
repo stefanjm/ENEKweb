@@ -30,7 +30,9 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity.Manage {
         private readonly SignInManager<ApplicationUser> _signInManager;
 
 
-
+        /// <summary>
+        /// Store result messages for user to see
+        /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
 

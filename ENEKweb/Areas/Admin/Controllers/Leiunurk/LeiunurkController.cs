@@ -18,6 +18,13 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
         // DB context
         private readonly ILeiunurk _leiunurk;
 
+        /// <summary>
+        /// Store result messages for user to see
+        /// </summary>
+
+        [TempData]
+        public string StatusMessage { get; set; }
+
         // Path where the images are to be stored
         private readonly string imgUploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/uploaded/leiunurk");
 
@@ -77,9 +84,10 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
                     Price = formItem.Price
                 };
                 await _leiunurk.AddItem(newItem, formItem.ImagesToAdd, imgUploadPath);
-
+                StatusMessage = "The Item has been created!";
                 return RedirectToAction(nameof(Index));
             }
+
             return View(formItem);
         }
 
@@ -120,7 +128,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
         // Currently Images with checkboxes on the website itself have weird Ids and Names because the Edit Model has another list with the images,
         //  so it binds them as Images_._[1]_RemoveImage which looks not so good.
         /// <summary>
-        /// Edit the item
+        /// POST. Edit the item
         /// </summary>
         /// <param name="id"></param>
         /// <param name="item"></param>
@@ -179,6 +187,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
                     }
 
                     await _leiunurk.EditItem(EditedItem, ItemImagesToRemoveIds, item.ImagesToAdd, imgUploadPath);
+                    StatusMessage = "The Item has been edited!";
                 }
                 catch (DbUpdateConcurrencyException) {
                     if (!(await _leiunurk.ItemExists(item.Id))) {
@@ -212,6 +221,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id) {
             await _leiunurk.RemoveItem(id);
+            StatusMessage = "The Item has been deleted!";
             return RedirectToAction(nameof(Index));
         }
     }
