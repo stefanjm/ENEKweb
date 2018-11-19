@@ -15,7 +15,7 @@ namespace ENEKservices {
 
         private readonly ENEKdataDbContext _context;
         /// <summary>
-        /// get DbContext
+        /// initialize database context
         /// </summary>
         /// <param name="context"></param>
         public LeiunurkService(ENEKdataDbContext context) {
@@ -80,11 +80,11 @@ namespace ENEKservices {
                     // Check if any images to Add and do so
                     if (imagesToAdd != null && imagesToAdd.Any()) {
                         // List for new Images to add
-                        List<Image> newImages = new List<Image>();
+                        List<ItemImage> newImages = new List<ItemImage>();
                         // upload the images to the given path
                         List<string> uploadedImgNames = await ImageManager.UploadImages(imagesToAdd, imgUploadPath);
                         foreach (string imgFileName in uploadedImgNames) {
-                            newImages.Add(new Image {
+                            newImages.Add(new ItemImage {
                                 ImageFileName = imgFileName
                             });
                         }
@@ -127,12 +127,12 @@ namespace ENEKservices {
                     // Add images to the item
                     if (images != null && images.Any()) {
                         // instantiate a new image list for the item
-                        newItem.Images = new List<Image>();
+                        newItem.Images = new List<ItemImage>();
                         // List for Images to add
-                        List<Image> imagesToAdd = new List<Image>();
+                        List<ItemImage> imagesToAdd = new List<ItemImage>();
                         List<string> uploadedImgNames = await ImageManager.UploadImages(images, imgUploadPath);
                         foreach (string imgFileName in uploadedImgNames) {
-                            imagesToAdd.Add(new Image {
+                            imagesToAdd.Add(new ItemImage {
                                 ImageFileName = imgFileName
                             });
                         }
@@ -169,8 +169,8 @@ namespace ENEKservices {
         /// <param name="imageId"></param>
         /// <returns></returns>
         public async Task RemoveImageWithoutSaveChanges(int imageId) {
-            Image image = await GetImageById(imageId);
-            _context.Images.Remove(image);
+            ItemImage image = await GetImageById(imageId);
+            _context.ItemImages.Remove(image);
         }
 
         /// <summary>
@@ -179,8 +179,8 @@ namespace ENEKservices {
         /// <param name="item"></param>
         /// <param name="images"></param>
         /// <returns></returns>
-        public Item AddImagesToItem(Item item, ICollection<Image> images) {
-            foreach (Image image in images) {
+        public Item AddImagesToItem(Item item, ICollection<ItemImage> images) {
+            foreach (ItemImage image in images) {
                 item.Images.Add(image);
             }
             return item;
@@ -191,17 +191,17 @@ namespace ENEKservices {
         /// </summary>
         /// <param name="image"></param>
         /// <returns></returns>
-        public async Task AddImage(Image image) {
-            _context.Images.Add(image);
+        public async Task AddImage(ItemImage image) {
+            _context.ItemImages.Add(image);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Image> GetImageById(int? imageId) {
+        public async Task<ItemImage> GetImageById(int? imageId) {
             if (imageId == null) {
                 return null;
             }
             else {
-                return await _context.Images.FirstOrDefaultAsync(img => img.Id == imageId);
+                return await _context.ItemImages.FirstOrDefaultAsync(img => img.Id == imageId);
             }
         }
 

@@ -4,14 +4,16 @@ using ENEKdata;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ENEKdata.Migrations
 {
     [DbContext(typeof(ENEKdataDbContext))]
-    partial class ENEKdataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181119215707_Partner dbses added")]
+    partial class Partnerdbsesadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,12 +79,12 @@ namespace ENEKdata.Migrations
 
             modelBuilder.Entity("ENEKdata.Models.Partnerid.PartnerImage", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("PartnerImageId");
 
                     b.Property<string>("ImageFileName")
                         .IsRequired();
 
-                    b.HasKey("Id");
+                    b.HasKey("PartnerImageId");
 
                     b.ToTable("PartnerImages");
                 });
@@ -99,7 +101,7 @@ namespace ENEKdata.Migrations
                 {
                     b.HasOne("ENEKdata.Models.Partnerid.Partner", "Partner")
                         .WithOne("Image")
-                        .HasForeignKey("ENEKdata.Models.Partnerid.PartnerImage", "Id")
+                        .HasForeignKey("ENEKdata.Models.Partnerid.PartnerImage", "PartnerImageId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

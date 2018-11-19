@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace ENEKdata.Models.Leiunurk {
-    public class Image {
+    public class ItemImage {
         public int Id { get; set; }
         [Required]
         public string ImageFileName { get; set; }

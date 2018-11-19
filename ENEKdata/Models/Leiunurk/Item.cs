@@ -19,7 +19,10 @@ namespace ENEKdata.Models.Leiunurk {
 
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
+        /// <summary>
+        /// Create EF One to many relationship with images.
+        /// </summary>
 
-        public ICollection<Image> Images { get; set; }
+        public ICollection<ItemImage> Images { get; set; }
     }
 }

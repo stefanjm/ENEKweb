@@ -146,7 +146,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
                 // Might not actually work if we don't throw concurrency exception by ourselves.
                 try {
 
-                    ICollection<Image> ItemImages = new List<Image>();
+                    ICollection<ItemImage> ItemImages = new List<ItemImage>();
                     List<int> ItemImagesToRemoveIds = new List<int>();
 
 
@@ -156,7 +156,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
                         // Since we are using ItemEditModel which doesn't know about the Image list that every item has, 
                         //  we'll add them to an Image list and after create the Item to be inserted to the database
                         foreach (var modelImage in item.Images) {
-                            ItemImages.Add(new Image {
+                            ItemImages.Add(new ItemImage {
                                 Id = modelImage.Id,
                                 ImageFileName = modelImage.ImageFileName
                             });

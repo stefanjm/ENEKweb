@@ -1,13 +1,17 @@
-﻿using ENEKdata.Models;
-using ENEKdata.Models.Leiunurk;
+﻿using ENEKdata.Models.Leiunurk;
+using ENEKdata.Models.Partnerid;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace ENEKdata {
     public class ENEKdataDbContext : DbContext {
         public ENEKdataDbContext(DbContextOptions<ENEKdataDbContext> options) : base(options) { }
 
+        // Leiunurk
         public DbSet<Item> Items { get; set; }
-        public DbSet<Image> Images { get; set; }
+        public DbSet<ItemImage> ItemImages { get; set; }
+
+        // Partnerid
+        public DbSet<Partner> Partners { get; set; }
+        public DbSet<PartnerImage> PartnerImages { get; set; }
     }
 }

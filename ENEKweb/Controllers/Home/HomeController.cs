@@ -36,9 +36,14 @@ namespace ENEKweb.Controllers {
         //    return View();
         //}
 
-        //public IActionResult Partnerid() {
-        //    return View();
-        //}
+        /// <summary>
+        /// Display partners
+        /// </summary>
+        /// <returns></returns>
+        [Route("Partnerid")]
+        public IActionResult Partnerid() {
+            return View();
+        }
 
         /// <summary>
         /// Display all Leiunurk items

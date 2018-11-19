@@ -13,44 +13,56 @@ namespace ENEKdata.Utilities {
         /// <summary>
         /// Uploads image to the given path. Checks if file is an image, generates random name and resizes the image
         /// </summary>
+        /// <param name="imageFile"></param>
+        /// <param name="PathToUpload"></param>
+        /// <returns></returns>
+        public static async Task<string> UploadImage(IFormFile imageFile, string PathToUpload) {
+            string fileName = null;
+            if (imageFile.Length > 0 && imageFile.ContentType.Contains("image")) {
+                // Upload the image
+
+                // Specify Format and size
+                ISupportedImageFormat format = new JpegFormat { Quality = 70 };
+                Size size = new Size(1280, 0);
+
+                // Generate a random unique file name
+                fileName = Path.GetRandomFileName();
+
+                // Add the extension to the random name
+                fileName = Path.ChangeExtension(fileName, Path.GetExtension(imageFile.FileName));
+                var filePath = Path.Combine(PathToUpload, fileName);
+                using (var stream = new FileStream(filePath, FileMode.Create)) {
+                    // Read the imageFile into ImageFactory stream, then write out to the filestream path
+                    using (ImageFactory imageFactory = new ImageFactory()) {
+                        imageFactory.Load(imageFile.OpenReadStream())
+                            .Resize(size)
+                            .Format(format)
+                            .Save(stream);
+                    }
+                }
+            }
+            // If not an image or invalid stream
+            else {
+                return null;
+            }
+
+
+            return fileName;
+        }
+
+
+        /// <summary>
+        /// Upload multiple Images
+        /// </summary>
         /// <returns>Image name with Extension</returns>
         public static async Task<List<string>> UploadImages(ICollection<IFormFile> imageFiles, string PathToUpload) {
             // List of names of the uploaded Images
             List<string> uploadedImgNames = new List<string>();
             // Check if an image then upload to path
             foreach (var imageFile in imageFiles) {
-                if (imageFile.Length > 0 && imageFile.ContentType.Contains("image")) {
-                    // Upload the image
-
-                    // Specify Format and size
-                    ISupportedImageFormat format = new JpegFormat { Quality = 70 };
-                    Size size = new Size(1280, 0);
-
-                    // Generate a random unique file name
-                    var fileName = Path.GetRandomFileName();
-
-                    // Add the extension to the random name
-                    fileName = Path.ChangeExtension(fileName, Path.GetExtension(imageFile.FileName));
-                    var filePath = Path.Combine(PathToUpload, fileName);
-                    using (var stream = new FileStream(filePath, FileMode.Create)) {
-                        // Read the imageFile into ImageFactory stream, then write out to the filestream path
-                        using (ImageFactory imageFactory = new ImageFactory()) {
-                            imageFactory.Load(imageFile.OpenReadStream())
-                                .Resize(size)
-                                .Format(format)
-                                .Save(stream);
-                        }
-
-                        // Add the uploaded file name to a List
-                        uploadedImgNames.Add(fileName);
-                    }
-
-
-                }
-                // If not an image or wrong stream
-                else {
-                    return null;
-                }
+                string uploadedImgName = await UploadImage(imageFile, PathToUpload);
+                if(uploadedImgName != null)
+                    uploadedImgNames.Add(uploadedImgName);
             }
 
             return uploadedImgNames;
