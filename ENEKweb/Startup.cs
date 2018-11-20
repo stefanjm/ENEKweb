@@ -27,7 +27,7 @@ namespace ENEKweb {
         public void ConfigureServices(IServiceCollection services) {
             services.Configure<CookiePolicyOptions>(options => {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
@@ -85,10 +85,15 @@ namespace ENEKweb {
                 config.Filters.Add(new AuthorizeFilter(policy));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            // Leiunurk service
-            services.AddScoped<ILeiunurk, LeiunurkService>();
             // Identity service
             services.AddScoped<IApplicationUser, IdentityService>();
+
+            // Leiunurk service
+            services.AddScoped<ILeiunurk, LeiunurkService>();
+
+            // Partnerid service
+            services.AddScoped<IPartnerid, PartneridService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

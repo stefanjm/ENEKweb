@@ -4,6 +4,10 @@
     ADMIN ONLY ACCESSED PAGES STYLING
 
 */
+
+/*
+ *  GLOBAL 
+ */
 body {
     font-size: .875rem;
 }
@@ -19,10 +23,14 @@ body {
     padding-top: 60px; /* Space for fixed navbar */
 }
 
-
 label {
     font-size: 1.2em;
     margin-bottom: 0;
+}
+
+/* default bootstrap alert close button is off center, changing the padding so its centered */
+.alert-dismissible .close {
+    padding: 0.5rem 1.25rem;
 }
 
 /*
@@ -184,8 +192,19 @@ label {
 .leiunurk-table-tr td {
     vertical-align: middle;
 }
+
+
 /*
- *  DASHBOARD
+ *  Partnerid
+ */
+
+.partnerid-detail-images {
+    max-height: 300px;
+}
+
+
+/*
+ *  Dashboard
  */
 .dashboard-card-link a {
     text-decoration: none;

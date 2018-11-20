@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace ENEKservices {
-    class PartneridService : IPartnerid {
+    public class PartneridService : IPartnerid {
         /// <summary>
         /// Database context
         /// </summary>
@@ -68,7 +68,7 @@ namespace ENEKservices {
         /// <returns></returns>
         public async Task EditPartner(Partner editedPartner, IFormFile image, string imgUploadPath) {
             // Stop executing method if Partner with given ID doesn't exist in database
-            if(!await PartnerExists(editedPartner.Id)) {
+            if (!await PartnerExists(editedPartner.Id)) {
                 return;
             }
 
@@ -98,7 +98,7 @@ namespace ENEKservices {
         /// <param name="id"></param>
         /// <returns>Partner object</returns>
         public async Task<Partner> GetPartnerById(int? id) {
-            if(id != null) {
+            if (id != null) {
                 return await _context.Partners.AsNoTracking().Include(partner => partner.Image).FirstOrDefaultAsync(partner => partner.Id == id);
             }
             else {

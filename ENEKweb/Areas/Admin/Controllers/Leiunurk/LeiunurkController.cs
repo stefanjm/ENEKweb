@@ -15,19 +15,22 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
     [Area("Admin")]
     public class LeiunurkController : Controller {
 
-        // DB context
+        // Leiunurk service instance
         private readonly ILeiunurk _leiunurk;
 
         /// <summary>
-        /// Store result messages for user to see
+        /// Store result messages to be displayed for the user
         /// </summary>
-
         [TempData]
         public string StatusMessage { get; set; }
 
         // Path where the images are to be stored
         private readonly string imgUploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/uploaded/leiunurk");
 
+        /// <summary>
+        /// Get an instance of the Leiunurk service
+        /// </summary>
+        /// <param name="leiunurk"></param>
         public LeiunurkController(ILeiunurk leiunurk) {
             _leiunurk = leiunurk;
         }
@@ -199,6 +202,8 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            // show from again if model not valid
             return View(item);
         }
 
