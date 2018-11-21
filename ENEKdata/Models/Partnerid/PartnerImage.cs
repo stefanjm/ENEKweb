@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ENEKdata.Models.Partnerid {
     public class PartnerImage {
 
-        [ForeignKey("Partner")]
+        [Key, ForeignKey("Partner"), Column("PartnerId")]
         public int Id { get; set; }
 
         [Required]

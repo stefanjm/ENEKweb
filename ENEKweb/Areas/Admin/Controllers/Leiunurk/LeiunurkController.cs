@@ -203,7 +203,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
                 return RedirectToAction(nameof(Index));
             }
 
-            // show from again if model not valid
+            // show form again if model not valid
             return View(item);
         }
 

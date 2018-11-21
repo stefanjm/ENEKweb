@@ -1,15 +1,17 @@
-﻿using ENEKdata.Utilities;
+﻿using ENEKdata.Models.Partnerid;
+using ENEKdata.Utilities;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ENEKweb.Areas.Admin.Models.Partnerid {
 
 
     public class PartnerFormModel {
+
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(25)]
@@ -17,10 +19,23 @@ namespace ENEKweb.Areas.Admin.Models.Partnerid {
         [MaxLength(95)]
         public string Description { get; set; }
 
+        public PartnerFormImageModel Image { get; set; }
+
         [IsImage]
-        public IFormFile Image { get; set; }
+        public IFormFile UploadImage { get; set; }
+
+        public bool RemoveImage { get; set; } = false;
     }
 
+
+    public class PartnerFormImageModel {
+        public int Id { get; set; }
+
+        public string ImageFileName { get; set; }
+
+        public bool RemoveImage { get; set; }
+
+    }
 
     // Custom validation for image upload
     public class IsImageAttribute : ValidationAttribute {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
 using ENEKdata;
@@ -66,21 +67,37 @@ namespace ENEKservices {
         /// <param name="image"></param>
         /// <param name="imgUploadPath"></param>
         /// <returns></returns>
-        public async Task EditPartner(Partner editedPartner, IFormFile image, string imgUploadPath) {
+        public async Task EditPartner(Partner editedPartner, IFormFile uploadedImage, bool removeImage, string imgUploadPath) {
             // Stop executing method if Partner with given ID doesn't exist in database
             if (!await PartnerExists(editedPartner.Id)) {
                 return;
             }
 
             // Transactions should also check for the file IO, if that throws an error then it wont update the database
+            //  try and catch for DbUpdateConcurrencyException
             try {
                 using (var ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled)) {
-                    // If image is not null then change out the image
-                    if (image != null) {
-                        string uploadedImgName = await ImageManager.UploadImage(image, imgUploadPath);
-                        editedPartner.Image = new PartnerImage { ImageFileName = uploadedImgName };
-                    }
 
+                    // Get the partners Image, if has none then return null
+                    PartnerImage partnerImage = await _context.PartnerImages.Where(img => img.Id == editedPartner.Id).FirstOrDefaultAsync();
+
+                    // Check if user posted a new image to form
+                    if (uploadedImage != null) {
+                        // Remove current image from database if there's one
+
+                        string uploadedImgName = await ImageManager.UploadImage(uploadedImage, imgUploadPath);
+                        editedPartner.Image = new PartnerImage { ImageFileName = uploadedImgName };
+                        // If Partner already has an image then update its file name to the new one, otherwise the new image will be added by updating Partners entity
+                        if (partnerImage != null) {
+                            partnerImage.ImageFileName = uploadedImgName;
+                        }
+                    }
+                    // Check if the image has to be removed and do so
+                    else if (removeImage) {
+                        if (partnerImage != null) {
+                            _context.PartnerImages.Remove(partnerImage);
+                        }
+                    }
 
                     _context.Update(editedPartner);
                     await _context.SaveChangesAsync();
@@ -123,7 +140,7 @@ namespace ENEKservices {
         /// <param name="id"></param>
         /// <returns>Boolean of whether Partner exists</returns>
         public Task<bool> PartnerExists(int id) {
-            throw new System.NotImplementedException();
+            return _context.Partners.AnyAsync(e => e.Id == id);
         }
     }
 }

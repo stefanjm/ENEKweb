@@ -3,14 +3,13 @@ using ENEKdata.Models.Partnerid;
 using ENEKweb.Areas.Admin.Models.Partnerid;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace ENEKweb.Areas.Admin.Controllers.Partnerid
-{
+namespace ENEKweb.Areas.Admin.Controllers.Partnerid {
     [Area("Admin")]
-    public class PartneridController : Controller
-    {
+    public class PartneridController : Controller {
 
         // Partner service instance
         private readonly IPartnerid _partnerid;
@@ -37,8 +36,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Partnerid
         /// Display list of all Partners
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> Index()
-        {
+        public async Task<IActionResult> Index() {
             return View(await _partnerid.GetAllPartners());
         }
 
@@ -48,14 +46,13 @@ namespace ENEKweb.Areas.Admin.Controllers.Partnerid
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<IActionResult> Details(int? id)
-        {
+        public async Task<IActionResult> Details(int? id) {
             if (id == null) {
                 return NotFound();
             }
 
             Partner partner = await _partnerid.GetPartnerById(id);
-            if(partner == null) {
+            if (partner == null) {
                 return NotFound();
             }
 
@@ -63,8 +60,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Partnerid
         }
 
         // GET: Admin/Partnerid/Create
-        public ActionResult Create()
-        {
+        public ActionResult Create() {
             return View();
         }
 
@@ -76,13 +72,12 @@ namespace ENEKweb.Areas.Admin.Controllers.Partnerid
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PartnerFormModel partnerForm)
-        {
+        public async Task<IActionResult> Create([Bind("Name, Description, UploadImage")] PartnerFormModel partnerForm) {
             if (ModelState.IsValid) {
 
                 // Check if it's an image thats being uploaded
-                if (partnerForm.Image != null) {
-                    if (!partnerForm.Image.ContentType.Contains("image")) {
+                if (partnerForm.UploadImage != null) {
+                    if (!partnerForm.UploadImage.ContentType.Contains("image")) {
                         StatusMessage = "Error: uploaded image is not an image!";
                         return StatusCode(StatusCodes.Status415UnsupportedMediaType);
                     }
@@ -92,7 +87,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Partnerid
                     Description = partnerForm.Description
                 };
 
-                await _partnerid.AddPartner(partner, partnerForm.Image, imgUploadPath);
+                await _partnerid.AddPartner(partner, partnerForm.UploadImage, imgUploadPath);
                 StatusMessage = "The Partner has been created!";
                 return RedirectToAction(nameof(Index));
             }
@@ -101,47 +96,114 @@ namespace ENEKweb.Areas.Admin.Controllers.Partnerid
         }
 
         // GET: Admin/Partnerid/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
+        /// <summary>
+        /// Display Edit Partner form
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> Edit(int? id) {
+            if (id == null) {
+                return NotFound();
+            }
+            // not using items.FirstAsync() because it just adds another variety
+            Partner partner = await _partnerid.GetPartnerById(id);
+            if (partner == null) {
+                return NotFound();
+            }
+
+            // Initialize View Model
+            PartnerFormModel formModel = new PartnerFormModel {
+                Id = partner.Id,
+                Name = partner.Name,
+                Description = partner.Description
+            };
+
+            // If Partner has an image then add it
+            if (partner.Image != null) {
+                formModel.Image = new PartnerFormImageModel {
+                    Id = partner.Image.Id,
+                    ImageFileName = partner.Image.ImageFileName
+                };
+            }
+
+            return View(formModel);
         }
 
         // POST: Admin/Partnerid/Edit/5
+        /// <summary>
+        /// POST. Convert the form model to entity model and set image to null if bool removeImage is true or a new image was supplied
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="collection"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
+        public async Task<IActionResult> Edit(int id, PartnerFormModel formModel) {
+            if (id != formModel.Id) {
+                return NotFound();
+            }
 
+            if (ModelState.IsValid) {
+
+                try {
+
+                    // First check if a new image has been uploaded, if so then check if it's valid and set the remove image boolean to true since we'll replace it
+                    //  , If a new image has not been uploaded(its null) then we'll check if the current image should be removed set the boolean removeImage accordingly
+
+                    // Create edited partner object
+                    Partner editedPartner = new Partner {
+                        Id = formModel.Id,
+                        Name = formModel.Name,
+                        Description = formModel.Description
+                    };
+                    // Check if an image is uploaded(not null) and valid, 
+                    // if null then check if image was chosen to be removed
+                    if (formModel.UploadImage != null) {
+
+                        // Check if supplied image is indeed an image
+                        if (!formModel.UploadImage.ContentType.Contains("image")) {
+                            return StatusCode(StatusCodes.Status415UnsupportedMediaType);
+                        }
+
+                        // image will be replaced anyway so set the current one to be removed
+                        formModel.RemoveImage = true;
+                    }
+
+
+                    await _partnerid.EditPartner(editedPartner, formModel.UploadImage, formModel.RemoveImage, imgUploadPath);
+                    StatusMessage = "The Item has been edited!";
+                }
+                catch {
+                    if (!(await _partnerid.PartnerExists(formModel.Id))) {
+                        return NotFound();
+                    }
+                    else {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+
+
+            // show form again if model not valid
+            return View(formModel);
         }
 
         // GET: Admin/Partnerid/Delete/5
-        public ActionResult Delete(int id)
-        {
+        public ActionResult Delete(int id) {
             return View();
         }
 
         // POST: Admin/Partnerid/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
+        public ActionResult Delete(int id, IFormCollection collection) {
+            try {
                 // TODO: Add delete logic here
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
+            catch {
                 return View();
             }
         }

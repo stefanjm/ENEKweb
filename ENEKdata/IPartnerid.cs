@@ -46,7 +46,7 @@ namespace ENEKdata {
         /// <param name="image"></param>
         /// <param name="imgUploadPath"></param>
         /// <returns></returns>
-        Task EditPartner(Partner editedPartner, IFormFile image, string imgUploadPath);
+        Task EditPartner(Partner editedPartner, IFormFile uploadedImage, bool removeImage, string imgUploadPath);
 
         /// <summary>
         /// Check if Partner exists in the database
