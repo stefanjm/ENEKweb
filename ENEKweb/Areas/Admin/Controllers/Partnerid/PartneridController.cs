@@ -190,22 +190,47 @@ namespace ENEKweb.Areas.Admin.Controllers.Partnerid {
         }
 
         // GET: Admin/Partnerid/Delete/5
-        public ActionResult Delete(int id) {
-            return View();
+        /// <summary>
+        /// Get the partner and assign it to a view model for showing info about which Partner will be deleted.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> Delete(int? id) {
+            if (id == null) {
+                return NotFound();
+            }
+
+            var partner = await _partnerid.GetPartnerById(id);
+            if (partner == null) {
+                return NotFound();
+            }
+
+            PartnerFormModel partnerModel = new PartnerFormModel {
+                Id = partner.Id,
+                Name = partner.Name,
+                Description = partner.Description
+            };
+
+            // Add the image to viewmodel if Partner has one
+            if (partner.Image != null) {
+                partnerModel.Image = new PartnerFormImageModel { Id = partner.Image.Id, ImageFileName = partner.Image.ImageFileName };
+            }
+
+            return View(partnerModel);
         }
 
         // POST: Admin/Partnerid/Delete/5
+        /// <summary>
+        /// Delete Partner with given Id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection) {
-            try {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch {
-                return View();
-            }
+        public async Task<IActionResult> Delete(int id) {
+            await _partnerid.RemovePartner(id);
+            StatusMessage = "The Item has been deleted!";
+            return RedirectToAction(nameof(Index));
         }
     }
 }

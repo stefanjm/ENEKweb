@@ -1,0 +1,48 @@
+﻿@model ENEKweb.Areas.Admin.Models.Partnerid.PartnerFormModel
+@{
+    ViewData["Title"] = "DELETE";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h2 class="text-danger">Are you sure you want to delete this?</h2>
+<h4>Partner</h4>
+<hr />
+<div class="container-fluid p-0">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Image)
+                </dt>
+                <dd>
+                    @if (Model.Image != null) {
+                        <img class="partnerid-detail-images" src="~/images/uploaded/partnerid/@Model.Image.ImageFileName" alt="partnerLogo" />
+                    }
+                    else {
+                        <p class="text-info">This Partner does not have an image.</p>
+                    }
+                </dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Delete" class="btn btn-danger" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </form>
+        </div>
+    </div>
+</div>

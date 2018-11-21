@@ -73,7 +73,7 @@ namespace ENEKservices {
                 return;
             }
 
-            // Transactions should also check for the file IO, if that throws an error then it wont update the database
+            // Transaction for IO not working as of now
             //  try and catch for DbUpdateConcurrencyException
             try {
                 using (var ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled)) {
