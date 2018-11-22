@@ -14,13 +14,16 @@ namespace ENEKweb.Controllers {
 
         // Database context interface
         private readonly ILeiunurk _leiunurk;
+        private readonly IPartnerid _partnerid;
 
         /// <summary>
-        /// Get the injected database service methods
+        /// Get the injected service methods
         /// </summary>
-        /// <param name="leiunurkDatabase"></param>
-        public HomeController(ILeiunurk leiunurkDatabase) {
-            _leiunurk = leiunurkDatabase;
+        /// <param name="leiunurkService"></param>
+        /// <param name="partneridService"></param>
+        public HomeController(ILeiunurk leiunurkService, IPartnerid partneridService) {
+            _leiunurk = leiunurkService;
+            _partnerid = partneridService;
         }
 
         [Route("Home")]
@@ -41,8 +44,23 @@ namespace ENEKweb.Controllers {
         /// </summary>
         /// <returns></returns>
         [Route("Partnerid")]
-        public IActionResult Partnerid() {
-            return View();
+        public async Task<IActionResult> Partnerid() {
+            var partnerid = await _partnerid.GetAllPartners();
+            // since an image can be null, we can't use Linq Select method to assing values like in Leiunurk method. Back to the old days bois
+            List<PartneridIndexListingModel> partneridListing = new List<PartneridIndexListingModel>();
+            foreach (var partner in partnerid) {
+                PartneridIndexListingModel addPartner = new PartneridIndexListingModel {
+                    Name = partner.Name,
+                    Description = partner.Description
+                };
+
+                if (partner.Image != null)
+                    addPartner.Image = new PartnerImageModel { ImageFileName = partner.Image.ImageFileName };
+
+                partneridListing.Add(addPartner);
+            }
+            var model = new PartneridIndexModel() { PartneridViewList = partneridListing };
+            return View(model);
         }
 
         /// <summary>
@@ -52,8 +70,8 @@ namespace ENEKweb.Controllers {
         [Route("Leiunurk")]
         public async Task<IActionResult> Leiunurk() {
 
-            var leiuNurkItems = await _leiunurk.GetAllItems();
-            var itemsListing = leiuNurkItems.Select(result => new LeiunurkIndexListingModel {
+            var leiunurkItems = await _leiunurk.GetAllItems();
+            var itemsListing = leiunurkItems.Select(result => new LeiunurkIndexListingModel {
                 Id = result.Id,
                 Name = result.Name,
                 Description = result.Description,
@@ -63,7 +81,7 @@ namespace ENEKweb.Controllers {
                 })
             });
 
-            var model = new LeiunurkIndexModel() { LeiunurkItems = itemsListing };
+            var model = new LeiunurkIndexModel() { LeiunurkItemsViewList = itemsListing };
             return View(model);
         }
 

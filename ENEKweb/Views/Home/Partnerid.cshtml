@@ -1,4 +1,4 @@
-﻿
+﻿@model ENEKweb.Models.PartneridIndexModel
 @{
     ViewData["Title"] = "PARTNERID";
 }
@@ -7,118 +7,29 @@
     <h2 class="text-title">@ViewData["Title"]</h2>
     <div class="row">
 
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/truck_driver_logo.png" alt="partner_logo" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Rekkajuhid OÜ</h3>
-                </div>
-                <div class="mein-card-body">
-                    <p>plaplaplaplapapl</p>
-                </div>
-            </div>
-        </div>
+        @foreach (var partner in Model.PartneridViewList) {
 
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/banaanid_company_logo.jpg" alt="partner_logo" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Banaanikogu OÜ</h3>
-                </div>
-            </div>
-        </div>
+            <div class="col-sm-4">
+                <div class="mein-card-partners">
+                    @if (partner.Image != null) {
+                        <div class="mein-card-img">
+                            <img src="~/images/uploaded/partnerid/@partner.Image.ImageFileName" alt="partner_logo" />
+                        </div>
+                    }
 
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/gun_logo.png" alt="partner_logo" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Püstolid FIE</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/truck_driver_logo.png" alt="partner_logo" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Rekkajuhid OÜ</h3>
-                </div>
-            </div>
-        </div>
+                    <div class="mein-card-title">
+                        <h3>@partner.Name</h3>
+                    </div>
 
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/banaanid_company_logo.jpg" alt="partner_logo" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Banaanikogu OÜ</h3>
+                    @if (partner.Description != null && partner.Description != "") {
+                        <div class="mein-card-body">
+                            <p>@partner.Description</p>
+                        </div>
+                    }
+
                 </div>
             </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/gun_logo.png" alt="partner_logo" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Püstolid FIE</h3>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/gun_logo.png" alt="partner_logo" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Püstolid FIE</h3>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/gun_logo.png" alt="partner_logo" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Püstolid FIE</h3>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/gun_logo.png" alt="partner_logo" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Püstolid FIE</h3>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/gun_logo.png" alt="partner_logo" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Püstolid FIE</h3>
-                </div>
-            </div>
-        </div>
+        }
 
     </div>
 
