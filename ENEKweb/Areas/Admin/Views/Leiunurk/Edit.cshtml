@@ -37,14 +37,15 @@
                         @if (Model.Images != null && Model.Images.Count > 0) {
                             <p class="text-info">Click on an image to remove it</p>
                             for (int i = 0; i < Model.Images.Count; i++) {
-                                <div class="form-group form-check">
-                                    <label for="@Model.Images[i].Id" class="form-check-label">
-                                        <img class="leiunurk-edit-images" src="~/images/uploaded/leiunurk/@Model.Images[i].ImageFileName" alt="itemImage" />
-                                    </label>
-                                    <input type="checkbox" asp-for="@Model.Images[i].RemoveImage" id="@Model.Images[i].Id" class="form-check-input" />
-                                    <input type="hidden" asp-for="@Model.Images[i].Id" id="@Model.Images[i].Id" />
-                                    <input type="hidden" asp-for="@Model.Images[i].ImageFileName" id="@Model.Images[i].ImageFileName" />
-                                </div>
+                            <div class="form-group form-check">
+                                <input type="hidden" asp-for="@Model.Images[i].Id" />
+                                <input type="hidden" asp-for="@Model.Images[i].ImageFileName"/>
+                                <input type="checkbox" asp-for="@Model.Images[i].RemoveImage" id="@Model.Images[i].Id" class="form-check-input leiunurk-edit-check-input" />
+                                <label for="@Model.Images[i].Id.ToString()" class="form-check-label">
+                                    <img class="leiunurk-edit-images" src="~/images/uploaded/leiunurk/@Model.Images[i].ImageFileName" alt="itemImage" />
+                                </label>
+
+                            </div>
                             }
                         }
                         else {

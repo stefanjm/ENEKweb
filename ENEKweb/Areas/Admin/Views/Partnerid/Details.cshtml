@@ -26,11 +26,17 @@
                     @Html.DisplayFor(model => model.Description)
                 </dd>
                 <dt>
+                    Partner Website Link
+                </dt>
+                <dd>
+                    <a href="@Html.DisplayFor(model => model.PartnerURL)" target="_blank">@Html.DisplayFor(model => model.PartnerURL)</a>
+                </dd>
+                <dt>
                     @Html.DisplayNameFor(model => model.Image)
                 </dt>
                 <dd>
                     @if (Model.Image != null) {
-                    <img class="partnerid-detail-images" src="~/images/uploaded/partnerid/@Model.Image.ImageFileName" alt="partnerLogo" />
+                        <img class="partnerid-detail-images" src="~/images/uploaded/partnerid/@Model.Image.ImageFileName" alt="partnerLogo" />
                     }
                     else {
                         <p class="text-info">This Partner does not have an image.</p>

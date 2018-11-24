@@ -4,14 +4,16 @@ using ENEKdata;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ENEKdata.Migrations
 {
     [DbContext(typeof(ENEKdataDbContext))]
-    partial class ENEKdataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181124220145_Partner URL added to model")]
+    partial class PartnerURLaddedtomodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,15 +67,12 @@ namespace ENEKdata.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(95);
+                    b.Property<string>("Description");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(25);
+                        .IsRequired();
 
-                    b.Property<string>("PartnerURL")
-                        .HasMaxLength(80);
+                    b.Property<string>("PartnerURL");
 
                     b.HasKey("Id");
 

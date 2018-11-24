@@ -72,7 +72,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Partnerid {
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name, Description, UploadImage")] PartnerFormModel partnerForm) {
+        public async Task<IActionResult> Create([Bind("Name, Description, PartnerURL, UploadImage")] PartnerFormModel partnerForm) {
             if (ModelState.IsValid) {
 
                 // Check if it's an image thats being uploaded
@@ -84,7 +84,8 @@ namespace ENEKweb.Areas.Admin.Controllers.Partnerid {
                 }
                 Partner partner = new Partner {
                     Name = partnerForm.Name,
-                    Description = partnerForm.Description
+                    Description = partnerForm.Description,
+                    PartnerURL = partnerForm.PartnerURL
                 };
 
                 await _partnerid.AddPartner(partner, partnerForm.UploadImage, imgUploadPath);
@@ -115,7 +116,8 @@ namespace ENEKweb.Areas.Admin.Controllers.Partnerid {
             PartnerFormModel formModel = new PartnerFormModel {
                 Id = partner.Id,
                 Name = partner.Name,
-                Description = partner.Description
+                Description = partner.Description,
+                PartnerURL = partner.PartnerURL
             };
 
             // If Partner has an image then add it
@@ -154,7 +156,8 @@ namespace ENEKweb.Areas.Admin.Controllers.Partnerid {
                     Partner editedPartner = new Partner {
                         Id = formModel.Id,
                         Name = formModel.Name,
-                        Description = formModel.Description
+                        Description = formModel.Description,
+                        PartnerURL = formModel.PartnerURL
                     };
                     // Check if an image is uploaded(not null) and valid, 
                     // if null then check if image was chosen to be removed

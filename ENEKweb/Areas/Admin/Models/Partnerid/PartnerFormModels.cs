@@ -16,9 +16,12 @@ namespace ENEKweb.Areas.Admin.Models.Partnerid {
         [Required]
         [MaxLength(25)]
         public string Name { get; set; }
+
         [MaxLength(95)]
         public string Description { get; set; }
 
+        [MaxLength(80)]
+        public string PartnerURL { get; set; }
         public PartnerFormImageModel Image { get; set; }
 
         [IsImage]

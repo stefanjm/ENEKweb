@@ -189,6 +189,10 @@ label {
     max-height: 150px;
 }
 
+.leiunurk-edit-check-input:checked + label {
+    opacity: 0.1;
+}
+
 .leiunurk-table-tr td {
     vertical-align: middle;
 }
@@ -198,13 +202,14 @@ label {
  *  Partnerid
  */
 
-.partnerid-detail-images {
-    max-height: 300px;
+.partnerid-detail-images, .partnerid-edit-image {
+    max-width: 300px;
 }
 
-.partnerid-edit-image {
-    max-height: 200px;
+.partnerid-edit-check-input:checked + label {
+    opacity: 0.1;
 }
+
 
 /*
  *  Dashboard

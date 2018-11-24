@@ -51,7 +51,8 @@ namespace ENEKweb.Controllers {
             foreach (var partner in partnerid) {
                 PartneridIndexListingModel addPartner = new PartneridIndexListingModel {
                     Name = partner.Name,
-                    Description = partner.Description
+                    Description = partner.Description,
+                    PartnerURL = partner.PartnerURL                    
                 };
 
                 if (partner.Image != null)

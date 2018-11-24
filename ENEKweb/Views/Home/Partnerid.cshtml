@@ -10,32 +10,52 @@
         @foreach (var partner in Model.PartneridViewList) {
 
             <div class="col-md-4">
-                <div class="card card-partnerid">
+                <div class="card-partnerid-container">
+                    <div class="card card-partnerid border-0">
 
-                    @if (partner.Image != null) {
-                        <div class="justify-content-center align-items-center" style="height:400px;">
-                            <div class="mein-card-img">
+                        @if (partner.Image != null) {
+
+                        <div class="card-image">
+                            @if (partner.PartnerURL != null && partner.PartnerURL != "") {
+                                <a href="@partner.PartnerURL" target="_blank">
+                                    <img src="~/images/uploaded/partnerid/@partner.Image.ImageFileName" alt="partner_logo" />
+                                </a>
+                            }
+                            else {
                                 <img src="~/images/uploaded/partnerid/@partner.Image.ImageFileName" alt="partner_logo" />
-                            </div>
+                            }
+
+                        </div>
 
                             <div class="card-body">
-                                <h5 class="card-title">@partner.Name</h5>
+                                @if (partner.PartnerURL != null & partner.PartnerURL != "") {
+                                    <h5 class="card-title"><a href="@partner.PartnerURL" target="_blank">@partner.Name</a></h5>
+                                }
+                                else {
+                                    <h5 class="card-title">@partner.Name</h5>
+                                }
                                 @if (partner.Description != null) {
                                     <p class="card-text">@partner.Description</p>
                                 }
                             </div>
-                        </div>
-                    }
-                    else {
-                        <div class="justify-content-center align-items-center" style="height:400px;display:flex;">
+
+                        }
+                        else {
+
                             <div class="card-body">
-                                <h5 class="card-title">@partner.Name</h5>
+                                @if (partner.PartnerURL != null && partner.PartnerURL != "") {
+                                    <h5 class="card-title"><a href="@partner.PartnerURL" target="_blank">@partner.Name</a></h5>
+                                }
+                                else {
+                                    <h5 class="card-title">@partner.Name</h5>
+                                }
                                 @if (partner.Description != null) {
                                     <p class="card-text">@partner.Description</p>
                                 }
                             </div>
-                        </div>
-                    }
+
+                        }
+                    </div>
                 </div>
             </div>
         }
