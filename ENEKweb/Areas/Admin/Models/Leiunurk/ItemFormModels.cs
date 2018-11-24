@@ -40,7 +40,7 @@ namespace ENEKweb.Areas.Admin.Models.Leiunurk {
 
     // Custom validation for image upload
     public class IsImageAttribute : ValidationAttribute {
-        private readonly string  _errorMsg = "The Image must be one of these types: jpg, jpeg, gif, png";
+        private readonly string  _errorMsg = "The Image must be one of these types: jpg, jpeg, png";
 
     
         protected override ValidationResult IsValid(object value, ValidationContext validationContext) {

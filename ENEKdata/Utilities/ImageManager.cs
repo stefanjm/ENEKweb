@@ -22,7 +22,7 @@ namespace ENEKdata.Utilities {
                 // Upload the image
 
                 // Specify Format and size
-                ISupportedImageFormat format = new JpegFormat { Quality = 70 };
+                ISupportedImageFormat format = new PngFormat { Quality = 70 };
                 Size size = new Size(1280, 0);
 
                 // Generate a random unique file name

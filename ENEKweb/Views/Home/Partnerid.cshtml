@@ -9,28 +9,35 @@
 
         @foreach (var partner in Model.PartneridViewList) {
 
-            <div class="col-sm-4">
-                <div class="mein-card-partners">
+            <div class="col-md-4">
+                <div class="card card-partnerid">
+
                     @if (partner.Image != null) {
-                        <div class="mein-card-img">
-                            <img src="~/images/uploaded/partnerid/@partner.Image.ImageFileName" alt="partner_logo" />
+                        <div class="justify-content-center align-items-center" style="height:400px;">
+                            <div class="mein-card-img">
+                                <img src="~/images/uploaded/partnerid/@partner.Image.ImageFileName" alt="partner_logo" />
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title">@partner.Name</h5>
+                                @if (partner.Description != null) {
+                                    <p class="card-text">@partner.Description</p>
+                                }
+                            </div>
                         </div>
                     }
-
-                    <div class="mein-card-title">
-                        <h3>@partner.Name</h3>
-                    </div>
-
-                    @if (partner.Description != null && partner.Description != "") {
-                        <div class="mein-card-body">
-                            <p>@partner.Description</p>
+                    else {
+                        <div class="justify-content-center align-items-center" style="height:400px;display:flex;">
+                            <div class="card-body">
+                                <h5 class="card-title">@partner.Name</h5>
+                                @if (partner.Description != null) {
+                                    <p class="card-text">@partner.Description</p>
+                                }
+                            </div>
                         </div>
                     }
-
                 </div>
             </div>
         }
-
     </div>
-
 </div>

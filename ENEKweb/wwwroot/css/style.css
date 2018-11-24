@@ -120,6 +120,32 @@ p, a {
 
 
 /*
+ *  PARTNERID page
+ */
+
+/*
+ *  PARTNERID CARD and IMAGES
+ */
+
+.card-partnerid {
+    height: 300px;
+}
+
+.card-partnerid .card-body {
+}
+
+.card-partnerid .card-title {
+    color: #4A9BFF;
+}
+
+.card-partnerid .card-text p {
+    font-size: 1em;
+    margin: 0;
+}
+
+
+
+/*
  *   LEIUNURK page
  */
 .leiunurk-jumbotron.jumbotron {

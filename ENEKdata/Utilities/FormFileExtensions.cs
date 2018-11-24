@@ -18,6 +18,7 @@ namespace ENEKdata.Utilities {
     /// 
     /// 
 
+    // Not allowing GIFs since .net core throws an exception with System.Drawing
     public static class FormFileExtensions {
         public const int ImageMinimumBytes = 512;
 
@@ -28,7 +29,7 @@ namespace ENEKdata.Utilities {
             if (postedFile.ContentType.ToLower() != "image/jpg" &&
                         postedFile.ContentType.ToLower() != "image/jpeg" &&
                         postedFile.ContentType.ToLower() != "image/pjpeg" &&
-                        postedFile.ContentType.ToLower() != "image/gif" &&
+                        //postedFile.ContentType.ToLower() != "image/gif" &&
                         postedFile.ContentType.ToLower() != "image/x-png" &&
                         postedFile.ContentType.ToLower() != "image/png") {
                 return false;
@@ -39,7 +40,7 @@ namespace ENEKdata.Utilities {
             //-------------------------------------------
             if (Path.GetExtension(postedFile.FileName).ToLower() != ".jpg"
                 && Path.GetExtension(postedFile.FileName).ToLower() != ".png"
-                && Path.GetExtension(postedFile.FileName).ToLower() != ".gif"
+                //&& Path.GetExtension(postedFile.FileName).ToLower() != ".gif"
                 && Path.GetExtension(postedFile.FileName).ToLower() != ".jpeg") {
                 return false;
             }

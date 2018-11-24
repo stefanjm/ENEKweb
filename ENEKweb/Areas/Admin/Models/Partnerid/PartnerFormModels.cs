@@ -22,6 +22,7 @@ namespace ENEKweb.Areas.Admin.Models.Partnerid {
         public PartnerFormImageModel Image { get; set; }
 
         [IsImage]
+        [DataType(DataType.Upload)]
         public IFormFile UploadImage { get; set; }
 
         public bool RemoveImage { get; set; } = false;
@@ -39,22 +40,17 @@ namespace ENEKweb.Areas.Admin.Models.Partnerid {
 
     // Custom validation for image upload
     public class IsImageAttribute : ValidationAttribute {
-        private readonly string _errorMsg = "The Image must be one of these types: jpg, jpeg, gif, png";
+        private readonly string _errorMsg = "The Image must be one of these types: jpg, jpeg, png";
 
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext) {
 
-            ICollection<IFormFile> images = value as ICollection<IFormFile>;
-            if (images != null && images.Any()) {
-                foreach (var img in images) {
-                    if (!FormFileExtensions.IsImage(img)) {
-                        return new ValidationResult(_errorMsg);
-                    }
-
+            IFormFile image = value as IFormFile;
+            if (image != null) {
+                if (!FormFileExtensions.IsImage(image)) {
+                    return new ValidationResult(_errorMsg);
                 }
             }
-
-
             return ValidationResult.Success;
         }
     }
