@@ -59,6 +59,10 @@ p, a {
     color: #000;
 }
 
+.navbar-dark .navbar-nav .nav-link a:active {
+    color: #000;
+}
+
 .navbar-dark .navbar-nav .nav-item.active {
     color: #000;
 }
