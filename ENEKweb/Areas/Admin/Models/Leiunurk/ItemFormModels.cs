@@ -17,7 +17,7 @@ namespace ENEKweb.Areas.Admin.Models.Leiunurk {
         [MaxLength(95)]
         public string Description { get; set; }
 
-        [DataType(DataType.Currency)]
+        [DataType(DataType.Currency, ErrorMessage = "Must be a digit and separated by a comma ( , ), or 0 if there's no price")]
         public decimal Price { get; set; }
 
         public IList<ImageEditModel> Images { get; set; }
