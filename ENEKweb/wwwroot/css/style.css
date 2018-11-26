@@ -8,7 +8,7 @@ html {
 
 body {
     padding-top: 65px;
-    padding-bottom: 37px;
+    padding-bottom: 36px;
     background-color: #ffffff;
     height: 100%;
 }
@@ -34,7 +34,7 @@ p, a {
     font-family: 'Montserrat';
     color: #313638;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 1.1em;
 }
 
 .text-no-pad-marg p {
@@ -132,6 +132,32 @@ p, a {
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
+/*
+ *  TEHTUD TÖÖD page
+ */
+
+.card-tehtudtood {
+
+}
+
+.card-tehtudtood .card-title {
+    color: #4A9BFF;
+    font-size: 1.7em;
+    margin-bottom: 0px;
+}
+
+/*.card-tehtudtood .card-image {
+    height: 100%;
+}*/
+
+.card-tehtudtood .card-image img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.card-tehtudtood .card-text {
+    font-size: 1.1em;
+}
 
 /*
  *  PARTNERID page
@@ -183,8 +209,8 @@ p, a {
     font-size: 1.6em;
 }
 
-.card-partnerid .card-text p {
-    font-size: 1em;
+.card-partnerid .card-text {
+    font-size: 1.1em;
     margin: 0;
 }
 
