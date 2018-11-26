@@ -15,7 +15,7 @@ namespace ENEKservices {
 
         private readonly ENEKdataDbContext _context;
         /// <summary>
-        /// initialize database context
+        /// Initialize database context
         /// </summary>
         /// <param name="context"></param>
         public LeiunurkService(ENEKdataDbContext context) {
@@ -165,7 +165,6 @@ namespace ENEKservices {
         /// <summary>
         /// Remove an image from the Item without saving changes to database
         /// </summary>
-        /// <param name="itemId"></param>
         /// <param name="imageId"></param>
         /// <returns></returns>
         public async Task RemoveImageWithoutSaveChanges(int imageId) {

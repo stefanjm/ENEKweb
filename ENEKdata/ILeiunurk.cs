@@ -15,7 +15,7 @@ namespace ENEKdata {
 
         //IEnumerable<Image> GetAllImages();
 
-        Task<Item> GetItemById(int? Id);
+        Task<Item> GetItemById(int? id);
         Task AddItem(Item newItem, ICollection<IFormFile> images, string imgUploadPath);
         Task RemoveItem(int id);
         Task EditItem(Item editedItem, List<int> imagesToRemoveIds, ICollection<IFormFile> imagesToAdd, string imgUploadPath);

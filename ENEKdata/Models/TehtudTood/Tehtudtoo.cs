@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ENEKdata.Models.TehtudTood {
@@ -10,8 +11,13 @@ namespace ENEKdata.Models.TehtudTood {
 
         [Required]
         public string Name { get; set; }
+        
+        [Required]
+        [Range(4,4)]
+        public int YearDone { get; set; }
 
-        public string Description { get; set; }
+
+        public string BuildingType { get; set; }
 
         /// <summary>
         /// Create EF One to many relationship with images.
