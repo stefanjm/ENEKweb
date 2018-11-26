@@ -22,7 +22,6 @@ namespace ENEKdata.Models.Leiunurk {
         /// <summary>
         /// Create EF One to many relationship with images.
         /// </summary>
-
         public ICollection<ItemImage> Images { get; set; }
     }
 }

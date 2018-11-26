@@ -4,23 +4,24 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using ENEKdata.Models.Leiunurk;
 
 namespace ENEKweb.Areas.Admin.Models.Leiunurk {
-    public class ItemModel {
+    public class ItemModel : Item{
 
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
-        [Required]
-        [MaxLength(25)]
-        public string Name { get; set; }
-        [Required]
-        [MaxLength(95)]
-        public string Description { get; set; }
+        //[Required]
+        //[MaxLength(25)]
+        //public string Name { get; set; }
+        //[Required]
+        //[MaxLength(95)]
+        //public string Description { get; set; }
 
-        [DataType(DataType.Currency, ErrorMessage = "Must be a digit and separated by a comma ( , ), or 0 if there's no price")]
-        public decimal Price { get; set; }
+        //[DataType(DataType.Currency, ErrorMessage = "Must be a digit and separated by a comma ( , ), or 0 if there's no price")]
+        //public decimal Price { get; set; }
 
-        public IList<ImageEditModel> Images { get; set; }
+        public new IList<ImageEditModel> Images { get; set; }
 
         [IsImage]
         [DataType(DataType.Upload)]

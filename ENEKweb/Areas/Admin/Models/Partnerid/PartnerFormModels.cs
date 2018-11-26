@@ -9,20 +9,22 @@ using System.Linq;
 namespace ENEKweb.Areas.Admin.Models.Partnerid {
 
 
-    public class PartnerFormModel {
+    public class PartnerFormModel  : Partner{
 
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
-        [Required]
-        [MaxLength(25)]
-        public string Name { get; set; }
+        //[Required]
+        //[MaxLength(25)]
+        //public string Name { get; set; }
 
-        [MaxLength(95)]
-        public string Description { get; set; }
+        //[MaxLength(95)]
+        //public string Description { get; set; }
 
-        [MaxLength(80)]
-        public string PartnerURL { get; set; }
-        public PartnerFormImageModel Image { get; set; }
+        //[MaxLength(80)]
+        //public string PartnerURL { get; set; }
+
+        // override Image property 
+        public new PartnerFormImageModel Image { get; set; }
 
         [IsImage]
         [DataType(DataType.Upload)]
@@ -36,8 +38,6 @@ namespace ENEKweb.Areas.Admin.Models.Partnerid {
         public int Id { get; set; }
 
         public string ImageFileName { get; set; }
-
-        public bool RemoveImage { get; set; }
 
     }
 
