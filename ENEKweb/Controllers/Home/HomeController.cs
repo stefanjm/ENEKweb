@@ -32,12 +32,16 @@ namespace ENEKweb.Controllers {
             return View();
         }
 
-        //public IActionResult Tehtudtood()
-        //{
-        //    ViewData["Message"] = "Your application description page.";
+        /// <summary>
+        /// Display tehtud tööd
+        /// </summary>
+        /// <returns></returns>
+        [Route("Tehtudtood")]
+        public IActionResult Tehtudtood() {
+            ViewData["Message"] = "Your application description page.";
 
-        //    return View();
-        //}
+            return View();
+        }
 
         /// <summary>
         /// Display partners
@@ -65,7 +69,7 @@ namespace ENEKweb.Controllers {
         }
 
         /// <summary>
-        /// Display all Leiunurk items
+        /// Display Leiunurk items
         /// </summary>
         /// <returns></returns>
         [Route("Leiunurk")]

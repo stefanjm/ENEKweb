@@ -271,7 +271,7 @@ p, a {
 
 
 /*
-    Helpers
+    Helpers, style specific
 */
 .padding-right-small-imp {
     padding-bottom: 15px !important;
@@ -279,10 +279,17 @@ p, a {
     padding-right: 3px !important;
 }
 
+.homestyle-color-button-link {
+    font-weight: bold;
+    background-color: #4D7EA8;
+}
+
+.homestyle-color-button-link:hover {
+    color: #000;
+}
 
 
 /* Carousel specific */
-
 .carousel-inner .carousel-item.active,
 .carousel-inner .carousel-item-next,
 .carousel-inner .carousel-item-prev {
@@ -308,6 +315,8 @@ p, a {
 .gallery-img {
     padding: 2px;
 }
+
+
 /*
  * Mein card styling
  */
@@ -373,6 +382,16 @@ p, a {
     margin: 0;
 }
 
+
+/*
+ *  ERROR page
+ */
+
+#errorPage {
+    height: 100%;
+    text-align: center;
+    padding-top: 15%;
+}
 
 /* 
  *  Size 
