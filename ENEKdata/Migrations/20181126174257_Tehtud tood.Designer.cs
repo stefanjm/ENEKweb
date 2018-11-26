@@ -4,14 +4,16 @@ using ENEKdata;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ENEKdata.Migrations
 {
     [DbContext(typeof(ENEKdataDbContext))]
-    partial class ENEKdataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181126174257_Tehtud tood")]
+    partial class Tehtudtood
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

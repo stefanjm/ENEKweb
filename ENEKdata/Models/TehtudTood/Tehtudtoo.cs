@@ -1,23 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ENEKdata.Models.Leiunurk {
-    public class Item {
-        
+namespace ENEKdata.Models.TehtudTood {
+    /// <summary>
+    /// Tehtud töö model
+    /// </summary>
+    public class TehtudToo {
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(25)]
         public string Name { get; set; }
-        [Required]
-        [MaxLength(95)]
+
         public string Description { get; set; }
 
-        [DataType(DataType.Currency)]
-        public decimal Price { get; set; }
         /// <summary>
         /// Create EF One to many relationship with images.
         /// </summary>
-        public ICollection<ItemImage> Images { get; set; }
+        public ICollection<TehtudTooImage> Images { get; set; }
+
     }
 }

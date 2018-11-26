@@ -1,5 +1,6 @@
 ﻿using ENEKdata.Models.Leiunurk;
 using ENEKdata.Models.Partnerid;
+using ENEKdata.Models.TehtudTood;
 using Microsoft.EntityFrameworkCore;
 
 namespace ENEKdata {
@@ -13,5 +14,10 @@ namespace ENEKdata {
         // Partnerid
         public DbSet<Partner> Partners { get; set; }
         public DbSet<PartnerImage> PartnerImages { get; set; }
+
+        // Tehtud tööd
+        public DbSet<TehtudToo> TehtudTood { get; set; }
+        public DbSet<TehtudTooImage> TehtudTooImages { get; set; }
+
     }
 }
