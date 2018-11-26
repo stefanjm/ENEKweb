@@ -67,10 +67,12 @@ p, a {
     color: #000;
 }
 
+.navbar-brand-logo img{
+    max-height:50px;
+}
 /*
     Footer
 */
-
 #footer {
     margin-top: 10px;
     background-color: #4D7EA8;

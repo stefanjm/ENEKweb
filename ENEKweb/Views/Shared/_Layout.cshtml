@@ -39,7 +39,7 @@
                 <button class="navbar-toggler bg-dark" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand" style="margin:0;padding:0;"><img src="~/images/logo/enek_logo_png.png" style="max-height:50px;" /></a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand navbar-brand-logo" style="margin:0;padding:0;"><img src="~/images/logo/enek_logo_png.png" /></a>
             </div>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
@@ -48,6 +48,9 @@
                             HOME<span class="sr-only">(current)</span>
                         </a>
                     </li>
+                    @*<li class="nav-item">
+                        <a asp-area="" asp-controller="Home" asp-action="Firmast" class="nav-link">FIRMAST</a>
+                    </li>*@
                     <li class="nav-item">
                         <a asp-area="" asp-controller="Home" asp-action="Tehtudtood" class="nav-link">TEHTUD TÖÖD</a>
                     </li>

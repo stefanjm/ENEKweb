@@ -33,6 +33,15 @@ namespace ENEKweb.Controllers {
         }
 
         /// <summary>
+        /// Display Firmast
+        /// </summary>
+        /// <returns></returns>
+        //[Route("Firmast")]
+        //public IActionResult Firmast() {
+        //    return View();
+        //}
+
+        /// <summary>
         /// Display tehtud tööd
         /// </summary>
         /// <returns></returns>
