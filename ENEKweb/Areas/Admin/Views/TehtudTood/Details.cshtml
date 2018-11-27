@@ -1,0 +1,54 @@
+﻿@model  ENEKweb.Areas.Admin.Models.TehtudTood.TehtudTooModel
+@{
+    ViewData["Title"] = "DETAILS";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>@ViewData["Title"]</h2>
+<h4>Tehtud Töö</h4>
+<hr />
+
+<div class="container-fluid p-0">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.YearDone)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.YearDone)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.BuildingType)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.BuildingType)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Images)
+                </dt>
+                <dd>
+                    @if (Model.Images.Count > 0) {
+                        foreach (var image in Model.Images) {
+                            <img class="tehtudtood-detail-images" src="~/images/uploaded/tehtudtood/@image.ImageFileName" alt="tehtudTooImage" />
+                        }
+                    }
+                    else {
+                        <p class="text-info">No images.</p>
+                    }
+                </dd>
+            </dl>
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>

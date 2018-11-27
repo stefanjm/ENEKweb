@@ -94,6 +94,9 @@ namespace ENEKweb {
             // Partnerid service
             services.AddScoped<IPartnerid, PartneridService>();
 
+            // Tehtud Tööd service
+            services.AddScoped<ITehtudTood, TehtudToodService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

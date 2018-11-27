@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace ENEKservices {
-    public class TehtudTooService : ITehtudTood {
+    public class TehtudToodService : ITehtudTood {
 
         /// <summary>
         /// Database context
@@ -22,7 +22,7 @@ namespace ENEKservices {
         /// Initialize database context
         /// </summary>
         /// <param name="context"></param>
-        public TehtudTooService(ENEKdataDbContext context) {
+        public TehtudToodService(ENEKdataDbContext context) {
             _context = context;
         }
 
@@ -62,7 +62,7 @@ namespace ENEKservices {
                     // Add images to Tehtud töö
                     if (images != null && images.Any()) {
                         // instantiate a new image list for Tehtud töö
-                        //newTehtudToo.Images = new List<TehtudTooImage>();
+                        newTehtudToo.Images = new List<TehtudTooImage>();
                         // List for Images to add
                         List<TehtudTooImage> imagesToAdd = new List<TehtudTooImage>();
                         List<string> uploadedImgNames = await ImageManager.UploadImages(images, imgUploadPath);
@@ -72,7 +72,7 @@ namespace ENEKservices {
                             });
                         }
                         // Add images to the new Tehtud töö
-                        foreach (TehtudTooImage img in newTehtudToo.Images) { newTehtudToo.Images.Add(img); };
+                        foreach (TehtudTooImage img in imagesToAdd) { newTehtudToo.Images.Add(img); };
                     }
                     // Add Tehtud töö to Database
                     _context.Add(newTehtudToo);
@@ -92,7 +92,9 @@ namespace ENEKservices {
             if (!await TehtudTooExists(editedTehtudToo.Id)) {
                 return;
             }
-            // Transactions should also check for the file IO, if that throws an error then it wont update the database
+
+            // Transaction for IO not working as of now
+            //  try and catch for DbUpdateConcurrencyException
             try {
                 using (var ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled)) {
                     // Check if any images to Add and do so
@@ -107,7 +109,7 @@ namespace ENEKservices {
                             });
                         }
                         // Add images to the new Tehtud töö
-                        foreach (TehtudTooImage img in editedTehtudToo.Images) { editedTehtudToo.Images.Add(img); };
+                        foreach (TehtudTooImage img in newImages) { editedTehtudToo.Images.Add(img); };
                     }
 
                     // Check if any images to remove and do so

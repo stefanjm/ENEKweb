@@ -72,7 +72,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
         public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,ImagesToAdd")] ItemModel formItem) {
             if (ModelState.IsValid) {
 
-                // Check if it's an image thats being uploaded
+                // Check if it's images that are being uploaded
                 if (formItem.ImagesToAdd != null && formItem.ImagesToAdd.Count > 0) {
                     foreach (var img in formItem.ImagesToAdd) {
                         if (!img.ContentType.Contains("image")) {
@@ -156,7 +156,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
                     // Check if user has chosen to remove all the images
                     if (item.Images != null && item.Images.Any()) {
 
-                        // Since we are using ItemEditModel which doesn't know about the Image list that every item has, 
+                        // Since we are using ItemModel which doesn't know about the Image list that every item has, 
                         //  we'll add them to an Image list and after create the Item to be inserted to the database
                         foreach (var modelImage in item.Images) {
                             ItemImages.Add(new ItemImage {
@@ -222,6 +222,11 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
         }
 
         // POST: Admin/Leiunurk/Delete/5
+        /// <summary>
+        /// POST. Delete the item
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id) {

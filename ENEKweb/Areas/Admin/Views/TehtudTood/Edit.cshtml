@@ -1,5 +1,4 @@
-﻿@model ENEKweb.Areas.Admin.Models.Leiunurk.ItemModel
-
+﻿@model ENEKweb.Areas.Admin.Models.TehtudTood.TehtudTooModel
 @{
     ViewData["Title"] = "EDIT";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -15,22 +14,19 @@
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
                     <p class="text-info m-0">Required</p>
-                    <p class="text-info m-0">Max 25 characters</p>
                     <input asp-for="Name" class="form-control" maxlength="25" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Description" class="control-label"></label>
+                    <label asp-for="YearDone" class="control-label"></label>
                     <p class="text-info m-0">Required</p>
-                    <p class="text-info m-0">Max 95 characters</p>
-                    <textarea asp-for="Description" class="form-control" maxlength="95"></textarea>
-                    <span asp-validation-for="Description" class="text-danger"></span>
+                    <input asp-for="YearDone" type="number" class="form-control" min="2000" max="2050" />
+                    <span asp-validation-for="YearDone" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Price" class="control-label"></label>
-                    <p class="text-info m-0">Must be a digit and separated by a comma ( , ), or 0 if there's no price</p>
-                    <input asp-for="Price" class="form-control" />
-                    <span asp-validation-for="Price" class="text-danger"></span>
+                    <label asp-for="BuildingType" class="control-label"></label>
+                    <input asp-for="BuildingType" class="form-control" />
+                    <span asp-validation-for="BuildingType" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label for="imagesToDelete" class="control-label">Item Images</label>
@@ -41,16 +37,16 @@
                                 <div class="form-group form-check">
                                     <input type="hidden" asp-for="@Model.Images[i].Id" />
                                     <input type="hidden" asp-for="@Model.Images[i].ImageFileName" />
-                                    <input type="checkbox" asp-for="@Model.Images[i].RemoveImage" id="@Model.Images[i].Id" class="form-check-input leiunurk-edit-check-input" />
+                                    <input type="checkbox" asp-for="@Model.Images[i].RemoveImage" id="@Model.Images[i].Id" class="form-check-input tehtudtood-edit-check-input" />
                                     <label for="@Model.Images[i].Id.ToString()" class="form-check-label">
-                                        <img class="leiunurk-edit-images" src="~/images/uploaded/leiunurk/@Model.Images[i].ImageFileName" alt="itemImage" />
+                                        <img class="tehtudtood-edit-images" src="~/images/uploaded/tehtudtood/@Model.Images[i].ImageFileName" alt="tehtudTooImage" />
                                     </label>
 
                                 </div>
                             }
                         }
                         else {
-                            <p class="text-info">This item has no images.</p>
+                            <p class="text-info">No images.</p>
                         }
 
                     </div>

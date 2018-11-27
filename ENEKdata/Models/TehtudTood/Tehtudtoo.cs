@@ -13,7 +13,7 @@ namespace ENEKdata.Models.TehtudTood {
         public string Name { get; set; }
         
         [Required]
-        [Range(4,4)]
+        [Range(2000,2050)]
         public int YearDone { get; set; }
 
 

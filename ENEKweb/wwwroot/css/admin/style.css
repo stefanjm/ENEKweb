@@ -33,10 +33,15 @@ label {
     padding: 0.5rem 1.25rem;
 }
 
+/* center table rows */
+.admin-table-tr td{
+    vertical-align: middle;
+}
+
+
 /*
  * Navbar
  */
-
 .navbar-brand {
     padding-top: .75rem;
     padding-bottom: .75rem;
@@ -175,11 +180,26 @@ label {
 }
 
 
+/*
+ *  Tehtud tööd
+ */
+.tehtudtood-edit-images, .tehtudtood-delete-images {
+    max-height: 300px;
+}
+
+.tehtudtood-detail-images {
+    padding: 2px;
+    max-height: 150px;
+}
+
+.tehtudtood-edit-check-input:checked + label {
+    opacity: 0.1;
+}
+
 
 /*
  * Leiunurk 
  */
-
 .leiunurk-edit-images, .leiunurk-delete-images {
     max-height: 100px;
 }
@@ -191,10 +211,6 @@ label {
 
 .leiunurk-edit-check-input:checked + label {
     opacity: 0.1;
-}
-
-.leiunurk-table-tr td {
-    vertical-align: middle;
 }
 
 
