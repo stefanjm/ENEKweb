@@ -1,6 +1,10 @@
-﻿
+﻿@model ENEKweb.Models.TehtudToodIndexModel
 @{
     ViewData["Title"] = "TEHTUD TÖÖD";
+    // index counter for different IDs (for bootstraps carousel controls)
+    int position = 0;
+    // is it the first image iterated over? for bootstrap carousel active class that has to be on at least one slide
+    bool firstImg = true;
 }
 
 <section class="jumbotron leiunurk-jumbotron text-center">
@@ -14,41 +18,57 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12 mb-5">
-            <div class="card card-tehtudtood shadow-sm">
-                <div class="card-image"><img src="~/images/uploaded/leiunurk/ddazib5o.jpg" ></div>
-                <div class="card-body">
-                    <p class="card-title">Järvamaa kanal</p>
-                    <p class="text-muted mb-2">2016-2018</p>
-                    <p class="card-text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.
-                        Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!
-                    </p>
-                   
-                </div>
 
+        @foreach (var tehtudToodYears in Model.TehtudToodYears) {
+            <div class="tehtudtood-title-year">
+                <a href="#@tehtudToodYears">@tehtudToodYears</a>
+                @foreach (var tehtudToo in Model.TehtudToodViewList) {
+                    if (tehtudToodYears != tehtudToo.YearDone) {
+                        continue;
+                    }
+                    <div class="col-md-12 mb-5">
+                        <div class="card card-tehtudtood shadow-sm">
+                            @if (tehtudToo.Images != null && tehtudToo.Images.Any()) {
+                                <div class="card-images">
+                                    @foreach (var image in tehtudToo.Images) {
+
+                                        if (firstImg) {
+                                            <div class="card-image active"><img class="@($"imgSlide{position}")" src="~/images/uploaded/tehtudtood/@image.ImageFileName"></div>
+                                            firstImg = false;
+                                        }
+                                        else {
+                                            <div class="card-image"><img class="@($"imgSlide{position}")" src="~/images/uploaded/tehtudtood/@image.ImageFileName"></div>
+                                        }
+                                    }
+
+                                    @if (tehtudToo.Images.Count() > 1) {
+                                        <a class="img-prev">
+                                            <i class="fas fa-chevron-left"></i>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="img-next">
+                                            <i class="fas fa-chevron-right"></i>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    }
+                                    <div class="card-body">
+                                        <p class="card-title text-left">@tehtudToo.Name</p>
+                                        <p class="card-text text-left">@tehtudToo.BuildingType</p>
+                                    </div>
+                                </div>
+                                position++;
+                                firstImg = true;
+                            }
+                            else {
+                                <div class="card-body text-center">
+                                    <p class="card-title">@tehtudToo.Name</p>
+                                    <p class="card-text">@tehtudToo.BuildingType</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
             </div>
-        </div>
-
-
-        <div class="col-md-12 mb-5">
-            <div class="card card-tehtudtood">
-                <div class="card-image"><img src="~/images/uploaded/leiunurk/1qqrexos.jpg"></div>
-                <div class="card-body">
-                    <p class="card-title">Post Title</p>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                    <a href="#" class="btn btn-primary">Read More &rarr;</a>
-                </div>
-                <div class="card-footer text-muted">
-                    Posted on January 1, 2017 by
-                    <a href="#">Start Bootstrap</a>
-                </div>
-            </div>
-        </div>
-
+        }
     </div>
 </div>

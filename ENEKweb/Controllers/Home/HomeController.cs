@@ -15,15 +15,17 @@ namespace ENEKweb.Controllers {
         // Database context interface
         private readonly ILeiunurk _leiunurk;
         private readonly IPartnerid _partnerid;
+        private readonly ITehtudTood _tehtudTood;
 
         /// <summary>
         /// Get the injected service methods
         /// </summary>
         /// <param name="leiunurkService"></param>
         /// <param name="partneridService"></param>
-        public HomeController(ILeiunurk leiunurkService, IPartnerid partneridService) {
+        public HomeController(ILeiunurk leiunurkService, IPartnerid partneridService, ITehtudTood tehtudToodService) {
             _leiunurk = leiunurkService;
             _partnerid = partneridService;
+            _tehtudTood = tehtudToodService;
         }
 
         [Route("Home")]
@@ -46,10 +48,34 @@ namespace ENEKweb.Controllers {
         /// </summary>
         /// <returns></returns>
         [Route("Tehtudtood")]
-        public IActionResult Tehtudtood() {
-            ViewData["Message"] = "Your application description page.";
+        public async Task<IActionResult> Tehtudtood() {
+            var tehtudTood = await _tehtudTood.GetAllTehtudTood();
+            IList<TehtudToodIndexListingModel> tehtudToodListing = new List<TehtudToodIndexListingModel>();
+            // List for the years when the jobs were done.
+            IList<int> yearsDoneIn = new List<int>();
 
-            return View();
+            // Assing queried objects to a list
+            foreach(var tehtudToo in tehtudTood) {
+                // Check if we have the job done year already in the list, if not add it.
+                if(!yearsDoneIn.Contains(tehtudToo.YearDone)) {
+                    yearsDoneIn.Add(tehtudToo.YearDone);
+                }
+                // Create and add a view model to the listing
+                tehtudToodListing.Add(new TehtudToodIndexListingModel {
+                    Name = tehtudToo.Name,
+                    YearDone = tehtudToo.YearDone,
+                    BuildingType = tehtudToo.BuildingType,
+                    Images = tehtudToo.Images.Select(imgresult => new TehtudTooImages {
+                        ImageFileName = imgresult.ImageFileName
+                    })
+                });
+            }
+
+            // Sort the years done in list to show highest first.
+            yearsDoneIn.OrderByDescending(i => i);
+
+            var model = new TehtudToodIndexModel() { TehtudToodViewList = tehtudToodListing , TehtudToodYears = yearsDoneIn };
+            return View(model);
         }
 
         /// <summary>

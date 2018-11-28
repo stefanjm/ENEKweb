@@ -67,8 +67,8 @@ p, a {
     color: #000;
 }
 
-.navbar-brand-logo img{
-    max-height:50px;
+.navbar-brand-logo img {
+    max-height: 50px;
 }
 /*
     Footer
@@ -137,7 +137,6 @@ p, a {
  */
 
 .card-tehtudtood {
-
 }
 
 .card-tehtudtood .card-title {
@@ -146,27 +145,74 @@ p, a {
     margin-bottom: 0px;
 }
 
-/*.card-tehtudtood .card-image {
+.card-tehtudtood .card-body {
+}
+
+.card-tehtudtood .card-images {
+    min-width: 100%;
+}
+
+.card-tehtudtood .card-image {
+    opacity: 0;
+    height: 0;
+    width: 0;
+    transition: all .3s ease .15s;
+}
+
+.card-tehtudtood .card-image.active {
+    opacity: 1;
     height: 100%;
-}*/
+    width: 100%;
+    justify-content: center;
+    overflow: hidden;
+}
 
 .card-tehtudtood .card-image img {
     max-height: 100%;
     max-width: 100%;
 }
 
-.card-tehtudtood .card-text {
-    font-size: 1.1em;
+.card-tehtudtood .img-prev,
+.card-tehtudtood .img-next {
+    border-radius: 10%;
+    padding: 5px;
+    position: absolute;
+    top: 40%;
+    cursor: pointer;
+    transform: translate(0%,-50%);
+    background-color: rgba(74,155,255, 0.8);
+    -ms-transform: translate(0%,-50%);
 }
+
+.card-tehtudtood .img-prev {
+    left: 0%;
+    padding-right: 7px;
+}
+
+.card-tehtudtood .img-next {
+    right: 0%;
+    padding-left: 7px;
+}
+
+.tehtudtood-title-year {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.tehtudtood-title-year a {
+    text-align: center;
+    font-size: 3em;
+    color: #4D7EA8;
+}
+
 
 /*
  *  PARTNERID page
  */
-
 /*
  *  PARTNERID CARD and IMAGES
  */
-
 .card-partnerid {
     margin-top: 10px;
     margin-bottom: 10px;
