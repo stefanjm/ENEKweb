@@ -13,6 +13,15 @@
         <p class="lead text-muted">
             Meie poolt täide viidud objektid.
         </p>
+        @if (Model.TehtudToodYears != null & Model.TehtudToodYears.Any()) {
+            <p class="mb-0">Vali aasta </p>
+            <ul class="list-inline">
+                @foreach(var years in Model.TehtudToodYears) {
+                    <li class="list-inline-item"><a href="#@years">@years</a></li>
+                }
+            </ul>
+        }
+
     </div>
 </section>
 
@@ -20,8 +29,8 @@
     <div class="row">
 
         @foreach (var tehtudToodYears in Model.TehtudToodYears) {
-            <div class="tehtudtood-title-year">
-                <a href="#@tehtudToodYears">@tehtudToodYears</a>
+            <div class="tehtudtood-title-year-container">
+                <p class="tehtudtood-title-year" id="@tehtudToodYears">@tehtudToodYears</p>
                 @foreach (var tehtudToo in Model.TehtudToodViewList) {
                     if (tehtudToodYears != tehtudToo.YearDone) {
                         continue;
@@ -71,4 +80,5 @@
             </div>
         }
     </div>
+    <a href="" id="backToTopButton" class="btn btn-lg btn-primary" role="button" title="Vajuta, et minna tagasi lehe algusesse" data-toggle="tooltip" data-placement="left"><i class="fas fa-angle-double-up"></i></a>
 </div>

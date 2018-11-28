@@ -139,13 +139,17 @@ p, a {
 .card-tehtudtood {
 }
 
+.card-tehtudtood .card-body {
+}
+
 .card-tehtudtood .card-title {
     color: #4A9BFF;
     font-size: 1.7em;
     margin-bottom: 0px;
 }
 
-.card-tehtudtood .card-body {
+.card-tehtudtood .card-text {
+
 }
 
 .card-tehtudtood .card-images {
@@ -194,16 +198,38 @@ p, a {
     padding-left: 7px;
 }
 
-.tehtudtood-title-year {
+.tehtudtood-title-year-container {
     margin-top: 30px;
     margin-bottom: 15px;
     width: 100%;
 }
 
-.tehtudtood-title-year a {
+.tehtudtood-title-year {
     text-align: center;
     font-size: 3em;
     color: #4D7EA8;
+}
+
+/* For jumping to a year by link, since navbar is fixed it hides the div it jumps to behind the navbar, so we add a fix to unhide the jumped to div
+    Thanks: https://css-tricks.com/hash-tag-links-padding/ 
+*/
+.tehtudtood-title-year:before {
+    display: block;
+    content: " ";
+    margin-top: -60px;
+    height: 60px;
+}
+
+
+/*
+    Button to scroll back to top
+*/
+#backToTopButton {
+    cursor: pointer;
+    position: fixed;
+    bottom: 60px;
+    right: 40px;
+    display: none;
 }
 
 
