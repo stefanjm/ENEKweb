@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -15,8 +16,12 @@ namespace ENEKweb {
             CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+        // Run specified startup config ( Development, Production, Default)
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) {
+            var assemblyName = typeof(Startup).GetTypeInfo().Assembly.FullName;
+
+            return WebHost.CreateDefaultBuilder(args)
+                .UseStartup(assemblyName);
+        }
     }
 }
