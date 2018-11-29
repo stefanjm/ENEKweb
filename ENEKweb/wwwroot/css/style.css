@@ -67,6 +67,11 @@ p, a {
     color: #000;
 }*/
 
+.navbar-brand-logo {
+    margin: 0;
+    padding: 0;
+}
+
 .navbar-brand-logo img {
     max-height: 50px;
 }
