@@ -59,13 +59,13 @@ p, a {
     color: #000;
 }
 
-.navbar-dark .navbar-nav .nav-link a:active {
+.navbar-nav .nav-item .nav-link:focus {
     color: #000;
 }
 
-.navbar-dark .navbar-nav .nav-item.active {
+/*.navbar-dark .navbar-nav .nav-item.active {
     color: #000;
-}
+}*/
 
 .navbar-brand-logo img {
     max-height: 50px;
@@ -116,6 +116,18 @@ p, a {
 .mainp-icons {
     width: 100%;
 }
+
+/*
+ *  FIRMAST page
+ */
+
+#firmastContainer {
+    background-color: #EDEDED;
+    padding: 30px;
+    margin: 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
 
 /*
  *  KONTAKT page
@@ -517,6 +529,16 @@ p, a {
 
 
 @media (max-width: 768px) {
+    #firmastContainer {
+        padding: 0px;
+        box-shadow: none;
+        background-color: #fff;
+    }
+
+    #firmastContainer p, a {
+        font-size: 1em;
+    }
+    
     #contactContainer {
         padding: 0px;
         box-shadow: none;
@@ -533,6 +555,14 @@ p, a {
 
     .card-leiunurk {
         height: auto;
+    }
+
+    .card-tehtudtood .card-body .card-title {
+        font-size: 1.5em;
+    }
+
+    .card-tehtudtood .card-body {
+        padding-left: 10px;
     }
 }
 

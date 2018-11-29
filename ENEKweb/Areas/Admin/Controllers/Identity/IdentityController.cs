@@ -62,20 +62,13 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity {
         /// <returns></returns>
         public async Task<IActionResult> Create() {
 
-            var result = await _userManager.CreateAsync(new ApplicationUser {
-                UserName = "stefan818@gmail.com",
-                Email = "stefan818@gmail.com"
-            }, "password");
-
-            if (result.Succeeded) {
-                return Content("User was created", "text/html");
+            if(await _userManager.FindByEmailAsync("stefan@andromatech.com") == null) {
+                await _userManager.CreateAsync(new ApplicationUser {
+                    UserName = "stefan@andromatech.com",
+                    Email = "stefan@andromatech.com"
+                }, "password");
             }
-
-            return Content("User creation FAILED", "text/html");
-        }
-
-        public IActionResult Private() {
-            return Content($"This is a private area lel {HttpContext.User.Identity.Name}", "text/html");
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
 
         /// <summary>
