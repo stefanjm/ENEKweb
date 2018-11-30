@@ -60,6 +60,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity {
         /// Temporary create an account
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         public async Task<IActionResult> Create() {
 
             if(await _userManager.FindByEmailAsync("stefan@andromatech.com") == null) {

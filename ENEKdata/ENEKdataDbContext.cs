@@ -7,6 +7,10 @@ namespace ENEKdata {
     public class ENEKdataDbContext : DbContext {
         public ENEKdataDbContext(DbContextOptions<ENEKdataDbContext> options) : base(options) { }
 
+        protected override void OnModelCreating(ModelBuilder builder) {
+            builder.ForNpgsqlUseIdentityColumns();
+        }
+
         // Leiunurk
         public DbSet<Item> Items { get; set; }
         public DbSet<ItemImage> ItemImages { get; set; }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IdentityData.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class postgresql : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

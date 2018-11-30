@@ -1,11 +1,13 @@
-﻿using ImageProcessor;
-using ImageProcessor.Imaging.Formats;
-using Microsoft.AspNetCore.Http;
-using System;
+﻿using Microsoft.AspNetCore.Http;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.PixelFormats;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
+using SixLabors.Primitives;
+using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.Formats.Jpeg;
 
 namespace ENEKdata.Utilities {
     public static class ImageManager {
@@ -22,22 +24,24 @@ namespace ENEKdata.Utilities {
                 // Upload the image
 
                 // Specify Format and size
-                ISupportedImageFormat format = new PngFormat { Quality = 70 };
-                Size size = new Size(1280, 0);
+                Size imgSize = new Size(1280,0);
 
                 // Generate a random unique file name
                 fileName = Path.GetRandomFileName();
 
                 // Add the extension to the random name
-                fileName = Path.ChangeExtension(fileName, Path.GetExtension(imageFile.FileName));
+                //fileName = Path.ChangeExtension(fileName, Path.GetExtension(imageFile.FileName));
+                // we will save the img as png
+                fileName = Path.ChangeExtension(fileName, "jpg");
                 var filePath = Path.Combine(PathToUpload, fileName);
+                JpegEncoder encoder = new JpegEncoder() {
+                    Quality = 70
+                };
                 using (var stream = new FileStream(filePath, FileMode.Create)) {
                     // Read the imageFile into ImageFactory stream, then write out to the filestream path
-                    using (ImageFactory imageFactory = new ImageFactory()) {
-                        imageFactory.Load(imageFile.OpenReadStream())
-                            .Resize(size)
-                            .Format(format)
-                            .Save(stream);
+                    using (Image<Rgba32> image = Image.Load(imageFile.OpenReadStream())) {
+                        image.Mutate(ctx => ctx.Resize(imgSize));
+                        image.SaveAsJpeg(stream, encoder);
                     }
                 }
             }

@@ -20,8 +20,10 @@ namespace ENEKweb {
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) {
             var assemblyName = typeof(Startup).GetTypeInfo().Assembly.FullName;
 
+            // For this one use 
             return WebHost.CreateDefaultBuilder(args)
-                .UseStartup(assemblyName);
+                .UseStartup(assemblyName)
+                .UseUrls("http://localhost:5001/");
         }
     }
 }

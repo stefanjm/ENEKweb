@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IdentityData.Migrations
 {
     [DbContext(typeof(IdentityDataDbContext))]
-    [Migration("20181027180014_Initial Migration")]
-    partial class InitialMigration
+    [Migration("20181130180255_postgresql")]
+    partial class postgresql
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
