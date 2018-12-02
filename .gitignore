@@ -8,12 +8,12 @@
 *.sln.docstates
 
 # Do not include user uploaded images except the placeholders
-wwwroot/images/uploaded/leiunurk/*
-wwwroot/images/uploaded/partnerid/*
-wwwroot/images/uploaded/tehtudtood/*
-!wwwroot/images/uploaded/leiunurk/placeholder.png
-!wwwroot/images/uploaded/partnerid/placeholder.png
-!wwwroot/images/uploaded/tehtudtood/placeholder.png
+ENEKweb/wwwroot/images/uploaded/leiunurk/*
+ENEKweb/wwwroot/images/uploaded/partnerid/*
+ENEKweb/wwwroot/images/uploaded/tehtudtood/*
+!ENEKweb/wwwroot/images/uploaded/leiunurk/placeholder.png
+!ENEKweb/wwwroot/images/uploaded/partnerid/placeholder.png
+!ENEKweb/wwwroot/images/uploaded/tehtudtood/placeholder.png
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
