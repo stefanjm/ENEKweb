@@ -7,7 +7,7 @@
 *.userosscache
 *.sln.docstates
 
-# Do not include user uploaded images, except the placeholders
+# Do not include user uploaded images except the placeholders
 wwwroot/images/uploaded/leiunurk/*
 wwwroot/images/uploaded/partnerid/*
 wwwroot/images/uploaded/tehtudtood/*
