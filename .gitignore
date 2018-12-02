@@ -7,10 +7,13 @@
 *.userosscache
 *.sln.docstates
 
-# Don't include user uploaded images
+# Don't include user uploaded images, except the placeholders
 wwwroot/images/uploaded/leiunurk/*
 wwwroot/images/uploaded/partnerid/*
 wwwroot/images/uploaded/tehtudtood/*
+!wwwroot/images/uploaded/leiunurk/placeholder.png
+!wwwroot/images/uploaded/partnerid/placeholder.png
+!wwwroot/images/uploaded/tehtudtood/placeholder.png
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
