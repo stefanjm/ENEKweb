@@ -77,7 +77,7 @@ namespace ENEKdata.Utilities {
             //-------------------------------------------
 
             try {
-                // Read the imageFile into ImageFactory stream, then write out to the filestream path
+                // ImageSharp load the image from stream
                 using (Image<Rgba32> image = Image.Load(postedFile.OpenReadStream())) {
                 }
             }
