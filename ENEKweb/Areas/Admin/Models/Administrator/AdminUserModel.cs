@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ENEKweb.Areas.Admin.Models.Manage {
-    public class UserModel {
+namespace ENEKweb.Areas.Admin.Models.Administrator {
+    public class AdminUserModel {
+
+        public string Id { get; set; }
 
         public string Username { get; set; }
 
