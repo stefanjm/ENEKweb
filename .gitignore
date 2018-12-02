@@ -7,6 +7,11 @@
 *.userosscache
 *.sln.docstates
 
+# Don't include user uploaded images
+wwwroot/images/uploaded/leiunurk/*
+wwwroot/images/uploaded/partnerid/*
+wwwroot/images/uploaded/tehtudtood/*
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
