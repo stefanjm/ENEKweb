@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
+using SixLabors.ImageSharp;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace ENEKdata.Utilities {
 
@@ -77,7 +77,8 @@ namespace ENEKdata.Utilities {
             //-------------------------------------------
 
             try {
-                using (var bitmap = new System.Drawing.Bitmap(postedFile.OpenReadStream())) {
+                // Read the imageFile into ImageFactory stream, then write out to the filestream path
+                using (Image<Rgba32> image = Image.Load(postedFile.OpenReadStream())) {
                 }
             }
             catch (Exception) {
