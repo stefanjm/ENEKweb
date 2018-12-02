@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ENEKweb.Areas.Admin.Models.Manage;
 using IdentityData;
 using IdentityData.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -153,6 +154,31 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity.Manage {
             StatusMessage = "Your password has been changed.";
 
             return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// List all registered users. Page only for admins
+        /// </summary>
+        /// <returns></returns>
+        [Authorize(Roles = "admin")]
+        public ActionResult ListUsers() {
+            // double check if user is in admin role, if not then return to homepage
+            if(!User.IsInRole("admin")) {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+            IList<ApplicationUser> users = _userManager.Users.ToList();
+            IList<UserModel> userIndexModels = new List<UserModel>();
+            if(users != null) {
+                foreach(var user in users) {
+                    userIndexModels.Add(new UserModel {
+                        Id = user.Id,
+                        Username = user.UserName,
+                        Email = user.Email,
+                        PhoneNumber = user.PhoneNumber
+                    });
+                }
+            }
+            return View(userIndexModels);
         }
     }
 }

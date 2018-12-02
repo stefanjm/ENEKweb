@@ -57,22 +57,6 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity {
         }
 
         /// <summary>
-        /// Temporary create an account
-        /// </summary>
-        /// <returns></returns>
-        [AllowAnonymous]
-        public async Task<IActionResult> Create() {
-
-            if(await _userManager.FindByEmailAsync("stefan@andromatech.com") == null) {
-                await _userManager.CreateAsync(new ApplicationUser {
-                    UserName = "stefan@andromatech.com",
-                    Email = "stefan@andromatech.com"
-                }, "password");
-            }
-            return RedirectToAction("Index", "Home", new { area = "" });
-        }
-
-        /// <summary>
         /// Logout user and return to Home webpage
         /// </summary>
         /// <param name="returnUrl"></param>

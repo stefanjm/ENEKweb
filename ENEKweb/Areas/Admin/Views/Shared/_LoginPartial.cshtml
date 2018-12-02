@@ -25,6 +25,14 @@
                 </a>
             </li>
 
+            @if (this.User.IsInRole("admin")) {
+                <li class="nav-item">
+                    <a asp-area="Admin" asp-controller="Manage" asp-action="ListUsers" title="List Users" class="nav-link">
+                        <i class="fas fa-fw fa-key"></i>[Admin] List Users
+                    </a>
+                </li>
+            }
+
             <li class="nav-item">
                 <button title="Logi välja" type="submit" class="nav-item nav-link btn-link btn">
                     <i class="fas fa-fw fa-user-lock"></i>Logi välja

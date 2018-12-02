@@ -3,6 +3,8 @@
 namespace ENEKweb.Areas.Admin.Models.Manage {
     public class UserModel {
 
+        public string Id { get; set; }
+
         public string Username { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
