@@ -50,6 +50,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity.Manage {
         /// </summary>
         /// <returns>Return To View with User Model</returns>
         public async Task<IActionResult> Index() {
+            // Get the logged in user
             var user = await _userManager.GetUserAsync(User);
             if (user == null) {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
