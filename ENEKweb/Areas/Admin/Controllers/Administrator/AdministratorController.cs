@@ -284,7 +284,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Administrator {
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(Guid id, AdminUserModel userModel) {
+        public async Task<IActionResult> Delete(Guid id) {
             var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null) {
                 StatusMessage = StatusMessages.UserNotFoundMessage;
@@ -298,6 +298,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Administrator {
                 }
                 return View();
             }
+            
             StatusMessage = "The user has been deleted!";
             return RedirectToAction(nameof(Index));
         }
