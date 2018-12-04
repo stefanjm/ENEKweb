@@ -16,7 +16,7 @@
         @if (Model.TehtudToodYears != null & Model.TehtudToodYears.Any()) {
             <p class="mb-0">Vali aasta </p>
             <ul class="list-inline">
-                @foreach(var years in Model.TehtudToodYears) {
+                @foreach (var years in Model.TehtudToodYears) {
                     <li class="list-inline-item"><a href="#@years">@years</a></li>
                 }
             </ul>
@@ -27,58 +27,65 @@
 
 <div class="container">
     <div class="row">
+        @if (Model.TehtudToodYears != null && Model.TehtudToodYears.Any()) {
+            @foreach (var tehtudToodYears in Model.TehtudToodYears) {
+                <div class="tehtudtood-title-year-container">
+                    <p class="tehtudtood-title-year" id="@tehtudToodYears">@tehtudToodYears</p>
+                    @foreach (var tehtudToo in Model.TehtudToodViewList) {
+                        if (tehtudToodYears != tehtudToo.YearDone) {
+                            continue;
+                        }
+                        <div class="col-md-12 mb-5">
+                            <div class="card card-tehtudtood shadow-sm">
+                                @if (tehtudToo.Images != null && tehtudToo.Images.Any()) {
+                                    <div class="card-images">
+                                        @foreach (var image in tehtudToo.Images) {
 
-        @foreach (var tehtudToodYears in Model.TehtudToodYears) {
-            <div class="tehtudtood-title-year-container">
-                <p class="tehtudtood-title-year" id="@tehtudToodYears">@tehtudToodYears</p>
-                @foreach (var tehtudToo in Model.TehtudToodViewList) {
-                    if (tehtudToodYears != tehtudToo.YearDone) {
-                        continue;
-                    }
-                    <div class="col-md-12 mb-5">
-                        <div class="card card-tehtudtood shadow-sm">
-                            @if (tehtudToo.Images != null && tehtudToo.Images.Any()) {
-                                <div class="card-images">
-                                    @foreach (var image in tehtudToo.Images) {
-
-                                        if (firstImg) {
-                                            <div class="card-image active"><img class="@($"imgSlide{position}")" src="~/images/uploaded/tehtudtood/@image.ImageFileName"></div>
-                                            firstImg = false;
+                                            if (firstImg) {
+                                                <div class="card-image active"><img class="@($"imgSlide{position}")" src="~/images/uploaded/tehtudtood/@image.ImageFileName"></div>
+                                                firstImg = false;
+                                            }
+                                            else {
+                                                <div class="card-image"><img class="@($"imgSlide{position}")" src="~/images/uploaded/tehtudtood/@image.ImageFileName"></div>
+                                            }
                                         }
-                                        else {
-                                            <div class="card-image"><img class="@($"imgSlide{position}")" src="~/images/uploaded/tehtudtood/@image.ImageFileName"></div>
-                                        }
-                                    }
 
-                                    @if (tehtudToo.Images.Count() > 1) {
-                                        <a class="img-prev">
-                                            <i class="fas fa-chevron-left"></i>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                        <a class="img-next">
-                                            <i class="fas fa-chevron-right"></i>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    }
-                                    <div class="card-body">
-                                        <p class="card-title text-left">@tehtudToo.Name</p>
-                                        <p class="card-text text-left">@tehtudToo.BuildingType</p>
+                                        @if (tehtudToo.Images.Count() > 1) {
+                                            <a class="img-prev">
+                                                <i class="fas fa-chevron-left"></i>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="img-next">
+                                                <i class="fas fa-chevron-right"></i>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        }
+                                        <div class="card-body">
+                                            <p class="card-title text-left">@tehtudToo.Name</p>
+                                            <p class="card-text text-left">@tehtudToo.BuildingType</p>
+                                        </div>
                                     </div>
-                                </div>
-                                position++;
-                                firstImg = true;
-                            }
-                            else {
-                                <div class="card-body text-center">
-                                    <p class="card-title">@tehtudToo.Name</p>
-                                    <p class="card-text">@tehtudToo.BuildingType</p>
-                                </div>
-                            }
+                                    position++;
+                                    firstImg = true;
+                                }
+                                else {
+                                    <div class="card-body text-center">
+                                        <p class="card-title">@tehtudToo.Name</p>
+                                        <p class="card-text">@tehtudToo.BuildingType</p>
+                                    </div>
+                                }
+                            </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
+            }
+        }
+        else {
+            <div class="col-md-12">
+                <h3 class="text-info text-muted text-center">Hetkel ei ole ühtegi tehtud tööd veel lisatud.</h3>
             </div>
         }
+
     </div>
     <a href="" id="backToTopButton" class="btn btn-lg btn-primary" role="button" title="Vajuta, et minna tagasi lehe algusesse" data-toggle="tooltip" data-placement="left"><i class="fas fa-angle-double-up"></i></a>
 </div>
