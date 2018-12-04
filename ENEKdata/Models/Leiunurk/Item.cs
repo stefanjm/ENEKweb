@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ENEKdata.Models.Leiunurk {
     public class Item {
@@ -14,6 +15,7 @@ namespace ENEKdata.Models.Leiunurk {
         public string Description { get; set; }
 
         [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
         /// <summary>
         /// Create EF One to many relationship with images.
