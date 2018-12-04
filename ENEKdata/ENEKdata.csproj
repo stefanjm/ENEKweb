@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20181204180424_uh.cs" />
+    <Compile Remove="Migrations\20181204181235_Price has decimal range specified now.cs" />
+    <Compile Remove="Migrations\20181204190127_Ids made primary.cs" />
+    <Compile Remove="Migrations\20181204190402_primary keys fix.cs" />
+    <Compile Remove="Migrations\20181204191708_Initialize.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.9.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.1">
