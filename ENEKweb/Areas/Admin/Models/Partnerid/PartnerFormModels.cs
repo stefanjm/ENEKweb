@@ -20,8 +20,12 @@ namespace ENEKweb.Areas.Admin.Models.Partnerid {
         //[MaxLength(95)]
         //public string Description { get; set; }
 
-        //[MaxLength(80)]
-        //public string PartnerURL { get; set; }
+        // override PartnerURL property 
+        
+        [Url]
+        [MaxLength(80)]
+        [Display(Name = "Partners website link")]
+        public new string PartnerURL { get; set; }
 
         // override Image property 
         public new PartnerFormImageModel Image { get; set; }
