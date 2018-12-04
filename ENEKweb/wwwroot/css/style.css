@@ -42,17 +42,11 @@ p, a {
     padding: 0;
 }
 
-.link-inherit-style {
-    color: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    font-family: inherit;   
-}
-
 
 /*
     Navbar
 */
+
 .navbar {
     background-color: #4D7EA8;
 }

@@ -289,13 +289,14 @@ namespace ENEKweb {
             // Add Database contexts, and declare connections
             services.AddDbContext<IdentityDataDbContext>(options
                 => {
-                    options.UseNpgsql(Configuration.GetConnectionString("ProductionConnection"));
-   
+                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                    options.EnableSensitiveDataLogging(true);
                 });
 
             services.AddDbContext<ENEKdataDbContext>(options
                 => {
-                    options.UseNpgsql(Configuration.GetConnectionString("ProductionConnection"));
+                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                    options.EnableSensitiveDataLogging(true);
                 });
 
             // AddIdentity adds cookie based Authentication
