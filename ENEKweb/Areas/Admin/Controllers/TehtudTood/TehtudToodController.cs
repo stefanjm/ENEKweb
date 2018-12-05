@@ -18,7 +18,7 @@ namespace ENEKweb.Areas.Admin.Controllers.TehtudTood {
         private readonly ITehtudTood _tehtudTood;
 
         // Path where the images are to be stored/uploaded
-        private static readonly string imgUploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/uploaded/tehtudtood");
+        private static readonly string imgUploadPath = "wwwroot/images/uploaded/tehtudtood";
 
         /// <summary>
         /// Store result messages to be displayed for the user

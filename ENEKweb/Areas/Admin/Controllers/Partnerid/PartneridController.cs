@@ -21,7 +21,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Partnerid {
         public string StatusMessage { get; set; }
 
         // Path where the images are to be stored
-        private readonly string imgUploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/uploaded/partnerid");
+        private readonly string imgUploadPath = "wwwroot/images/uploaded/partnerid";
 
         /// <summary>
         /// Get an instance of the Partnerid service

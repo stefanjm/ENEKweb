@@ -25,7 +25,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
         public string StatusMessage { get; set; }
 
         // Path where the images are to be stored
-        private readonly string imgUploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/uploaded/leiunurk");
+        private readonly string imgUploadPath = "wwwroot/images/uploaded/leiunurk";
 
         /// <summary>
         /// Get an instance of the Leiunurk service
