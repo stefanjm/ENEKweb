@@ -10,6 +10,7 @@ using ENEKdata.Models.Leiunurk;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using ENEKweb.Areas.Admin.Models.Leiunurk;
+using Microsoft.AspNetCore.Hosting;
 
 namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
     [Area("Admin")]
@@ -17,6 +18,9 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
 
         // Leiunurk service instance
         private readonly ILeiunurk _leiunurk;
+
+        // Hosting environment for getting the projects root folder
+        private readonly IHostingEnvironment _hostingEnvironment;
 
         /// <summary>
         /// Store result messages to be displayed for the user
@@ -31,8 +35,11 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
         /// Get an instance of the Leiunurk service
         /// </summary>
         /// <param name="leiunurk"></param>
-        public LeiunurkController(ILeiunurk leiunurk) {
+        public LeiunurkController(ILeiunurk leiunurk, IHostingEnvironment hostingEnvironment) {
             _leiunurk = leiunurk;
+            _hostingEnvironment = hostingEnvironment;
+            // set the images upload path
+            imgUploadPath = Path.Combine(_hostingEnvironment.ContentRootPath, imgUploadPath);
         }
 
         // GET: Admin/Leiunurk

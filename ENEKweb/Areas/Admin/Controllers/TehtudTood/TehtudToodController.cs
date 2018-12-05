@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ENEKdata;
 using ENEKdata.Models.TehtudTood;
 using ENEKweb.Areas.Admin.Models.TehtudTood;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,8 +18,12 @@ namespace ENEKweb.Areas.Admin.Controllers.TehtudTood {
         // Tehtud tööd service reference
         private readonly ITehtudTood _tehtudTood;
 
+        // Hosting environment for getting the projects root folder
+        private readonly IHostingEnvironment _hostingEnvironment;
+
+
         // Path where the images are to be stored/uploaded
-        private static readonly string imgUploadPath = "wwwroot/images/uploaded/tehtudtood";
+        private readonly string imgUploadPath = "wwwroot/images/uploaded/tehtudtood";
 
         /// <summary>
         /// Store result messages to be displayed for the user
@@ -31,8 +36,11 @@ namespace ENEKweb.Areas.Admin.Controllers.TehtudTood {
         /// Get an instance of the TehtudTood service
         /// </summary>
         /// <param name="tehtudTood"></param>
-        public TehtudToodController(ITehtudTood tehtudTood) {
+        public TehtudToodController(ITehtudTood tehtudTood, IHostingEnvironment hostingEnvironment) {
             _tehtudTood = tehtudTood;
+            _hostingEnvironment = hostingEnvironment;
+            // set the images upload path
+            imgUploadPath = Path.Combine(_hostingEnvironment.ContentRootPath, imgUploadPath);
         }
 
 

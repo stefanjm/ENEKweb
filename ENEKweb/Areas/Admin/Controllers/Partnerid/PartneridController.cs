@@ -1,6 +1,7 @@
 ﻿using ENEKdata;
 using ENEKdata.Models.Partnerid;
 using ENEKweb.Areas.Admin.Models.Partnerid;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,9 @@ namespace ENEKweb.Areas.Admin.Controllers.Partnerid {
         // Partner service instance
         private readonly IPartnerid _partnerid;
 
+        // Hosting environment for getting the projects root folder
+        private readonly IHostingEnvironment _hostingEnvironment;
+
         /// <summary>
         /// Store result messages to be displayed for the user
         /// </summary>
@@ -23,12 +27,16 @@ namespace ENEKweb.Areas.Admin.Controllers.Partnerid {
         // Path where the images are to be stored
         private readonly string imgUploadPath = "wwwroot/images/uploaded/partnerid";
 
+
         /// <summary>
-        /// Get an instance of the Partnerid service
+        /// Constructor to get an instance of the services required
         /// </summary>
         /// <param name="partnerid"></param>
-        public PartneridController(IPartnerid partnerid) {
+        public PartneridController(IPartnerid partnerid, IHostingEnvironment hostingEnvironment) {
             _partnerid = partnerid;
+            _hostingEnvironment = hostingEnvironment;
+            // set the images upload path
+            imgUploadPath = Path.Combine(_hostingEnvironment.ContentRootPath, imgUploadPath);
         }
 
         // GET: Admin/Partnerid
