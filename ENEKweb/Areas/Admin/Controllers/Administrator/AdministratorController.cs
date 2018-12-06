@@ -94,13 +94,14 @@ namespace ENEKweb.Areas.Admin.Controllers.Administrator {
                 var result = await _userManager.CreateAsync(user, userCreateModel.Password);
                 if (result.Succeeded) {
                     // email confirmation here
+                    StatusMessage = "User has been created";
                     return RedirectToAction("Index");
                 }
                 StatusMessage = "Error creating the user: ";
                 foreach (var error in result.Errors) {
                     StatusMessage += error;
                 }
-                return View();
+                return View(userCreateModel);
             }
 
             // If we got this far, something failed, redisplay form
