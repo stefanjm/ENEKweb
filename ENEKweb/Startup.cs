@@ -86,7 +86,8 @@ namespace ENEKweb {
                                     .RequireAuthenticatedUser()
                                     .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            }).SetCompatibilityVersion(CompatibilityVersion.Latest);
+
 
             // Identity service
             services.AddScoped<IApplicationUser, IdentityService>();
@@ -165,9 +166,10 @@ namespace ENEKweb {
             services.AddEntityFrameworkNpgsql();
             // Add Database contexts, and declare connections
             services.AddDbContext<IdentityDataDbContext>(options
-                => {
-                    options.UseNpgsql(Configuration.GetConnectionString("ProductionConnection"));
-                });
+              => {
+                  options.UseNpgsql(Configuration.GetConnectionString("ProductionConnection"));
+
+              });
 
             services.AddDbContext<ENEKdataDbContext>(options
                 => {
@@ -289,13 +291,15 @@ namespace ENEKweb {
             // Add Database contexts, and declare connections
             services.AddDbContext<IdentityDataDbContext>(options
                 => {
-                    options.UseNpgsql(Configuration.GetConnectionString("ProductionConnection"));
-   
+                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                    options.EnableSensitiveDataLogging(true);
+
                 });
 
             services.AddDbContext<ENEKdataDbContext>(options
                 => {
-                    options.UseNpgsql(Configuration.GetConnectionString("ProductionConnection"));
+                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                    options.EnableSensitiveDataLogging(true);
                 });
 
             // AddIdentity adds cookie based Authentication
