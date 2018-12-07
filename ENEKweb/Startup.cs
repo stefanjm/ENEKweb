@@ -34,18 +34,21 @@ namespace ENEKweb {
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            // Use Npgsql PostgreSQL 
+            services.AddEntityFrameworkNpgsql();
             // Add Database contexts, and declare connections
             services.AddDbContext<IdentityDataDbContext>(options
-                => {
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-                    options.EnableSensitiveDataLogging(true);
-                });
+              => {
+                  options.UseNpgsql(Configuration.GetConnectionString("DevelopmentConnection"));
+
+              });
 
             services.AddDbContext<ENEKdataDbContext>(options
                 => {
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-                    options.EnableSensitiveDataLogging(true);
+                    options.UseNpgsql(Configuration.GetConnectionString("DevelopmentConnection"));
                 });
+
+
 
             // AddIdentity adds cookie based Authentication
             // Adds scoped classes for UserManagement, Signing in, Passwords etc...
@@ -288,19 +291,20 @@ namespace ENEKweb {
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddEntityFrameworkNpgsql();
+
             // Add Database contexts, and declare connections
             services.AddDbContext<IdentityDataDbContext>(options
                 => {
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-                    options.EnableSensitiveDataLogging(true);
+                    options.UseNpgsql(Configuration.GetConnectionString("DevelopmentConnection"));
 
                 });
 
             services.AddDbContext<ENEKdataDbContext>(options
                 => {
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-                    options.EnableSensitiveDataLogging(true);
+                    options.UseNpgsql(Configuration.GetConnectionString("DevelopmentConnection"));
                 });
+
 
             // AddIdentity adds cookie based Authentication
             // Adds scoped classes for UserManagement, Signing in, Passwords etc...
