@@ -53,7 +53,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity.Manage {
             // Get the logged in user
             var user = await _userManager.GetUserAsync(User);
             if (user == null) {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Unable to load user");
             }
 
             var userName = await _userManager.GetUserNameAsync(user);
@@ -85,8 +85,9 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity.Manage {
             }
 
             var user = await _userManager.GetUserAsync(User);
+            // If no user with that Id found, return to home page
             if (user == null) {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
 
             var email = await _userManager.GetEmailAsync(user);
@@ -95,7 +96,8 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity.Manage {
                 var setUsername = await _userManager.SetUserNameAsync(user, userModel.Email);
                 if (!setEmailResult.Succeeded || !setUsername.Succeeded) {
                     var userId = await _userManager.GetUserIdAsync(user);
-                    throw new InvalidOperationException($"Unexpected error occurred setting email for user with ID '{userId}'.");
+                    StatusMessage = StatusMessages.EmailFailed;
+                    return RedirectToAction("Index");
                 }
             }
             
@@ -104,12 +106,13 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity.Manage {
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, userModel.PhoneNumber);
                 if (!setPhoneResult.Succeeded) {
                     var userId = await _userManager.GetUserIdAsync(user);
-                    throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
+                    StatusMessage = StatusMessages.PhoneNoFailed;
+                    return RedirectToAction("Index");
                 }
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = StatusMessages.ChangeSuccessful;
             return RedirectToAction("Index");
         }
 
@@ -120,7 +123,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity.Manage {
         public async Task<IActionResult> ChangePassword() {
             var user = await _userManager.GetUserAsync(User);
             if (user == null) {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
 
             return View();
@@ -140,7 +143,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity.Manage {
 
             var user = await _userManager.GetUserAsync(User);
             if (user == null) {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
 
             var changePasswordResult = await _userManager.ChangePasswordAsync(user, changePWModel.OldPassword, changePWModel.NewPassword);
@@ -155,6 +158,17 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity.Manage {
             StatusMessage = "Your password has been changed.";
 
             return RedirectToAction("Index");
+        }
+
+        // STATUS MESSAGES
+        /// <summary>
+        /// Status messages for user feedback
+        /// </summary>
+        public static class StatusMessages {
+            public static string ChangeSuccessful => "Your profile has been updated";
+
+            public static string PhoneNoFailed => "Error occured when setting phone number";
+            public static string EmailFailed => "Error occured when setting email";
         }
     }
 }
