@@ -299,7 +299,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Administrator {
                 }
                 return View();
             }
-            
+
             StatusMessage = "The user has been deleted!";
             return RedirectToAction(nameof(Index));
         }
