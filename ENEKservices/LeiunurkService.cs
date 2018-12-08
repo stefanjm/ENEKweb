@@ -13,7 +13,11 @@ using System.Transactions;
 namespace ENEKservices {
     public class LeiunurkService : ILeiunurk {
 
+        /// <summary>
+        /// Database context
+        /// </summary>
         private readonly ENEKdataDbContext _context;
+
         /// <summary>
         /// Initialize database context
         /// </summary>
@@ -41,10 +45,10 @@ namespace ENEKservices {
             if (id == null) {
                 return null;
             }
-            else {
-                return await _context.Items.AsNoTracking()
-                    .Include(item => item.Images).FirstOrDefaultAsync(i => i.Id == id);
-            }
+
+            return await _context.Items.AsNoTracking()
+                .Include(item => item.Images).FirstOrDefaultAsync(i => i.Id == id);
+
         }
 
         // Not using .FirstAsync() because it will just bring another variety in the code, possibly making it more complicated.
@@ -145,7 +149,7 @@ namespace ENEKservices {
                     ts.Complete();
                 }
             }
-            catch(Exception e) {
+            catch (Exception e) {
                 throw e;
             }
         }
@@ -199,9 +203,9 @@ namespace ENEKservices {
             if (imageId == null) {
                 return null;
             }
-            else {
-                return await _context.ItemImages.FirstOrDefaultAsync(img => img.Id == imageId);
-            }
+
+            return await _context.ItemImages.FirstOrDefaultAsync(img => img.Id == imageId);
+
         }
 
 

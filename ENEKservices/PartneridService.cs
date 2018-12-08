@@ -115,12 +115,11 @@ namespace ENEKservices {
         /// <param name="id"></param>
         /// <returns>Partner object</returns>
         public async Task<Partner> GetPartnerById(int? id) {
-            if (id != null) {
-                return await _context.Partners.AsNoTracking().Include(partner => partner.Image).FirstOrDefaultAsync(partner => partner.Id == id);
-            }
-            else {
+            if (id == null) {
                 return null;
             }
+
+            return await _context.Partners.AsNoTracking().Include(partner => partner.Image).FirstOrDefaultAsync(partner => partner.Id == id);
         }
 
 

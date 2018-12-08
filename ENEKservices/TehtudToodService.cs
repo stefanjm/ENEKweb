@@ -43,10 +43,10 @@ namespace ENEKservices {
             if (id == null) {
                 return null;
             }
-            else {
-                return await _context.TehtudTood.AsNoTracking()
-                    .Include(too => too.Images).FirstOrDefaultAsync(i => i.Id == id);
-            }
+
+            return await _context.TehtudTood.AsNoTracking()
+                .Include(too => too.Images).FirstOrDefaultAsync(i => i.Id == id);
+
         }
 
         /// <summary>
@@ -184,6 +184,6 @@ namespace ENEKservices {
             return _context.TehtudTood.AnyAsync(e => e.Id == id);
         }
 
-    
+
     }
 }
