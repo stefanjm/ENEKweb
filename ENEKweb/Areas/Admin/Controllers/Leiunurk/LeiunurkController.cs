@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ENEKdata;
 using ENEKdata.Models.Leiunurk;
@@ -11,19 +9,37 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using ENEKweb.Areas.Admin.Models.Leiunurk;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using IdentityData.Models;
+using System.Security.Claims;
+using IdentityData;
 
 namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
     [Area("Admin")]
     public class LeiunurkController : Controller {
 
-        // Leiunurk service instance
+        /// <summary>
+        /// Leiunurk service.
+        /// </summary>
         private readonly ILeiunurk _leiunurk;
 
-        // Hosting environment for getting the projects root folder
+        /// <summary>
+        /// Hosting environment for getting the projects root folder.
+        /// </summary>
         private readonly IHostingEnvironment _hostingEnvironment;
 
         /// <summary>
-        /// Store result messages to be displayed for the user
+        /// Identity service.
+        /// </summary>
+        private readonly IApplicationUser _applicationUser;
+
+        /// <summary>
+        /// SigninManager service, used in this context to sign users out when they don't exist anymore.
+        /// </summary>
+        private readonly SignInManager<ApplicationUser> _signInManager;
+
+        /// <summary>
+        /// Store result messages to be displayed for the user.
         /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
@@ -32,12 +48,15 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
         private readonly string imgUploadPath = "wwwroot/images/uploaded/leiunurk";
 
         /// <summary>
-        /// Get an instance of the Leiunurk service
+        /// Get an instance of the Leiunurk service.
         /// </summary>
         /// <param name="leiunurk"></param>
-        public LeiunurkController(ILeiunurk leiunurk, IHostingEnvironment hostingEnvironment) {
+        public LeiunurkController(ILeiunurk leiunurk, IHostingEnvironment hostingEnvironment, IApplicationUser applicationUser,
+            SignInManager<ApplicationUser> signInManager) {
             _leiunurk = leiunurk;
             _hostingEnvironment = hostingEnvironment;
+            _applicationUser = applicationUser;
+            _signInManager = signInManager;
             // set the images upload path
             imgUploadPath = Path.Combine(_hostingEnvironment.ContentRootPath, imgUploadPath);
         }
@@ -77,6 +96,12 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,ImagesToAdd")] ItemModel formItem) {
+            // Check if logged in user is still in the system, if not then sign user out and return to homepage
+            if (!await _applicationUser.UserExistsById(User.FindFirst(ClaimTypes.NameIdentifier).Value)) {
+                await _signInManager.SignOutAsync();
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
             if (ModelState.IsValid) {
 
                 // Check if it's images that are being uploaded
@@ -146,6 +171,13 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ItemModel item) {
+
+            // Check if logged in user is still in the system, if not then sign user out and return to homepage
+            if (!await _applicationUser.UserExistsById(User.FindFirst(ClaimTypes.NameIdentifier).Value)) {
+                await _signInManager.SignOutAsync();
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
             if (id != item.Id) {
                 return NotFound();
             }
@@ -237,9 +269,17 @@ namespace ENEKweb.Areas.Admin.Controllers.Leiunurk {
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id) {
+
+            // Check if logged in user is still in the system, if not then sign user out and return to homepage
+            if (!await _applicationUser.UserExistsById(User.FindFirst(ClaimTypes.NameIdentifier).Value)) {
+                await _signInManager.SignOutAsync();
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
             await _leiunurk.RemoveItem(id);
             StatusMessage = "The Item has been deleted!";
             return RedirectToAction(nameof(Index));
         }
+
     }
 }

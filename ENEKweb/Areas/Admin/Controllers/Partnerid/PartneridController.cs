@@ -1,22 +1,39 @@
 ﻿using ENEKdata;
 using ENEKdata.Models.Partnerid;
 using ENEKweb.Areas.Admin.Models.Partnerid;
+using IdentityData;
+using IdentityData.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.IO;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ENEKweb.Areas.Admin.Controllers.Partnerid {
     [Area("Admin")]
     public class PartneridController : Controller {
 
-        // Partner service instance
+        /// <summary>
+        /// Partner service instance
+        /// </summary>
         private readonly IPartnerid _partnerid;
 
-        // Hosting environment for getting the projects root folder
+        /// <summary>
+        /// Hosting environment for getting the projects root folder
+        /// </summary>
         private readonly IHostingEnvironment _hostingEnvironment;
+
+        /// <summary>
+        /// Identity service
+        /// </summary>
+        private readonly IApplicationUser _applicationUser;
+
+        /// <summary>
+        /// SigninManager service, used in this context to sign users out when they don't exist anymore.
+        /// </summary>
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
         /// <summary>
         /// Store result messages to be displayed for the user
@@ -32,9 +49,12 @@ namespace ENEKweb.Areas.Admin.Controllers.Partnerid {
         /// Constructor to get an instance of the services required
         /// </summary>
         /// <param name="partnerid"></param>
-        public PartneridController(IPartnerid partnerid, IHostingEnvironment hostingEnvironment) {
+        public PartneridController(IPartnerid partnerid, IHostingEnvironment hostingEnvironment, IApplicationUser applicationUser,
+            SignInManager<ApplicationUser> signInManager) {
             _partnerid = partnerid;
             _hostingEnvironment = hostingEnvironment;
+            _applicationUser = applicationUser;
+            _signInManager = signInManager;
             // set the images upload path
             imgUploadPath = Path.Combine(_hostingEnvironment.ContentRootPath, imgUploadPath);
         }
@@ -81,6 +101,13 @@ namespace ENEKweb.Areas.Admin.Controllers.Partnerid {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name, Description, PartnerURL, UploadImage")] PartnerFormModel partnerForm) {
+
+            // Check if logged in user is still in the system, if not then sign user out and return to homepage
+            if (!await _applicationUser.UserExistsById(User.FindFirst(ClaimTypes.NameIdentifier).Value)) {
+                await _signInManager.SignOutAsync();
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
             if (ModelState.IsValid) {
 
                 // Check if it's an image thats being uploaded
@@ -149,6 +176,13 @@ namespace ENEKweb.Areas.Admin.Controllers.Partnerid {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, PartnerFormModel formModel) {
+
+            // Check if logged in user is still in the system, if not then sign user out and return to homepage
+            if (!await _applicationUser.UserExistsById(User.FindFirst(ClaimTypes.NameIdentifier).Value)) {
+                await _signInManager.SignOutAsync();
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
             if (id != formModel.Id) {
                 return NotFound();
             }
@@ -239,6 +273,13 @@ namespace ENEKweb.Areas.Admin.Controllers.Partnerid {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id) {
+
+            // Check if logged in user is still in the system, if not then sign user out and return to homepage
+            if (!await _applicationUser.UserExistsById(User.FindFirst(ClaimTypes.NameIdentifier).Value)) {
+                await _signInManager.SignOutAsync();
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
             await _partnerid.RemovePartner(id);
             StatusMessage = "The Item has been deleted!";
             return RedirectToAction(nameof(Index));

@@ -53,7 +53,8 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity.Manage {
             // Get the logged in user
             var user = await _userManager.GetUserAsync(User);
             if (user == null) {
-                return NotFound($"Unable to load user");
+                await _signInManager.SignOutAsync();
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
 
             var userName = await _userManager.GetUserNameAsync(user);
@@ -87,6 +88,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity.Manage {
             var user = await _userManager.GetUserAsync(User);
             // If no user with that Id found, return to home page
             if (user == null) {
+                await _signInManager.SignOutAsync();
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
@@ -123,6 +125,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity.Manage {
         public async Task<IActionResult> ChangePassword() {
             var user = await _userManager.GetUserAsync(User);
             if (user == null) {
+                await _signInManager.SignOutAsync();
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
@@ -143,6 +146,7 @@ namespace ENEKweb.Areas.Admin.Controllers.Identity.Manage {
 
             var user = await _userManager.GetUserAsync(User);
             if (user == null) {
+                await _signInManager.SignOutAsync();
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
