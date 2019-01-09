@@ -1,0 +1,54 @@
+﻿@model ENEKweb.Areas.Admin.Models.Leiunurk.ItemModel
+
+@{
+    ViewData["Title"] = "CREATE";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewData["Title"]</h2>
+<h4>Item</h4>
+<hr />
+
+<div class="container-fluid p-0">
+    <div class="row no-gutters">
+
+        <div class="col-md-4">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <p class="text-info m-0">Required</p>
+                    <p class="text-info m-0">Max 25 characters</p>
+                    <input asp-for="Name" class="form-control" maxlength="25" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <p class="text-info m-0">Required</p>
+                    <p class="text-info m-0">Max 95 characters</p>
+                    <textarea asp-for="Description" class="form-control" maxlength="95"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" value="0" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImagesToAdd" class="control-label">Images</label>
+                    <input asp-for="ImagesToAdd" type="file" accept=".jpg, .jpeg, .png" multiple name="ImagesToAdd" class="form-control" />
+                    <span asp-validation-for="ImagesToAdd" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-success" />
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

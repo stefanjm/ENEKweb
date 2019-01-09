@@ -1,0 +1,265 @@
+﻿
+/*
+
+    ADMIN ONLY ACCESSED PAGES STYLING
+
+*/
+
+/*
+ *  GLOBAL 
+ */
+body {
+    font-size: .875rem;
+}
+
+.feather {
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+}
+
+
+[role="main"] {
+    padding-top: 60px; /* Space for fixed navbar */
+}
+
+label {
+    font-size: 1.2em;
+    margin-bottom: 0;
+}
+
+/* default bootstrap alert close button is off center, changing the padding so its centered */
+.alert-dismissible .close {
+    padding: 0.5rem 1.25rem;
+}
+
+/* center table rows */
+.admin-table-tr td{
+    vertical-align: middle;
+}
+
+
+/*
+ * Navbar
+ */
+.navbar-brand {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    font-size: 1rem;
+    background-color: rgba(0, 0, 0, .25);
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+}
+
+.navbar .form-control {
+    padding: .75rem 1rem;
+    border-width: 0;
+    border-radius: 0;
+}
+
+.navbar-toggler {
+    display: none;
+}
+
+.form-control-dark {
+    color: #fff;
+    background-color: rgba(255, 255, 255, .1);
+    border-color: rgba(255, 255, 255, .1);
+}
+
+.form-control-dark:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}
+
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100; /* Behind the navbar */
+    padding: 48px 0 0; /* Height of navbar */
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    background-color: #323232;
+}
+
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+/* display the sidebar when in mobile view */
+.sidebar.mobile-show {
+    width: 200px;
+    opacity: 1;
+    transition: visibility 0s, opacity 0.3s linear;
+}
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+    .sidebar-sticky {
+        position: -webkit-sticky;
+        position: sticky;
+    }
+}
+
+.sidebar .nav-link {
+    font-size: 1.3em;
+    font-weight: 500;
+    color: #cccccc;
+}
+
+.sidebar .nav-link:hover {
+    color: #007bff;
+}
+
+.sidebar .nav-link .fas {
+    margin-right: 1em;
+}
+
+.sidebar .nav-link .feather {
+    margin-right: 4px;
+    color: #999;
+}
+
+.sidebar .nav-link.active {
+    color: #007bff;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+    color: inherit;
+}
+
+.sidebar-heading {
+    font-size: 1.4em;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+
+@media (max-width: 768px) {
+    /* Do display when mobile-show class is added */
+    .sidebar:not(.mobile-show) {
+        width: 200px;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0.3s, opacity 0.3s linear;
+    }
+
+    .navbar-toggler {
+        display: block;
+    }
+
+    /* Remove background from header when mobile*/
+    .navbar-brand {
+        background-color: inherit;
+        box-shadow: none;
+    }
+
+    /* Hide the logout button when mobile */
+    #logOutNavBtn {
+        display: none;
+    }
+}
+
+@media(max-width: 1200px) {
+    .sidebar .nav-link {
+        font-size: 1.1em;
+    }
+
+    .sidebar-heading {
+        font-size: 1.2em;
+    }
+}
+
+
+/*
+ *  Tehtud tööd
+ */
+.tehtudtood-edit-images, .tehtudtood-delete-images {
+    max-height: 300px;
+}
+
+.tehtudtood-detail-images {
+    padding: 2px;
+    max-height: 150px;
+}
+
+.tehtudtood-edit-check-input:checked + label {
+    opacity: 0.1;
+}
+
+
+/*
+ * Leiunurk 
+ */
+.leiunurk-edit-images, .leiunurk-delete-images {
+    max-height: 100px;
+}
+
+.leiunurk-detail-images {
+    padding: 2px;
+    max-height: 150px;
+}
+
+.leiunurk-edit-check-input:checked + label {
+    opacity: 0.1;
+}
+
+
+/*
+ *  Partnerid
+ */
+
+.partnerid-detail-images, .partnerid-edit-image {
+    max-width: 300px;
+}
+
+.partnerid-edit-check-input:checked + label {
+    opacity: 0.1;
+}
+
+
+/*
+ *  Dashboard
+ */
+.dashboard-card-link a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.dashboard-card-link a:hover {
+    color: #007bff;
+}
+
+.dashboard-card {
+    margin: 10px;
+    height: 300px;
+    background-color: #343A40;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.dashboard-card:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.dashboard-card .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-card .card-title {
+    margin: 0;
+}
+
+.dashboard-card .card-text {
+    font-size: 1.2em;
+}

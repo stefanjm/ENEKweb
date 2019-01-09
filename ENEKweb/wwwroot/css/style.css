@@ -7,8 +7,8 @@ html {
 }
 
 body {
-    padding-top: 68px;
-    padding-bottom: 37px;
+    padding-top: 65px;
+    padding-bottom: 36px;
     background-color: #ffffff;
     height: 100%;
 }
@@ -34,7 +34,7 @@ p, a {
     font-family: 'Montserrat';
     color: #313638;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 1.1em;
 }
 
 .text-no-pad-marg p {
@@ -42,26 +42,51 @@ p, a {
     padding: 0;
 }
 
+.link-inherit-style {
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    font-family: inherit;   
+}
+
 
 /*
     Navbar
 */
-
-.navbar, footer {
+.navbar {
     background-color: #4D7EA8;
 }
 
-.nav-link {
-    color: #313638 !important;
+.navbar-dark .navbar-nav .nav-link {
+    color: #313638;
 }
 
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #000;
+}
 
+.navbar-nav .nav-item .nav-link:focus {
+    color: #000;
+}
+
+/*.navbar-dark .navbar-nav .nav-item.active {
+    color: #000;
+}*/
+
+.navbar-brand-logo {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-brand-logo img {
+    max-height: 50px;
+}
 /*
     Footer
 */
-
 #footer {
     margin-top: 10px;
+    background-color: #4D7EA8;
 }
 
 #footer p {
@@ -104,8 +129,20 @@ p, a {
 }
 
 /*
-    KONTAKT page
-*/
+ *  FIRMAST page
+ */
+
+#firmastContainer {
+    background-color: #EDEDED;
+    padding: 30px;
+    margin: 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+
+/*
+ *  KONTAKT page
+ */
 .contactImg {
     max-height: 200px;
     margin: 10%;
@@ -118,55 +155,370 @@ p, a {
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
-
 /*
-    TEHTUD TÖÖD page
-*/
+ *  TEHTUD TÖÖD page
+ */
 
-#tehtudtoodPage {
+.card-tehtudtood {
+}
+
+.card-tehtudtood .card-body {
+}
+
+.card-tehtudtood .card-title {
+    color: #4A9BFF;
+    font-size: 1.7em;
+    margin-bottom: 0px;
+}
+
+.card-tehtudtood .card-text {
 
 }
 
-.mein-card-donework {
+.card-tehtudtood .card-images {
+    min-width: 100%;
+}
+
+.card-tehtudtood .card-image {
+    opacity: 0;
+    height: 0;
+    width: 0;
+    transition: all .3s ease .15s;
+}
+
+.card-tehtudtood .card-image.active {
+    opacity: 1;
     height: 100%;
+    width: 100%;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.card-tehtudtood .card-image img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.card-tehtudtood .img-prev,
+.card-tehtudtood .img-next {
+    border-radius: 10%;
+    padding: 5px;
+    position: absolute;
+    top: 40%;
+    cursor: pointer;
+    transform: translate(0%,-50%);
+    background-color: rgba(74,155,255, 0.8);
+    -ms-transform: translate(0%,-50%);
+}
+
+.card-tehtudtood .img-prev {
+    left: 0%;
+    padding-right: 7px;
+}
+
+.card-tehtudtood .img-next {
+    right: 0%;
+    padding-left: 7px;
+}
+
+.tehtudtood-title-year-container {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.tehtudtood-title-year {
+    text-align: center;
+    font-size: 3em;
+    color: #4D7EA8;
+}
+
+/* For jumping to a year by link, since navbar is fixed it hides the div it jumps to behind the navbar, so we add a fix to unhide the jumped to div
+    Thanks: https://css-tricks.com/hash-tag-links-padding/ 
+*/
+.tehtudtood-title-year:before {
+    display: block;
+    content: " ";
+    margin-top: -60px;
+    height: 60px;
+}
+
+
+/*
+    Button to scroll back to top
+*/
+#backToTopButton {
+    cursor: pointer;
+    position: fixed;
+    bottom: 60px;
+    right: 40px;
+    display: none;
+}
+
+
+/*
+ *  PARTNERID page
+ */
+/*
+ *  PARTNERID CARD and IMAGES
+ */
+.card-partnerid {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.card-partnerid-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-partnerid .card-content {
+    height: 100%;
+}
+
+.card-partnerid .card-image {
+    height: 100%;
+}
+
+.card-partnerid .card-image img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.card-partnerid .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-partnerid .card-title a {
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    font-family: inherit;
+}
+
+.card-partnerid .card-title {
+    color: #4A9BFF;
+    font-size: 1.6em;
+}
+
+.card-partnerid .card-text {
+    font-size: 1.1em;
+    margin: 0;
+}
+
+
+
+/*
+ *   LEIUNURK page
+ */
+.leiunurk-jumbotron.jumbotron {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.leiunurk-color-button {
+    background-color: #4D7EA8;
+    color: #fff;
+}
+
+
+/*
+ *  LEIUNURK CARD and IMAGES
+ */
+.card-leiunurk {
+    height: 400px;
+}
+
+.card-leiunurk .card-image {
+    opacity: 0;
+    height: 0;
+    width: 0;
+    transition: all .3s ease .15s;
+}
+
+.card-leiunurk .card-image img {
+    height: 100%;
+    width: 100%;
+}
+
+.card-leiunurk .card-image.active {
+    opacity: 1;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.card-leiunurk .card-images {
+    width: 100%;
+    height: 200px;
+}
+
+.card-leiunurk .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-leiunurk .card-title {
+    color: #4A9BFF;
+    font-size: 1.4em;
+}
+
+.card-leiunurk .card-text {
+    font-size: 1.1em;
+}
+
+.card-leiunurk .img-prev,
+.card-leiunurk .img-next {
+    border-radius: 10%;
+    padding: 5px;
+    position: absolute;
+    top: 25%;
+    cursor: pointer;
+    transform: translate(0%,-50%);
+    background-color: rgba(74,155,255, 0.8);
+    -ms-transform: translate(0%,-50%);
+}
+
+.card-leiunurk .img-prev {
+    left: 0%;
+    padding-right: 7px;
+}
+
+.card-leiunurk .img-next {
+    right: 0%;
+    padding-left: 7px;
+}
+
+
+/*
+    Helpers, style specific
+*/
+.padding-right-small-imp {
+    padding-bottom: 15px !important;
+    padding-left: 15px !important;
+    padding-right: 3px !important;
+}
+
+.homestyle-color-button-link {
+    font-weight: bold;
+    background-color: #4D7EA8;
+}
+
+.homestyle-color-button-link:hover {
+    color: #000;
+}
+
+
+/* Carousel specific */
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+    display: flex;
+}
+
+.carousel-inner .carousel-item-right.active,
+.carousel-inner .carousel-item-next {
+    transform: translateX(25%);
+}
+
+.carousel-inner .carousel-item-left.active,
+.carousel-inner .carousel-item-prev {
+    transform: translateX(-25%);
+}
+
+.carousel-inner .carousel-item-right,
+.carousel-inner .carousel-item-left {
+    transform: translateX(0);
+}
+
+
+.gallery-img {
+    padding: 2px;
+}
+
+
+/*
+ * Mein card styling
+ */
+.mein-card {
+    height: 400px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.mein-card-img {
+    width: 100%;
+    height: 230px;
+    justify-content: center;
+}
+
+/* auto-resize image to fit container NO IE 9 */
+.mein-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.mein-card-gallery {
+    height: 15%;
+    padding: 2px;
+    margin-bottom: 2px;
+    background-color: #547FAA;
+}
+
+
+
+.card-img-top-me-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.mein-card-bottom {
     padding: 5px;
 }
 
-
-.mein-card-donework-top {
-   
+.mein-card-bottom p {
+    margin: 0;
 }
 
-.mein-card-donework-bottom {
+.mein-card-partners {
+    max-width: 350px;
+    min-width: 200px;
+    height: 350px;
+    padding: 5px;
+    margin: 5px;
 }
 
-.mein-card-donework-top img {
-    max-width: 100%;
-    max-height: 100%;
+.mein-card-title {
+    color: #4A9BFF;
+}
+
+.mein-card-desc p {
+    font-size: 1em;
+    margin: 0;
 }
 
 
 /*
-    LEIUNURK page
-*/
-#leftoversContainer {
-}
+ *  ERROR page
+ */
 
-#leftoversContainer .card {
-
-}
-
-#leftoversContainer .card img{
-  
-}
-
-#leftoversContainer p {
- 
+#errorPage {
+    height: 100%;
+    text-align: center;
+    padding-top: 15%;
 }
 
 /* 
-    Size 
-*/
+ *  Size 
+ */
 /* max-height because otherwise on iPad screens the footer is messed up */
 @media (max-width: 1200px) and (max-height: 1162px) {
     .svgicon-main {
@@ -184,18 +536,27 @@ p, a {
     #mainPage .d-flex {
         display: inline !important;
     }
-
 }
 
 
 @media (max-width: 768px) {
+    #firmastContainer {
+        padding: 0px;
+        box-shadow: none;
+        background-color: #fff;
+    }
+
+    #firmastContainer p, a {
+        font-size: 1em;
+    }
+    
     #contactContainer {
         padding: 0px;
         box-shadow: none;
         background-color: #fff;
     }
 
-    #contactContainer p,a {
+    #contactContainer p, a {
         font-size: 1em;
     }
 
@@ -203,8 +564,17 @@ p, a {
         max-height: 100px;
     }
 
+    .card-leiunurk {
+        height: auto;
+    }
 
- 
+    .card-tehtudtood .card-body .card-title {
+        font-size: 1.5em;
+    }
+
+    .card-tehtudtood .card-body {
+        padding-left: 10px;
+    }
 }
 
 @media (max-width: 576px) {
@@ -222,94 +592,4 @@ p, a {
     .mainp-icons {
         width: 70px;
     }
-}
-
-
-/*
-    Helpers
-*/
-
-.padding-right-small-imp {
-    padding-bottom: 15px !important;
-    padding-left: 15px !important;
-    padding-right: 3px !important;
-}
-
-
-
-/* Carousel specific */
-
-.carousel-inner .carousel-item.active,
-.carousel-inner .carousel-item-next,
-.carousel-inner .carousel-item-prev {
-    display: flex;
-}
-
-.carousel-inner .carousel-item-right.active,
-.carousel-inner .carousel-item-next {
-    transform: translateX(25%);
-}
-
-.carousel-inner .carousel-item-left.active,
-.carousel-inner .carousel-item-prev {
-    transform: translateX(-25%);
-}
-.carousel-inner .carousel-item-right,
-.carousel-inner .carousel-item-left {
-    transform: translateX(0);
-}
-
-.carousel-control-prev-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
-}
-
-.carousel-control-next-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
-}
-
-
-
-/* MEIN CARD STYLING */
-.mein-card {
-    max-width: 350px;
-    min-width: 200px;
-    height: 350px;
-    padding: 10px;
-    margin: 10px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
-
-.mein-card-img {
-    height: 40%;
-    
-}
-
-.mein-card-gallery {
-    height: 20%;
-    padding: 4px;
-}
-
-.mein-card-gallery img {
-   padding: 3px;
-}
-
-.mein-card-img img {
-    height: 100%;
-}
-
-.mein-card-partners {
-    max-width: 350px;
-    min-width: 200px;
-    height: 350px;
-    padding: 5px;
-    margin: 5px;
-
-}
-
-.mein-card-title {
-    padding: 10px;
-}
-
-.mein-card-body p{
-    font-size: 1em;
 }

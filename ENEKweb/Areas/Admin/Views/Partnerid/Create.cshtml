@@ -1,0 +1,56 @@
+﻿@model ENEKweb.Areas.Admin.Models.Partnerid.PartnerFormModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>
+    @ViewData["Title"]
+</h2>
+<h4>Partner</h4>
+<hr />
+
+<div class="container-fluid p-0">
+    <div class="row no-gutters">
+
+        <div class="col-md-4">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <p class="text-info m-0">Required</p>
+                    <p class="text-info m-0">Max 25 characters</p>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <p class="text-info m-0">Max 95 characters</p>
+                    <textarea asp-for="Description" class="form-control" maxlength="95"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PartnerURL" class="control-label"></label>
+                    <p class="text-info m-0">Max 80 characters</p>
+                    <input asp-for="PartnerURL" class="form-control" />
+                    <span asp-validation-for="PartnerURL" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UploadImage" class="control-label">Image</label>
+                    <input asp-for="UploadImage" type="file" accept=".jpg, .jpeg, .png" name="UploadImage" class="form-control" />
+                    <span asp-validation-for="UploadImage" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-success" />
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

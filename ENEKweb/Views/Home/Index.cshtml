@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Home";
 }
 
 <!-- Page Content -->
@@ -12,24 +12,24 @@
 
             <div class="row">
                 <div class="col-sm-12 text-center">
-                    <img src="~/images/logo/nr.2.png" id="logo_image" alt="company_logo" />
+                    <img src="~/images/logo/enek_logo_mainpage.png" id="logo_image" alt="company_logo" />
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-6 d-flex justify-content-center">
                     <div class="text-no-pad-marg">
-                        <h3 class="mt-4 text-title">Kontakt</h3>
+                        <h3 class="mt-4 text-title"><a asp-controller="Home" asp-action="Kontakt" class="link-inherit-style">Kontakt</a></h3>
                         <hr />
                         <address>
                             <p class="font-weight-bold">ENEK Elektriehitus OÜ</p>
-                            <p title="Phone">Tel: (+372) 50 49 631</p>
+                            <p title="Phone">Tel: (372) 50 49 631</p>
                             <p title="Email">Email: <a href="mailto:enek@@enek.ee">enek@@enek.ee</a></p>
                         </address>
                     </div>
                 </div>
                 <div class="col-sm-6 d-flex justify-content-center">
                     <div class="text-no-pad-marg">
-                        <h3 class="mt-4 text-title">Koostöö Partnerid</h3>
+                        <h3 class="mt-4 text-title"><a asp-controller="Home" asp-action="Partnerid" class="link-inherit-style">Koostöö Partnerid</a></h3>
                         <hr />
                         <p>Warecon OÜ</p>
                         <p>Kaamos Ehitus OÜ</p>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="col-sm-11">
                     <h5><b>ELEKTRITÖÖD</b></h5>
-                    <p>Teostame eramute ja tööstushoonete elektritöid. Välisvõrkude ehitus.</p>
+                    <p>Teostame eramute ja tööstushoonete elektritöid. Välisvõrkude ehitus. <a asp-controller="Home" asp-action="Tehtudtood" class="btn-link font-weight-bold"> Tehtud tööd</a>.</p>
                 </div>
             </div>
             <div>
@@ -59,25 +59,25 @@
                         <img class="mainp-icons" src="~/images/icons/index/ELEKTRIKILBID.png" alt="elektrikilbid_pilt" />
                         @*<a href="" data-toggle="modal" data-target="#kilbidModal"><img class="mainp-icons" src="~/images/icons/index/ELEKTRIKILBID.png" alt="elektrikilbid_pilt" /></a>
 
-                        <!-- Käidukorraldus modal --> 
-                        <div class="modal fade" id="kilbidModal" tabindex="-1" role="dialog" aria-labelledby="kilbidModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="kilbidModalCenterTitle">Pildid tehtud kilpidest</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        pildid kilpidest jne
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sule</button>
+                            <!-- Käidukorraldus modal -->
+                            <div class="modal fade" id="kilbidModal" tabindex="-1" role="dialog" aria-labelledby="kilbidModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="kilbidModalCenterTitle">Pildid tehtud kilpidest</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            pildid kilpidest jne
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Sule</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>*@
+                            </div>*@
 
                     </div>
                     <div class="col-sm-11">
@@ -108,7 +108,7 @@
                         <p>
                             Teostame elektripaigaldiste korralist hooldust ja käidukorraldust. <a href="" class="btn-link font-weight-bold" data-toggle="modal" data-target="#kaidukorraldusModal">Käiduobjektid</a>.
                         </p>
-                        
+
                         <!-- Käidukorraldus modal -->
                         <div class="modal fade" id="kaidukorraldusModal" tabindex="-1" role="dialog" aria-labelledby="kaidukorraldusModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">

@@ -1,4 +1,4 @@
-﻿
+﻿@model ENEKweb.Models.PartneridIndexModel
 @{
     ViewData["Title"] = "PARTNERID";
 }
@@ -6,120 +6,65 @@
 <div class="container text-center">
     <h2 class="text-title">@ViewData["Title"]</h2>
     <div class="row">
+        @if (Model.PartneridViewList != null && Model.PartneridViewList.Any()) {
+            @foreach (var partner in Model.PartneridViewList) {
 
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/truck_driver_logo.png" alt="partner_logo" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Rekkajuhid OÜ</h3>
-                </div>
-                <div class="mein-card-body">
-                    <p>plaplaplaplapapl</p>
-                </div>
-            </div>
-        </div>
+                <div class="col-md-4">
+                    <div class="card-partnerid-container">
+                        <div class="card card-partnerid border-0">
 
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/banaanid_company_logo.jpg" alt="partner_logo" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Banaanikogu OÜ</h3>
-                </div>
-            </div>
-        </div>
+                            @if (partner.Image != null) {
 
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/gun_logo.png" alt="partner_logo" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Püstolid FIE</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/truck_driver_logo.png" alt="partner_logo" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Rekkajuhid OÜ</h3>
-                </div>
-            </div>
-        </div>
+                                <div class="card-image">
+                                    @if (partner.PartnerURL != null && partner.PartnerURL != "") {
+                                        <a href="@partner.PartnerURL" target="_blank">
+                                            <img src="~/images/uploaded/partnerid/@partner.Image.ImageFileName" alt="partner_logo" />
+                                        </a>
+                                    }
+                                    else {
+                                        <img src="~/images/uploaded/partnerid/@partner.Image.ImageFileName" alt="partner_logo" />
+                                    }
 
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/banaanid_company_logo.jpg" alt="partner_logo" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Banaanikogu OÜ</h3>
-                </div>
-            </div>
-        </div>
+                                </div>
 
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/gun_logo.png" alt="partner_logo" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Püstolid FIE</h3>
-                </div>
-            </div>
-        </div>
+                                <div class="card-body">
+                                    @if (partner.PartnerURL != null & partner.PartnerURL != "") {
+                                        <h5 class="card-title"><a href="@partner.PartnerURL" target="_blank">@partner.Name</a></h5>
+                                    }
+                                    else {
+                                        <h5 class="card-title">@partner.Name</h5>
+                                    }
+                                    @if (partner.Description != null) {
+                                        <p class="card-text">@partner.Description</p>
+                                    }
+                                </div>
 
+                            }
+                            else {
 
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/gun_logo.png" alt="partner_logo" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Püstolid FIE</h3>
-                </div>
-            </div>
-        </div>
+                                <div class="card-body">
+                                    @if (partner.PartnerURL != null && partner.PartnerURL != "") {
+                                        <h5 class="card-title"><a href="@partner.PartnerURL" target="_blank">@partner.Name</a></h5>
+                                    }
+                                    else {
+                                        <h5 class="card-title">@partner.Name</h5>
+                                    }
+                                    @if (partner.Description != null) {
+                                        <p class="card-text">@partner.Description</p>
+                                    }
+                                </div>
 
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/gun_logo.png" alt="partner_logo" />
+                            }
+                        </div>
+                    </div>
                 </div>
-                <div class="mein-card-title">
-                    <h3>Püstolid FIE</h3>
-                </div>
+            }
+        }
+        else {
+            <div class="col-md-12">
+                <h3 class="text-info text-muted text-center">Hetkel ei ole ühtegi partnerit veel lisatud.</h3>
             </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/gun_logo.png" alt="partner_logo" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Püstolid FIE</h3>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="mein-card-partners">
-                <div class="mein-card-img">
-                    <img src="~/images/logo/partners/gun_logo.png" alt="partner_logo" />
-                </div>
-                <div class="mein-card-title">
-                    <h3>Püstolid FIE</h3>
-                </div>
-            </div>
-        </div>
+        }
 
     </div>
-
 </div>

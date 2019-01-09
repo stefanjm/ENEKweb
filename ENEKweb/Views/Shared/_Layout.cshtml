@@ -1,11 +1,12 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="et">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="" />
-    <title>@ViewData["Title"] - ENEKweb</title>
+    <meta name="description" content="ENEK Elektriehitus OÜ - Tegeleme elektritöödega, elektrikilpidega, joonistega
+           ning pakume käidukorraldust." />
+    <title>@ViewData["Title"] - ENEK Elektriehitus OÜ</title>
 
 
 
@@ -26,7 +27,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <!-- Using https://fontawesome.com , thanks -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
     <!-- Site CSS -->
     <link rel="stylesheet" href="~/css/style.css" />
 
@@ -39,20 +39,23 @@
                 <button class="navbar-toggler bg-dark" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand" style="margin:0;padding:0;"><img src="~/images/logo/enek_logo_png.png" style="max-height:50px;" /></a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand navbar-brand-logo"><img src="~/images/logo/enek_logo_png.png" /></a>
             </div>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link nav-link-text">
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">
                             HOME<span class="sr-only">(current)</span>
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="Home" asp-action="Firmast" class="nav-link">FIRMAST</a>
                     </li>
                     <li class="nav-item">
                         <a asp-area="" asp-controller="Home" asp-action="Tehtudtood" class="nav-link">TEHTUD TÖÖD</a>
                     </li>
                     <li class="nav-item">
-                        <a asp-area="" asp-controller="Home" asp-action="Partnerid" class="nav-link">KOOSTÖÖ PARTNERID</a>
+                        <a asp-area="" asp-controller="Home" asp-action="Partnerid" class="nav-link">PARTNERID</a>
                     </li>
                     <li class="nav-item">
                         <a asp-area="" asp-controller="Home" asp-action="Leiunurk" class="nav-link">LEIUNURK</a>
@@ -69,15 +72,16 @@
     @*<partial name="_CookieConsentPartial" />*@
 
     <!-- Body -->
-    <div id="Main">
+    <main id="Main">
         @RenderBody()
-    </div>
+    </main>
     <!-- Footer -->
     <footer id="footer">
         <p>&copy; 2018 - ENEKweb</p>
     </footer>
     <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/jquery/jquery.js"></script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
                 asp-fallback-src="~/lib/popper/dist/umd/popper.js"
                 integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
@@ -87,15 +91,16 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
+
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/jquery.min.js"
                 asp-fallback-test="window.jQuery"
                 integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
                 crossorigin="anonymous">
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-                asp-fallback-src="~/lib/popper/dist/umd/popper.js"
+                asp-fallback-src="~/lib/popper/dist/umd/popper.min.js"
                 integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
                 crossorigin="anonymous">
 
@@ -108,7 +113,6 @@
         </script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>

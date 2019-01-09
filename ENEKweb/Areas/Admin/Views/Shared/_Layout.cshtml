@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <title>@ViewData["Title"] - Admin Panel</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <!-- Using https://fontawesome.com , thanks -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="~/css/admin/style.css" />
+
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark flex-md-nowrap p-0 pr-3 shadow">
+        <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="navbar-brand p-3 mr-0">ENEK Elektriehitus OÜ</a>
+            <a asp-area="Admin" asp-controller="Identity" asp-action="Logout" class="nav-link ml-auto btn btn-secondary mr-1" id="logOutNavBtn">Logi Välja</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" id="sidebarCollapse" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    </nav>
+
+
+    <!-- Body -->
+    <div id="Main" class="container-fluid">
+        <div class="row">
+            <!-- Sidebar nav -->
+            <nav class="col-md-2 sidebar">
+                <div class="sidebar-sticky">
+                    <h3 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-3 mb-2">
+                        <span>VEEBILEHED</span>
+                    </h3>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link">
+                                <i class="fas fa-fw fa-desktop"></i>Peapaneel
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Tehtudtood" asp-action="Index" class="nav-link">
+                                <i class="fas fa-fw fa-dollar-sign"></i>Tehtud Tööd
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Partnerid" asp-action="Index" class="nav-link">
+                                <i class="fas fa-fw fa-handshake"></i>Partnerid
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="Admin" asp-controller="Leiunurk" asp-action="Index" class="nav-link">
+                                <i class="fas fa-fw fa-shopping-cart"></i>Leiunurk
+                            </a>
+                        </li>
+                    </ul>
+
+                    @* Identity things *@
+                    <h3 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-2">
+                        <span>KASUTAJA</span>
+                    </h3>
+                    <partial name="_LoginPartial" />
+
+                </div>
+            </nav>
+            <!-- Main content -->
+            <main role="main" class="ml-sm-auto col-md-10 px-4">
+                @RenderBody()
+            </main>
+        </div>
+
+    </div>
+    <!-- Footer -->
+    @*<footer id="footer">
+            <p>&copy; 2018 - ENEKweb</p>
+        </footer>*@
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

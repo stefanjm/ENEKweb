@@ -1,91 +1,91 @@
-﻿
+﻿@model ENEKweb.Models.TehtudToodIndexModel
 @{
     ViewData["Title"] = "TEHTUD TÖÖD";
+    // index counter for different IDs (for bootstraps carousel controls)
+    int position = 0;
+    // is it the first image iterated over? for bootstrap carousel active class that has to be on at least one slide
+    bool firstImg = true;
 }
 
-<div class="container text-center" id="tehtudtoodPage">
-    <h2 class="text-title">@ViewData["Title"]</h2>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="mein-card-donework">
-                <div class="mein-card-donework-top">
-                    <img src="~/images/samples/donejob1.jpg" alt="donejob" />
-                </div>
-                <div class="mein-card-donework-bottom justify-content-end">
-                    <div class="mein-card-title">
-                        <h3>Pealkiri/Objekti nimi</h3>
-                    </div>
-                    <div class="mein-card-body">
-                        <p>Mingi tekst siia</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-6">
-            <div class="mein-card-donework">
-                <div class="mein-card-donework-top">
-                    <img src="~/images/samples/donejob2.jpg" alt="donejob" />
-                </div>
-                <div class="mein-card-donework-bottom">
-                    <div class="mein-card-title">
-                        <h3>Pealkiri/Objekti nimi</h3>
-                    </div>
-                    <div class="mein-card-body">
-                        <p>Mingi tekst siia</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-6">
-            <div class="mein-card-donework">
-                <div class="mein-card-donework-top">
-                    <img src="~/images/samples/donejob3.jpg" alt="donejob" />
-                </div>
-                <div class="mein-card-donework-bottom justify-content-end">
-                    <div class="mein-card-title">
-                        <h3>Pealkiri/Objekti nimi</h3>
-                    </div>
-                    <div class="mein-card-body">
-                        <p>Mingi tekst siia</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-6">
-            <div class="mein-card-donework">
-                <div class="mein-card-donework-top">
-                    <img src="~/images/samples/donejob2.jpg" alt="donejob" />
-                </div>
-                <div class="mein-card-donework-bottom justify-content-end">
-                    <div class="mein-card-title">
-                        <h3>Pealkiri/Objekti nimi</h3>
-                    </div>
-                    <div class="mein-card-body">
-                        <p>Mingi tekst siia</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-6">
-            <div class="mein-card-donework">
-                <div class="mein-card-donework-top">
-                    <img src="~/images/samples/donejob3.jpg" alt="donejob" />
-                </div>
-                <div class="mein-card-donework-bottom justify-content-end">
-                    <div class="mein-card-title">
-                        <h3>Pealkiri/Objekti nimi</h3>
-                    </div>
-                    <div class="mein-card-body">
-                        <p>Mingi tekst siia</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+<section class="jumbotron leiunurk-jumbotron text-center">
+    <div class="container">
+        <h2 class="text-title jumbotron-heading">@ViewData["Title"]</h2>
+        <p class="lead text-muted">
+            Meie poolt täide viidud objektid.
+        </p>
+        @if (Model.TehtudToodYears != null & Model.TehtudToodYears.Any()) {
+            <p class="mb-0">Vali aasta </p>
+            <ul class="list-inline">
+                @foreach (var years in Model.TehtudToodYears) {
+                    <li class="list-inline-item"><a href="#@years">@years</a></li>
+                }
+            </ul>
+        }
 
     </div>
+</section>
+
+<div class="container">
+    <div class="row">
+        @if (Model.TehtudToodYears != null && Model.TehtudToodYears.Any()) {
+            @foreach (var tehtudToodYears in Model.TehtudToodYears) {
+                <div class="tehtudtood-title-year-container">
+                    <p class="tehtudtood-title-year" id="@tehtudToodYears">@tehtudToodYears</p>
+                    @foreach (var tehtudToo in Model.TehtudToodViewList) {
+                        if (tehtudToodYears != tehtudToo.YearDone) {
+                            continue;
+                        }
+                        <div class="col-md-12 mb-5">
+                            <div class="card card-tehtudtood shadow-sm">
+                                @if (tehtudToo.Images != null && tehtudToo.Images.Any()) {
+                                    <div class="card-images">
+                                        @foreach (var image in tehtudToo.Images) {
+
+                                            if (firstImg) {
+                                                <div class="card-image active"><img class="@($"imgSlide{position}")" src="~/images/uploaded/tehtudtood/@image.ImageFileName"></div>
+                                                firstImg = false;
+                                            }
+                                            else {
+                                                <div class="card-image"><img class="@($"imgSlide{position}")" src="~/images/uploaded/tehtudtood/@image.ImageFileName"></div>
+                                            }
+                                        }
+
+                                        @if (tehtudToo.Images.Count() > 1) {
+                                            <a class="img-prev">
+                                                <i class="fas fa-chevron-left"></i>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="img-next">
+                                                <i class="fas fa-chevron-right"></i>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        }
+                                        <div class="card-body">
+                                            <p class="card-title text-left">@tehtudToo.Name</p>
+                                            <p class="card-text text-left">@tehtudToo.BuildingType</p>
+                                        </div>
+                                    </div>
+                                    position++;
+                                    firstImg = true;
+                                }
+                                else {
+                                    <div class="card-body text-center">
+                                        <p class="card-title">@tehtudToo.Name</p>
+                                        <p class="card-text">@tehtudToo.BuildingType</p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        }
+        else {
+            <div class="col-md-12">
+                <h3 class="text-info text-muted text-center">Hetkel ei ole ühtegi tehtud tööd veel lisatud.</h3>
+            </div>
+        }
+
+    </div>
+    <a href="" id="backToTopButton" class="btn btn-lg btn-primary" role="button" title="Vajuta, et minna tagasi lehe algusesse" data-toggle="tooltip" data-placement="left"><i class="fas fa-angle-double-up"></i></a>
 </div>

@@ -2,32 +2,79 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-$('.carousel .carousel-item').each(function () {
-    var next = $(this).next();
-    if (!next.length) {
-        next = $(this).siblings(':first');
-    }
-    next.children(':first-child').clone().appendTo($(this));
 
-    if (next.next().length > 0) {
-        next.next().children(':first-child').clone().appendTo($(this));
-    }
-    else {
-        $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
-    }
 
-    
-});
 
-// Set active img as main img
-$('.carousel-control-next').click(function () {
-    $(this).closest('.mein-card').find('.mein-card-img').find('img').prop('src', $(this).closest('.carousel').children('.carousel-inner')
-        .children('.active').children('img').eq(2).prop('src'));
+$(document).ready(function () {
 
-});
+    // sidebar
+    $('#sidebarCollapse').on('click', function () {
+        $('.sidebar').toggleClass('mobile-show');
+    });
 
-$('.carousel-control-prev').click(function () {
-    $(this).closest('.mein-card').find('.mein-card-img').find('img').prop('src', $(this).closest('.carousel').children('.carousel-inner')
-        .children('.active').children('img').eq(2).prop('src'));
+    // image slider
+    $('.img-next').on('click', function () {
+        var currentImg = $(this).closest("div").find("div.active").first("img");
+        var nextImg = currentImg.next("div").first("img");
 
-});
+        if (nextImg.length) {
+            currentImg.removeClass('active');
+            nextImg.addClass('active').show(1000);
+            if (!nextImg.next("div").hasClass("card-image")) {
+                $(this).hide();
+            }
+            if ($(this).prev('.img-prev').is(":hidden")) {
+                $(this).prev('.img-prev').show();
+            }
+        }
+        else {
+            
+        }
+    });
+
+    $('.img-prev').on('click', function () {
+        var currentImg = $(this).closest("div").find("div.active").first("img");
+        var prevImg = currentImg.prev("div").first("img");
+
+        if (prevImg.length) {
+            currentImg.removeClass('active');
+            prevImg.addClass('active').show(1000);
+            if (!prevImg.prev("div").hasClass("card-image")) {
+                $(this).hide();
+            }
+            if ($(this).next('.img-next').is(":hidden")) {
+                $(this).next('.img-next').show();
+            }
+        }
+    });
+
+    // Smoothly scroll to links
+    var $root = $('html, body');
+
+    $('a[href^="#"]').click(function () {
+        var href = $.attr(this, 'href');
+
+        $root.animate({
+            scrollTop: $(href).offset().top
+        }, 500, function () {
+            window.location.hash = href;
+        });
+
+        return false;
+    });
+
+    // Scroll back to top button
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 50) {
+            $('#backToTopButton').fadeIn();
+        } else {
+            $('#backToTopButton').fadeOut();
+        }
+    });
+    // scroll body to 0px on click
+    $('#backToTopButton').click(function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return false;
+    });
+    $('#backToTopButton').tooltip();
+}); 

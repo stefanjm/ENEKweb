@@ -1,0 +1,54 @@
+﻿@model ENEKdata.Models.Leiunurk.Item
+
+@{
+    ViewData["Title"] = "DETAILS";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewData["Title"]</h2>
+<h4>Item</h4>
+<hr />
+
+<div class="container-fluid p-0">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Price)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Price)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Images)
+                </dt>
+                <dd>
+                    @if (Model.Images.Count > 0) {
+                        foreach (var image in Model.Images) {
+                            <img class="leiunurk-detail-images" src="~/images/uploaded/leiunurk/@image.ImageFileName" alt="itemImage" />
+                        }
+                    }
+                    else {
+                        <p class="text-info">This item has no images.</p>
+                    }
+                </dd>
+            </dl>
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
