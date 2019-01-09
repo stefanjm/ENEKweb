@@ -11,7 +11,7 @@
     <div class="container">
         <h2 class="text-title jumbotron-heading">@ViewData["Title"]</h2>
         <p class="lead text-muted">
-            Meie poolt täide viidud objektid.
+            Meie poolt ehitatud elektripaigaldised.
         </p>
         @if (Model.TehtudToodYears != null & Model.TehtudToodYears.Any()) {
             <p class="mb-0">Vali aasta </p>
@@ -60,10 +60,10 @@
                                                 <span class="sr-only">Next</span>
                                             </a>
                                         }
-                                        <div class="card-body">
-                                            <p class="card-title text-left">@tehtudToo.Name</p>
-                                            <p class="card-text text-left">@tehtudToo.BuildingType</p>
-                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-title text-left">@tehtudToo.Name</p>
+                                        <p class="card-text text-left">@tehtudToo.BuildingType</p>
                                     </div>
                                     position++;
                                     firstImg = true;
