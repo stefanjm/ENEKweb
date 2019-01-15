@@ -13,6 +13,10 @@ namespace ENEKweb.Areas.Admin.Data {
     /// </summary>
     public static class DbInitializer {
 
+        private static readonly string adminEmail = "adminemailfromconfighere";
+        private static readonly string adminPassword = "adminpasswordfromconfighere";
+
+
         /// <summary>
         /// Add the default admin user
         /// </summary>
@@ -32,13 +36,13 @@ namespace ENEKweb.Areas.Admin.Data {
 
 
             // Add the admin user to database
-            if (userManager.FindByEmailAsync("stefan@andromatech.com").Result == null) {
+            if (userManager.FindByEmailAsync(adminEmail).Result == null) {
                 ApplicationUser user = new ApplicationUser {
-                    UserName = "stefan@andromatech.com",
-                    Email = "stefan@andromatech.com"
+                    UserName = adminEmail,
+                    Email = adminEmail
                 };
 
-                IdentityResult result = userManager.CreateAsync(user, "743Wf3eSug8ZbVwvpmjDcaavN").Result;
+                IdentityResult result = userManager.CreateAsync(user, adminPassword).Result;
 
                 if (result.Succeeded) {
                     userManager.AddToRoleAsync(user, "admin").Wait();
