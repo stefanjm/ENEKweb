@@ -72,9 +72,9 @@ namespace ENEKweb.Controllers {
             }
 
             // Sort the years done in list to show highest first.
-            yearsDoneIn.OrderByDescending(i => i);
+            var sortedYearsList = yearsDoneIn.OrderByDescending(i => i);
 
-            var model = new TehtudToodIndexModel() { TehtudToodViewList = tehtudToodListing , TehtudToodYears = yearsDoneIn };
+            var model = new TehtudToodIndexModel() { TehtudToodViewList = tehtudToodListing , TehtudToodYears = sortedYearsList };
             return View(model);
         }
 
