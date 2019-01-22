@@ -22,7 +22,7 @@ namespace ENEKweb {
                     var context = services.GetRequiredService<IdentityDataDbContext>();
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    DbInitializer.SeedUsers(context, userManager, roleManager);
+                    // DbInitializer.SeedUsers(context, userManager, roleManager);
                 }
                 catch (Exception ex) {
                     var logger = services.GetRequiredService<ILogger<Program>>();
