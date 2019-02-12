@@ -1,10 +1,7 @@
 ﻿using IdentityData;
 using IdentityData.Models;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace ENEKweb.Areas.Admin.Data {
 
@@ -13,15 +10,21 @@ namespace ENEKweb.Areas.Admin.Data {
     /// </summary>
     public static class DbInitializer {
 
-        private static readonly string adminEmail = "adminemailfromconfighere";
-        private static readonly string adminPassword = "adminpasswordfromconfighere";
 
 
         /// <summary>
         /// Add the default admin user
         /// </summary>
         /// <param name="userManager"></param>
-        public static void SeedUsers(IdentityDataDbContext _context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager) {
+        public static void SeedUsers(IdentityDataDbContext _context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration) {
+
+            string adminEmail = configuration.GetSection("AdminAccount").GetSection("email").Value;
+            string adminPassword = configuration.GetSection("AdminAccount").GetSection("password").Value;
+
+            if(adminEmail == null || adminEmail == string.Empty)
+            {
+                return;
+            }
 
             // Make sure database is created
             _context.Database.EnsureCreated();
