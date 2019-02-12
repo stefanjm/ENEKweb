@@ -39,13 +39,13 @@ namespace ENEKweb {
             // Add Database contexts, and declare connections
             services.AddDbContext<IdentityDataDbContext>(options
               => {
-                  options.UseNpgsql(Configuration.GetConnectionString("DevelopmentConnection"));
+                  options.UseNpgsql(Configuration.GetConnectionString("DBConnection"));
 
               });
 
             services.AddDbContext<ENEKdataDbContext>(options
                 => {
-                    options.UseNpgsql(Configuration.GetConnectionString("DevelopmentConnection"));
+                    options.UseNpgsql(Configuration.GetConnectionString("DBConnection"));
                 });
 
 
@@ -63,7 +63,6 @@ namespace ENEKweb {
             // Change Password policy
             services.Configure<IdentityOptions>(options
                 => {
-                    // Make really weak passwords possible heh
                     options.Password.RequireDigit = false;
                     options.Password.RequiredLength = 5;
                     options.Password.RequireLowercase = true;
@@ -170,13 +169,13 @@ namespace ENEKweb {
             // Add Database contexts, and declare connections
             services.AddDbContext<IdentityDataDbContext>(options
               => {
-                  options.UseNpgsql(Configuration.GetConnectionString("ProductionConnection"));
+                  options.UseNpgsql(Configuration.GetConnectionString("DBConnection"));
 
               });
 
             services.AddDbContext<ENEKdataDbContext>(options
                 => {
-                    options.UseNpgsql(Configuration.GetConnectionString("ProductionConnection"));
+                    options.UseNpgsql(Configuration.GetConnectionString("DBConnection"));
                 });
 
             // AddIdentity adds cookie based Authentication
@@ -192,7 +191,6 @@ namespace ENEKweb {
             // Change Password policy
             services.Configure<IdentityOptions>(options
                 => {
-                    // Make really weak passwords possible heh
                     options.Password.RequireDigit = false;
                     options.Password.RequiredLength = 5;
                     options.Password.RequireLowercase = true;
@@ -296,13 +294,13 @@ namespace ENEKweb {
             // Add Database contexts, and declare connections
             services.AddDbContext<IdentityDataDbContext>(options
                 => {
-                    options.UseNpgsql(Configuration.GetConnectionString("DevelopmentConnection"));
+                    options.UseNpgsql(Configuration.GetConnectionString("DBConnection"));
 
                 });
 
             services.AddDbContext<ENEKdataDbContext>(options
                 => {
-                    options.UseNpgsql(Configuration.GetConnectionString("DevelopmentConnection"));
+                    options.UseNpgsql(Configuration.GetConnectionString("DBConnection"));
                 });
 
 
@@ -319,7 +317,6 @@ namespace ENEKweb {
             // Change Password policy
             services.Configure<IdentityOptions>(options
                 => {
-                    // Make really weak passwords possible heh
                     options.Password.RequireDigit = false;
                     options.Password.RequiredLength = 5;
                     options.Password.RequireLowercase = true;
