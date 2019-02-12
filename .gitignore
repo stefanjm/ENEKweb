@@ -15,6 +15,11 @@ ENEKweb/wwwroot/images/uploaded/tehtudtood/*
 !ENEKweb/wwwroot/images/uploaded/partnerid/placeholder.png
 !ENEKweb/wwwroot/images/uploaded/tehtudtood/placeholder.png
 
+# ignore appsettings
+**/appsettings.Development.json
+**/appsettings.Staging.json
+**/appsettings.Production.json
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
