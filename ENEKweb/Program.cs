@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using IdentityData;
 using IdentityData.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace ENEKweb {
     public class Program {
@@ -22,7 +23,8 @@ namespace ENEKweb {
                     var context = services.GetRequiredService<IdentityDataDbContext>();
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    // DbInitializer.SeedUsers(context, userManager, roleManager);
+                    var config = services.GetRequiredService<IConfiguration>();
+                    DbInitializer.SeedUsers(context, userManager, roleManager, config);
                 }
                 catch (Exception ex) {
                     var logger = services.GetRequiredService<ILogger<Program>>();
@@ -41,7 +43,7 @@ namespace ENEKweb {
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) {
             var assemblyName = typeof(Startup).GetTypeInfo().Assembly.FullName;
 
-            // For this one use 
+            
             return WebHost.CreateDefaultBuilder(args)
                 .UseStartup(assemblyName)
                 .UseUrls("http://localhost:5001/");
